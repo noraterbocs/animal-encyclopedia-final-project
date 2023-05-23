@@ -12,6 +12,7 @@ import Fox from './assets/animals/fox.svg';
 import Seal from './assets/animals/seal.svg';
 import Tiger from './assets/animals/tiger.svg';
 import Koala from './assets/animals/koala.svg';
+import Panda from './assets/animals/panda.svg';
 import { BackgroundMap } from './BackgroundMap'
 
 export const Map = () => {
@@ -31,6 +32,7 @@ export const Map = () => {
       <img style={{ height: '100px' }} src={Tiger} alt="Tiger" />
       <img style={{ height: '100px' }} src={Fox} alt="Fox" />
       <img style={{ height: '100px' }} src={Eagle} alt="Eagle" />
+      <img style={{ height: '100px' }} src={Panda} alt="Panda" />
     </>
   );
 };
