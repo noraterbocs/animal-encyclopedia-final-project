@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import BackgroundSVG from '../../assets/background/testing2map.svg'
+import BackgroundSVG from '../../assets/background/mapwithanimals.svg'
 
 export const BackgroundMap = () => {
   return <BackgroundImg />;
