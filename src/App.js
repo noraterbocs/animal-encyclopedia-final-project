@@ -7,12 +7,14 @@ import { NotFoundPage } from 'pages/NotFoundPage.js';
 import { Leaderboard } from 'pages/leaderboardPage/Leaderboard';
 import { AboutUs } from 'pages/aboutUsPage/AboutUs';
 import { MyAccount } from 'pages/myAccountPage/MyAccount';
+import { RegisterLogin } from 'pages/RegisterLoginPage/RegisterLogin';
 
 export const App = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="/register" element={<RegisterLogin />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/games" element={<Games />} />
         <Route path="/animal/:animalId" element={<Games />} />
