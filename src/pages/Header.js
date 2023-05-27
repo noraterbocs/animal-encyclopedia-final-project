@@ -1,5 +1,8 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable react/jsx-closing-tag-location */
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,8 +16,9 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Button } from '@mui/material';
-// import Button from '@mui/material/Button';
+import { user } from '../reducers/user';
 
 const drawerWidth = 240;
 const navItems = [
@@ -28,7 +32,8 @@ const navItems = [
 export const Header = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const dispatch = useDispatch();
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -55,55 +60,69 @@ export const Header = (props) => {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
+  const onLogoutButtonClick = () => {
+    dispatch(user.actions.setAccessToken(null));
+    dispatch(user.actions.setUsername(null));
+    dispatch(user.actions.setEmail(null));
+    dispatch(user.actions.setUserId(null));
+    dispatch(user.actions.setBadges(null));
+    dispatch(user.actions.setHistory(null));
+    dispatch(user.actions.setAvatar(null));
+    dispatch(user.actions.setTotalScore(null));
+    dispatch(user.actions.setCreatedAt(null));
+    dispatch(user.actions.setError(null))
+  }
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
-            MUI
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <NavLink key={item.label} to={item.path} sx={{ color: '#fff' }}>
-                <Button sx={{ color: '#fff' }}>
-                  {item.label}
-                </Button>
-              </NavLink>
-            ))}
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
-          }}>
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box component="main">
-        <Toolbar />
-      </Box>
-    </Box>
+    <>
+      {accessToken ? <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar component="nav">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}>
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}> ZooQuest
+            </Typography>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              {navItems.map((item) => (
+                <NavLink key={item.label} to={item.path} sx={{ color: '#fff' }}>
+                  <Button sx={{ color: '#fff' }}>
+                    {item.label}
+                  </Button>
+                </NavLink>
+              ))}
+              <Button sx={{ color: '#fff' }} onClick={onLogoutButtonClick}><LogoutIcon /></Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box component="nav">
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
+            }}>
+            {drawer}
+          </Drawer>
+        </Box>
+        <Box component="main">
+          <Toolbar />
+        </Box>
+      </Box> : ''}
+    </>
   );
 }
