@@ -17,7 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Button } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import { user } from '../reducers/user';
 
 const drawerWidth = 240;
@@ -73,7 +73,7 @@ export const Header = (props) => {
     dispatch(user.actions.setError(null))
   }
   return (
-    <>
+    <Container maxWidth="100vw">
       {accessToken ? <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar component="nav">
@@ -123,6 +123,6 @@ export const Header = (props) => {
           <Toolbar />
         </Box>
       </Box> : ''}
-    </>
+    </Container>
   );
 }
