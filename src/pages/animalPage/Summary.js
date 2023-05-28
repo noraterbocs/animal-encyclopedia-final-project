@@ -1,8 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 export const Summary = () => {
-
   return (
     <div>
       <h1>Summary</h1>
@@ -10,9 +9,7 @@ export const Summary = () => {
   )
 }
 
-
-/*/import React, { useEffect, useState } from 'react';
-
+/* /import React, { useEffect, useState } from 'react';
 
 const Results = () => {
 
@@ -34,8 +31,8 @@ const correctAnswers = answers.filter((item) => item.isCorrect)
       : scorePercent >= 80 ? 'Well done you got a B!'
         : scorePercent >= 70 ? 'Such a nice middle of the curve type student its a C for you.'
           : scorePercent >= 60 ? 'Who says guessing cant get you a passing grade? Its a D for you.'
-            : scorePercent >= 50 ? 'Sadly a chimpanzee randomly poking at a keyboard could do better'
-              : scorePercent >= 40 ? 'Unspeakable, lets pretend that didnt happen and you try again?'
+            : scorePercent >= 50 ? 'Sadly a chimpanzee randomly poking at a keyboard could do br'
+              : scorePercent >= 40 ? 'Unspeakable, lets pretend that didnt happen and you try n?'
                 : <p>what? Lets give it another try shall we????</p>
   }
   return (
@@ -84,5 +81,4 @@ text-align:center;
 width: 90%;
 text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 margin-top:0;
-`;
-
+`;/ */
