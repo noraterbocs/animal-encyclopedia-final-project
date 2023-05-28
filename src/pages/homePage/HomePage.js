@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Container } from '@mui/material';
 import { Map } from './Map';
 import { getUser } from '../../reducers/user';
 import { Loading } from '../../components/Loading';
@@ -21,10 +22,10 @@ export const HomePage = () => {
     }
   }, [accessToken]);
   return (
-    <>
+    <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
       {!isLoading
         ? <Map />
         : <Loading />}
-    </>
+    </Container>
   )
 }

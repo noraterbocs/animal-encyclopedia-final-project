@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { Animal } from 'pages/animalPage/Animal.js';
+import { quiz } from 'reducers/quiz.js';
 import { Header } from './pages/Header.js';
 import { HomePage } from './pages/homePage/HomePage.js';
 import { Games } from './pages/gamesPage/Games.js';
@@ -18,7 +20,8 @@ export const App = () => {
   const reducer = combineReducers({
     user: user.reducer,
     leaderboard: leaderboard.reducer,
-    loading: loading.reducer
+    loading: loading.reducer,
+    quiz: quiz.reducer
 
   });
   const store = configureStore({ reducer })
@@ -30,7 +33,7 @@ export const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/games" element={<Games />} />
-          <Route path="/animal/:animalId" element={<Games />} />
+          <Route path="/animal/:animalId" element={<Animal />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/myaccount" element={<MyAccount />} />

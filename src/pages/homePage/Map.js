@@ -1,53 +1,31 @@
 /* eslint-disable max-len */
 import React from 'react';
-import styled from 'styled-components/macro';
-import Lion from '../../assets/animals/lion.svg';
-import Bear from '../../assets/animals/bear.svg';
-import Toucan from '../../assets/animals/toucan.svg';
-import Penguin from '../../assets/animals/penguin.svg';
-import Jaguar from '../../assets/animals/jaguar.svg';
-import Eagle from '../../assets/animals/eagle.svg';
-import Elephant from '../../assets/animals/elephant.svg';
-import Kangaroo from '../../assets/animals/kangaroo.svg';
-import Racoon from '../../assets/animals/racoon.svg';
-import Fox from '../../assets/animals/fox.svg';
-import Seal from '../../assets/animals/seal.svg';
-import Tiger from '../../assets/animals/tiger.svg';
-import Koala from '../../assets/animals/koala.svg';
-import Panda from '../../assets/animals/panda.svg';
+import { Container } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { BackgroundMap } from './BackgroundMap'
 
 export const Map = () => {
-  // const animals = ['Panda', 'Koala', 'Tiger', 'Seal', 'Fox', 'Racoon', 'Kangaroo', 'Elephant', 'Eagle', 'Jaguar', 'Penguin', 'Toucan', 'Bear', 'Lion']
+  const animals = [
+    { path: '/images/eagle.png', top: '90px', left: '180px', id: 'eagle' },
+    { path: '/images/bear.png', top: '140px', left: '220px', id: 'bear' },
+    { path: '/images/hedgehog.png', top: '100px', left: '550px', id: 'hedgehog' },
+    { path: '/images/lion.png', top: '200px', left: '520px', id: 'lion' },
+    { path: '/images/elephant.png', top: '250px', left: '550px', id: 'elephant' },
+    { path: '/images/fox.png', top: '90px', left: '620px', id: 'fox' },
+    { path: '/images/jaguar.png', top: '250px', left: '300px', id: 'jaguar' },
+    { path: '/images/toucan.png', top: '310px', left: '320px', id: 'toucan' },
+    { path: '/images/panda.png', top: '120px', left: '770px', id: 'panda' },
+    { path: '/images/tiger.png', top: '160px', left: '710px', id: 'tiger' },
+    { path: '/images/kangaroo.png', top: '320px', left: '840px', id: 'kangaroo' },
+    { path: '/images/koala.png', top: '300px', left: '860px', id: 'koala' }]
   return (
-    <div style={{ position: 'relative', height: '80%' }}>
+    <Container sx={{ position: 'relative', height: 'max-content', padding: '0px', overflow: 'scroll' }}>
       <BackgroundMap />
-      {/* {animals.map((animal) => {
+      {animals.map((animal) => {
         return (
-          <img style={{ height: '100px' }} src={animal} alt={animal} />
+          <Link key={animal.id} to={`animal/${animal.id}`}><img style={{ height: '80px', position: 'absolute', top: `${animal.top}`, left: `${animal.left}` }} src={animal.path} alt={animal.id} /></Link>
         )
-      })} */}
-      <AnimalImg topDistance="50%" leftDistance="53%" src={Lion} alt="Lion" />
-      <img style={{ height: '100px' }} src={Bear} alt="Bear" />
-      <img style={{ height: '100px' }} src={Penguin} alt="Penguin" />
-      <img style={{ height: '100px' }} src={Jaguar} alt="Jaguar" />
-      <img style={{ height: '100px' }} src={Toucan} alt="Toucan" />
-      <img style={{ height: '100px' }} src={Koala} alt="Koala" />
-      <img style={{ height: '100px' }} src={Kangaroo} alt="Kangaroo" />
-      <img style={{ height: '100px' }} src={Seal} alt="Seal" />
-      <img style={{ height: '100px' }} src={Elephant} alt="Elephant" />
-      <img style={{ height: '100px' }} src={Racoon} alt="Racoon" />
-      <img style={{ height: '100px' }} src={Tiger} alt="Tiger" />
-      <img style={{ height: '100px' }} src={Fox} alt="Fox" />
-      <img style={{ height: '100px' }} src={Eagle} alt="Eagle" />
-      <img style={{ height: '100px' }} src={Panda} alt="Panda" />
-    </div>
+      })}
+    </Container>
   );
 };
-
-const AnimalImg = styled.img`
-height:3em;
-position:absolute;
-top: ${(props) => props.topDistance};
-left: ${(props) => props.leftDistance};
-`
