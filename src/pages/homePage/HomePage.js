@@ -22,7 +22,7 @@ export const HomePage = () => {
     }
   }, [accessToken]);
   return (
-    <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+    <Container sx={{ bgcolor: '#2ba8c2e0', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', p: 0, m: 0, minWidth: '100vw' }}>
       {!isLoading
         ? <Map />
         : <Loading />}
