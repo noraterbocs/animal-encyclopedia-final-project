@@ -1,14 +1,15 @@
 import { Container } from '@mui/material';
 import React from 'react';
-import { ChatBot } from './ChatBot';
+import { Chatbot } from './ChatBot';
 import { Quiz } from './Quiz';
+import { Summary } from './Summary';
 
 export const Animal = () => {
   return (
     <Container>
-      <h1>Animal</h1>
       <Quiz />
-      <ChatBot />
+      <Summary />
+      <Chatbot />
     </Container>
   )
 }

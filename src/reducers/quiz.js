@@ -2,19 +2,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { loading } from './loading';
 
-// const questions = [
-//   { id: 1, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'], correctAnswerIndex: 1 },
-//   { id: 2, questionText: 'Where does this animal live?', options: ['ocean', 'trees', 'desert', 'snow'], correctAnswerIndex: 0 },
-//   { id: 3, questionText: 'Does this animal have live babies or lay eggs?', options: ['eggs', 'live babies'], correctAnswerIndex: 1 },
-//   { id: 4, questionText: 'Does this animal like to live alone or in groups?', options: ['Alone', 'Groups'], correctAnswerIndex: 2 },
-//   { id: 5, questionText: 'How many hours per day does this animal sleep?', options: ['less than 5 hours', '5-10 hours', 'more than 10hours'], correctAnswerIndex: 0 },
-//   { id: 6, questionText: 'How does this animal get around?', options: ['walk', 'crawl or slither', 'fly', 'swim'], correctAnswerIndex: 3 }
+const questions = [
+  { id: 1, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'], correctAnswerIndex: 1 },
+  { id: 2, questionText: 'Where does this animal live?', options: ['ocean', 'trees', 'desert', 'snow'], correctAnswerIndex: 0 },
+  { id: 3, questionText: 'Does this animal have live babies or lay eggs?', options: ['eggs', 'live babies'], correctAnswerIndex: 1 },
+  { id: 4, questionText: 'Does this animal like to live alone or in groups?', options: ['Alone', 'Groups'], correctAnswerIndex: 2 },
+  { id: 5, questionText: 'How many hours per day does this animal sleep?', options: ['less than 5 hours', '5-10 hours', 'more than 10hours'], correctAnswerIndex: 0 },
+  { id: 6, questionText: 'How does this animal get around?', options: ['walk', 'crawl or slither', 'fly', 'swim'], correctAnswerIndex: 3 }
+]
 
-// ]
 const initialState = {
+  questions,
   answers: [],
   currentQuestionIndex: 0, // this should be somewhere in the json from the api request
-  quizOver: null,
+  quizOver: false,
   btnColor: '',
   disabledButtons: false, // after selecting an answer
   correctAnswerIndicator: false
