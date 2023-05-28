@@ -46,7 +46,11 @@ export const quiz = createSlice({
     submitAnswer: (state, action) => {
       const { questionId, answerIndex } = action.payload
       const question = state.questions.find((q) => q.id === questionId)
-      let newAnswer = question.options[answerIndex];
+
+      const selectedQuestion = state.questions.find((q) => q.id === questionId);
+      const selectedAnimalAnswer = state.animalAnswers.find((a) => a.animal === selectedQuestion.animal);
+
+      let newAnswer = question.options[animalAnswers];
       state.correctAnswerIndicator = true
       state.disabledButtons = true
 
@@ -57,6 +61,7 @@ export const quiz = createSlice({
       if (!question) {
         throw new Error('Could not find question! Check to make sure you are passing the question id correctly.')
       }
+
       if (question.correctAnswerIndex) {
         state.btnColor = '#56ab2f'
       }
@@ -73,7 +78,8 @@ export const quiz = createSlice({
         answerIndex,
         question,
         answer: newAnswer,
-        isCorrect: question.correctAnswerIndex === answerIndex
+        isCorrect: question.correctAnswerIndex === answerIndex,
+        animalAnswers: selectedAnimalAnswer
       })
     },
 
