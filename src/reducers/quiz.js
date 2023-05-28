@@ -3,17 +3,35 @@ import { createSlice } from '@reduxjs/toolkit';
 // import { loading } from './loading';
 
 const questions = [
-  { id: 1, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'], correctAnswerIndex: 1 },
-  { id: 2, questionText: 'Where does this animal live?', options: ['ocean', 'trees', 'desert', 'snow'], correctAnswerIndex: 0 },
-  { id: 3, questionText: 'Does this animal have live babies or lay eggs?', options: ['eggs', 'live babies'], correctAnswerIndex: 1 },
-  { id: 4, questionText: 'Does this animal like to live alone or in groups?', options: ['Alone', 'Groups'], correctAnswerIndex: 2 },
-  { id: 5, questionText: 'How many hours per day does this animal sleep?', options: ['less than 5 hours', '5-10 hours', 'more than 10hours'], correctAnswerIndex: 0 },
-  { id: 6, questionText: 'How does this animal get around?', options: ['walk', 'crawl or slither', 'fly', 'swim'], correctAnswerIndex: 3 }
+  { id: 1, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'] },
+  { id: 2, questionText: 'Where does this animal live?', options: ['ocean', 'trees', 'land', 'snow'] },
+  { id: 3, questionText: 'Does this animal have live babies or lay eggs?', options: ['eggs', 'live babies'] },
+  { id: 4, questionText: 'Does this animal like to live alone or in groups?', options: ['Alone', 'Groups'] },
+  { id: 5, questionText: 'How many hours per day does this animal sleep?', options: ['less than 5 hours', '5-10 hours', 'more than 10hours'] },
+  { id: 6, questionText: 'What is the best way for this animal to get around?', options: ['walking', 'hopping', 'flying', 'swimming'] }
+]
+
+const animalAnswers = [
+  { id: 1, animal: 'Bear', correctAnswerIndex: [3, 2, 1, 0, 2, 0] },
+  { id: 2, animal: 'Eagle', correctAnswerIndex: [0, 1, 0, 0, 0, 2] },
+  { id: 3, animal: 'Elephant', correctAnswerIndex: [1, 2, 1, 1, 0, 0] },
+  { id: 4, animal: 'Fox', correctAnswerIndex: [0, 1, 1, 0, 1, 0] },
+  { id: 5, animal: 'Giraffe', correctAnswerIndex: [1, 2, 1, 1, 0, 0] },
+  { id: 6, animal: 'Hedgehog', correctAnswerIndex: [1, 2, 1, 0, 2, 0] },
+  { id: 7, animal: 'Jaguar', correctAnswerIndex: [0, 2, 1, 0, 2, 0] },
+  { id: 8, animal: 'Kangaroo', correctAnswerIndex: [1, 2, 1, 1, 1, 1] },
+  { id: 9, animal: 'Koala', correctAnswerIndex: [1, 1, 1, 0, 2, 0] },
+  { id: 10, animal: 'Panda', correctAnswerIndex: [1, 2, 1, 0, 2, 0] },
+  { id: 11, animal: 'Penguin', correctAnswerIndex: [2, 2, 0, 1, 0, 3] },
+  { id: 12, animal: 'Racoon', correctAnswerIndex: [3, 1, 1, 0, 2, 0] },
+  { id: 13, animal: 'Seal', correctAnswerIndex: [2, 0, 1, 0, 0, 3] },
+  { id: 14, animal: 'Tiger', correctAnswerIndex: [0, 2, 1, 0, 2, 0] },
+  { id: 15, animal: 'Toucan', correctAnswerIndex: [1, 1, 0, 1, 2, 2] }
 ]
 
 const initialState = {
   questions,
-  answers: [],
+  animalAnswers: [],
   currentQuestionIndex: 0, // this should be somewhere in the json from the api request
   quizOver: false,
   btnColor: '',

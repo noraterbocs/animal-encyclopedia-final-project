@@ -1,4 +1,4 @@
-import React, { useSelector, useDispatch } from 'react';
+import React, { useSelector, useDispatch } from 'react-redux';
 import { quiz } from 'reducers/quiz';
 import styled from 'styled-components';
 import { Summary } from './Summary';
