@@ -4,11 +4,12 @@
   "private": true,
   "dependencies": {
     "@babel/eslint-parser": "^7.18.9",
+    "@chatscope/chat-ui-kit-react": "^1.10.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.2",
-    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@reduxjs/toolkit": "^1.9.5",
     "eslint": "^8.21.0",
     "eslint-config-airbnb": "^19.0.4",
