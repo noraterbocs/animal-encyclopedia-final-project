@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { Chatbot } from './ChatBot';
 // import { useSelector } from 'react-redux';
 
 export const Summary = () => {
   return (
     <div>
       <h1>Summary</h1>
+      <Chatbot />
     </div>
   )
 }
