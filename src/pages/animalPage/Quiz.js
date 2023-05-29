@@ -1,8 +1,15 @@
-/* eslint-disable max-len */
-import React, { useSelector, useDispatch } from 'react-redux';
-// import React, { useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { quiz } from 'reducers/quiz';
-import styled from 'styled-components';
+import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Typography from '@mui/material/Typography';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import { Card, CardContent } from '@mui/material';
 import { Summary } from './Summary';
 
 const AnswerButton = () => {
@@ -16,14 +23,14 @@ const AnswerButton = () => {
     // setTimeout(() => {
     dispatch(quiz.actions.submitAnswer({ questionId: question.id, answerIndex: index, animalId }));
     // setSelectedOption(undefined);
-    dispatch(quiz.actions.goToNextQuestion());
+    // dispatch(quiz.actions.goToNextQuestion());
     // }, 1000);
   };
 
   return (
-    <BtnsWrapper>
+    <ButtonGroup size="large" aria-label="large button group" color="secondary" variant="contained" spacing={2}>
       {question.options.map((singleOption, index) => (
-        <Btn
+        <Button
           key={singleOption}
           type="button"
           value={index}
@@ -32,15 +39,33 @@ const AnswerButton = () => {
           aria-label={`Answer option ${index + 1}: ${singleOption}`}
           onClick={() => handleOptionClick(index)}>
           {singleOption}
-        </Btn>
+        </Button>
       ))}
-    </BtnsWrapper>
+    </ButtonGroup>
   );
 };
 
 export const Quiz = () => {
-  const question = useSelector((store) => store.quiz.questions[store.quiz.currentQuestionIndex]);
+  const dispatch = useDispatch();
+  const { currentQuestionIndex, questions } = useSelector((store) => store.quiz);
+  const question = questions[currentQuestionIndex];
   const quizOver = useSelector((store) => store.quiz.quizOver);
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    if (activeStep < 5) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      dispatch(quiz.actions.goToNextQuestion());
+    }
+  };
+
+  const handleBack = () => {
+    if (activeStep > 0) {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+      dispatch(quiz.actions.goToPreviousQuestion());
+    }
+  };
 
   if (!question) {
     return <h1>Oh no! Could not find that animal please return to the home page</h1>
@@ -49,41 +74,40 @@ export const Quiz = () => {
     return <Summary />
   } else {
     return (
-      <QuizWrapper>
-        <QuestionH1>{question.questionText}</QuestionH1>
-        <AnswerButton />
-      </QuizWrapper>
+      <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Card variant="outlined" sx={{ maxWidth: 500, textAlign: 'center', marginTop: 20 }}>
+          <CardContent>
+            <Typography variant="h3" sx={{ margin: 5 }}>{question.questionText}</Typography>
+            <AnswerButton />
+            <MobileStepper
+              variant="dots"
+              steps={6}
+              position="static"
+              activeStep={activeStep}
+              sx={{ maxWidth: 400, flexGrow: 1 }}
+              nextButton={
+                <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
+          Next
+                  {theme.direction === 'rtl' ? (
+                    <KeyboardArrowLeft />
+                  ) : (
+                    <KeyboardArrowRight />
+                  )}
+                </Button>
+              }
+              backButton={
+                <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                  {theme.direction === 'rtl' ? (
+                    <KeyboardArrowRight />
+                  ) : (
+                    <KeyboardArrowLeft />
+                  )}
+          Back
+                </Button>
+              } />
+          </CardContent>
+        </Card>
+      </Container>
     )
   }
-}
-
-const QuizWrapper = styled.section``;
-
-const Btn = styled.button`
-  border-style: double;
-  border-color: black;
-  padding: 25px 10px;
-  color: blue;
-  border-radius: 10px;
-  margin-top: 6px;
-  font-size: 16px;
-  font-weight: 600;
-  border: solid 2px black;
-  width: 133px;
-  background-color: #3d85c6;
-
-  &:hover {
-    transform: scale(1.2);
-  }
-`;
-
-const BtnsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: space-around;
-  gap:40px;
-`;
-const QuestionH1 = styled.h1`
-color:#3d85c6;
-width: 65%;
-`
+};

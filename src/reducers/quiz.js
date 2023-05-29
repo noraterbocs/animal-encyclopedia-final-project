@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { loading } from './loading';
 
 const questions = [
   { id: 0, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'] },
