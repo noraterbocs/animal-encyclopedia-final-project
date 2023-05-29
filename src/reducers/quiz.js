@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
 // import { loading } from './loading';
 
@@ -47,13 +46,12 @@ export const quiz = createSlice({
 
     submitAnswer: (state, action) => {
       const { questionId, answerIndex, animalId } = action.payload
-      // identify the current question eg:  { id: 0, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'] },
+      // identify the current question eg:
+      // { id: 0, questionText: 'What does this animal eat?',
+      // options: ['Meat', 'Plants', 'Fish', 'Everything'] },
       const question = state.questions.find((q) => q.id === questionId)
       // identify current animal
       const selectedAnimal = state.animalAnswers.find((q) => q.id === animalId)
-
-      // const selectedQuestion = state.questions.find((q) => q.id === questionId);
-      // const selectedAnimalAnswer = state.animalAnswers.find((a) => a.animal === selectedQuestion.animal);
 
       // let newAnswer = question.options[animalAnswers];
       // state.correctAnswerIndicator = true
@@ -64,7 +62,8 @@ export const quiz = createSlice({
       // }
 
       // if (!question) {
-      //   throw new Error('Could not find question! Check to make sure you are passing the question id correctly.')
+      //   throw new Error('Could not find question!
+      // Check to make sure you are passing the question id correctly.')
       // }
 
       // if (question.correctAnswerIndex) {
@@ -74,7 +73,8 @@ export const quiz = createSlice({
       //   console.log('correct index', question.correctAnswerIndex, 'selectedIndex', answerIndex)
       //   state.btnColor = '#56ab2f'
       // } else {
-      //   console.log('correct index', question.correctAnswerIndex, 'wrongselectedIndex', answerIndex)
+      //   console.log('correct index',
+      // question.correctAnswerIndex, 'wrongselectedIndex', answerIndex)
       //   state.btnColor = '#FF416C';
       // }
 

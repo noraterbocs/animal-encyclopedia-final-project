@@ -113,7 +113,7 @@ export const Chatbot = () => {
 }
 
 const OuterWrapper = styled.section`
-background-color:lightgrey;
+
 
 .maincontainer{
   display: block;
