@@ -1,20 +1,23 @@
+/* eslint-disable max-len */
 import React, { useSelector, useDispatch } from 'react-redux';
+// import React, { useSelector } from 'react-redux';
 import { quiz } from 'reducers/quiz';
 import styled from 'styled-components';
 import { Summary } from './Summary';
 
 const AnswerButton = () => {
   const dispatch = useDispatch();
-  const { currentQuestionIndex, questions } = useSelector((store) => store.quiz);
+  const { currentQuestionIndex, questions, animalId } = useSelector((store) => store.quiz);
   const question = questions[currentQuestionIndex];
 
   const handleOptionClick = (index) => {
+    console.log('index:', index, 'questionid:', question.id)
     // setSelectedOption(index);
-    setTimeout(() => {
-      dispatch(quiz.actions.submitAnswer({ questionId: question.id, answerIndex: index }));
-      // setSelectedOption(undefined);
-      dispatch(quiz.actions.goToNextQuestion());
-    }, 1000);
+    // setTimeout(() => {
+    dispatch(quiz.actions.submitAnswer({ questionId: question.id, answerIndex: index, animalId }));
+    // setSelectedOption(undefined);
+    dispatch(quiz.actions.goToNextQuestion());
+    // }, 1000);
   };
 
   return (

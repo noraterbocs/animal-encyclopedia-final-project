@@ -1,11 +1,14 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { quiz } from 'reducers/quiz';
 import { BackgroundMap } from './BackgroundMap'
 
 export const Map = () => {
+  const dispatch = useDispatch();
   const animals = [
     { path: '/images/eagle.png', top: '90px', left: '180px', id: 'eagle' },
     { path: '/images/bear.png', top: '140px', left: '220px', id: 'bear' },
@@ -26,7 +29,7 @@ export const Map = () => {
       <BackgroundMap />
       {animals.map((animal) => {
         return (
-          <Link key={animal.id} to={`animal/${animal.id}`}><AnimalImg top={animal.top} left={animal.left} src={animal.path} alt={animal.id} /></Link>
+          <Link key={animal.id} to={`animal/${animal.id}`} onClick={() => dispatch(quiz.actions.saveAnimalId(animal.id))}><AnimalImg top={animal.top} left={animal.left} src={animal.path} alt={animal.id} /></Link>
         )
       })}
     </Container>
