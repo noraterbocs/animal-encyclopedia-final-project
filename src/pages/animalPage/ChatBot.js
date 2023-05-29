@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, Avatar, ConversationHeader } from '@chatscope/chat-ui-kit-react'
 import styled from 'styled-components'
-
-const API_KEY = ''
+import { API_KEY } from '../../utils/urls'
 
 export const Chatbot = () => {
   const [typing, setTyping] = useState(false);
@@ -57,7 +56,9 @@ export const Chatbot = () => {
     await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${API_KEY}`,
+        // eslint-disable-next-line prefer-template
+        Authorization: 'Bearer ' + API_KEY,
+        // Authorization: `Bearer ${API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(apiRequestBody)
