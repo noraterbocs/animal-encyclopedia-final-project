@@ -15,13 +15,15 @@ import { Login } from './pages/RegisterLoginPage/Login';
 import { user } from './reducers/user';
 import { loading } from './reducers/loading';
 import { leaderboard } from './reducers/leaderboard';
+import { games } from './reducers/games';
 
 export const App = () => {
   const reducer = combineReducers({
     user: user.reducer,
     leaderboard: leaderboard.reducer,
     loading: loading.reducer,
-    quiz: quiz.reducer
+    quiz: quiz.reducer,
+    games: games.reducer
 
   });
   const store = configureStore({ reducer })
