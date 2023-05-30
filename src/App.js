@@ -4,6 +4,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { Animal } from 'pages/animalPage/Animal.js';
 import { quiz } from 'reducers/quiz.js';
+import { TextGeneratorGame } from 'pages/gamesPage/TextGeneratorGame.js';
 import { Header } from './pages/Header.js';
 import { HomePage } from './pages/homePage/HomePage.js';
 import { Games } from './pages/gamesPage/Games.js';
@@ -35,6 +36,7 @@ export const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/games" element={<Games />} />
+          <Route path="/games/storygenerator" element={<TextGeneratorGame />} />
           <Route path="/animal/:animalId" element={<Animal />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/aboutus" element={<AboutUs />} />
