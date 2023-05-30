@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { API_URL } from 'utils/urls';
 // import { useSelector } from 'react-redux';
+import { API_URL } from 'utils/urls';
 import { loading } from './loading';
 // import { user } from './user';
 
@@ -20,7 +21,7 @@ export const games = createSlice({
 
 // POST: Create prompt
 export const generateText = (mainCharacter, location, friends, genre) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch(loading.actions.setLoading(true))
     const { accessToken } = getState().user;
     console.log(accessToken)
@@ -33,19 +34,22 @@ export const generateText = (mainCharacter, location, friends, genre) => {
       },
       body: JSON.stringify({ mainCharacter, location, friends, genre })
     }
-    fetch('https://animal-encyclopedia-backend-7v5hitnola-no.a.run.app/completions', options)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          console.log(data)
-          // dispatch(games.actions.setGeneratedText())
-          // dispatch(user.actions.setError(null))
-        } else {
-          // dispatch(user.actions.setError('Error'))
-          console.log(data)
-        }
-        dispatch(loading.actions.setLoading(false))
-        // console.log(data)
-      })
+    try {
+      const response = await fetch(API_URL('completions'), options);
+      const data = await response.json();
+
+      if (data.success) {
+        console.log(data)
+        dispatch(games.actions.setGeneratedText(data.response.newGeneratedText))
+        // dispatch(user.actions.setError(null))
+      } else {
+        // dispatch(user.actions.setError('Error'))
+        console.error(data)
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      dispatch(loading.actions.setLoading(false));
+    }
   };
 };

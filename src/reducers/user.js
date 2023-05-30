@@ -13,7 +13,6 @@ export const user = createSlice({
     history: [],
     totalScore: 0,
     createdAt: '',
-    // password:null,
     accessToken: null,
     error: null,
     mode: 'login'
@@ -31,9 +30,6 @@ export const user = createSlice({
       store.email = action.payload
       console.log('email:', action.payload)
     },
-    //  setPassword:(store, action) =>{
-    //     store.password = action.payload
-    // },
     setAvatar: (store, action) => {
       store.avatar = action.payload
       console.log('avatar:', action.payload)
@@ -69,7 +65,6 @@ export const user = createSlice({
 });
 
 // POST: register a user
-
 export const registerUser = (username, email, password) => {
   return (dispatch) => {
     dispatch(loading.actions.setLoading(true))
