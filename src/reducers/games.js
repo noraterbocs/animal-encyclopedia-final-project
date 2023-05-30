@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { OPEN_AI_BASE_URL, API_KEY } from '../utils/urls';
+// import { API_URL } from 'utils/urls';
+// import { useSelector } from 'react-redux';
 import { loading } from './loading';
+// import { user } from './user';
 
 export const games = createSlice({
   name: 'games',
   initialState: {
-    generatedText: ''
+    generatedText: '',
+    previousStories: []
   },
   reducers: {
     setGeneratedText: (store, action) => {
@@ -16,31 +19,33 @@ export const games = createSlice({
 });
 
 // POST: Create prompt
-export const generateText = () => {
-  return async (dispatch) => {
+export const generateText = (mainCharacter, location, friends, genre) => {
+  return (dispatch, getState) => {
     dispatch(loading.actions.setLoading(true))
+    const { accessToken } = getState().user;
+    console.log(accessToken)
     const options = {
       method: 'POST',
+      mode: 'cors',
       headers: {
-        // eslint-disable-next-line prefer-template
-        Authorization: 'Bearer ' + API_KEY,
-        'Content-type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: accessToken
       },
-      body: JSON.stringify({
-        // model: 'text-davinci-003',
-        // prompt: 'Say this is a test',
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: 'Generate a story about a dog' }],
-        max_tokens: 10,
-        temperature: 1
-      })
+      body: JSON.stringify({ mainCharacter, location, friends, genre })
     }
-    await fetch(OPEN_AI_BASE_URL, options)
+    fetch('https://animal-encyclopedia-backend-7v5hitnola-no.a.run.app/completions', options)
       .then((response) => response.json())
       .then((data) => {
-        // dispatch(games.actions.setGeneratedText(data.choices[0].message.content))
-        console.log(data)
+        if (data.success) {
+          console.log(data)
+          // dispatch(games.actions.setGeneratedText())
+          // dispatch(user.actions.setError(null))
+        } else {
+          // dispatch(user.actions.setError('Error'))
+          console.log(data)
+        }
+        dispatch(loading.actions.setLoading(false))
+        // console.log(data)
       })
-      .finally(() => dispatch(loading.actions.setLoading(false)))
   };
-}
+};
