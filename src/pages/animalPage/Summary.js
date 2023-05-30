@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { Chatbot } from './ChatBot';
+import ChatbotAvatar from '../../assets/chatbot/195.jpg'
 
 const style = {
   position: 'absolute',
@@ -18,6 +19,10 @@ const style = {
   boxShadow: 24,
   p: 4
 };
+const ChatbotAvatarStyle = {
+  width: '40px',
+  height: '40px'
+}
 
 export const Summary = () => {
   const answers = useSelector((store) => store.quiz.answers)
@@ -39,7 +44,7 @@ export const Summary = () => {
       </Card>
 
       <div>
-        <Button onClick={handleOpen}>Click here for the!</Button>
+        <Button onClick={handleOpen}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
         <Modal
           open={open}
           onClose={handleClose}
