@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, Avatar, ConversationHeader } from '@chatscope/chat-ui-kit-react'
-import styled from 'styled-components'
-import { API_KEY } from '../../utils/urls'
+import { useSelector } from 'react-redux';
+import { API_KEY } from '../../utils/urls';
+import AlligatorAvatar from '../../assets/avatars/AlligatorAvatar.svg';
 
 export const Chatbot = () => {
+  // const [playerAvatar, setPlayerAvatar] = useState(null);
+  const username = useSelector((store) => store.user.username);
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -58,7 +61,6 @@ export const Chatbot = () => {
       headers: {
         // eslint-disable-next-line prefer-template
         Authorization: 'Bearer ' + API_KEY,
-        // Authorization: `Bearer ${API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(apiRequestBody)
@@ -77,51 +79,40 @@ export const Chatbot = () => {
   }
 
   return (
-    <OuterWrapper>
+    <div style={{ height: '100%', width: '100%' }}>
 
-      <div style={{ position: 'relative', height: '80vh', width: '30vw' }}>
-        <MainContainer className="maincontainer">
+      <MainContainer style={{ display: 'flex', flexDirection: 'column' }}>
 
-          <ConversationHeader className="header">
-            <Avatar src="../../assets/avatars/AlligatorAvatar.svg" alt="avatar" />
-            <ConversationHeader.Content userName="Emily">
-              <span style={{
-                color: 'white',
-                alignSelf: 'flex-center'
-              }}>UserName:Ask your questions here
-              </span>
-            </ConversationHeader.Content>
-          </ConversationHeader>
+        <ConversationHeader style={{ }}>
+          <Avatar
+            alt="avatar"
+            src={/* playerAvatar || */ AlligatorAvatar}
+            sx={{ width: 70, height: 70 }} />
 
-          <ChatContainer>
-            <MessageList
-              scrollBehavior="smooth"
-              typingIndicator={typing ? <TypingIndicator content="Chatbot is typing" /> : null}>
-              {messages.map((message, i) => {
-                // eslint-disable-next-line react/no-array-index-key
-                return <Message key={i} model={message} />
-              })}
-            </MessageList>
-            <MessageInput placeholder="Write your question here!" onSend={handleSend} attachButton={false} sendButton={false} />
-          </ChatContainer>
-        </MainContainer>
+          <ConversationHeader.Content>
+            <span style={{
+              color: 'black',
+              fontFamily: 'Fredoka',
+              alignSelf: 'flex-center'
+            }}>{username ? (<p>{username}</p>) : null}
+            </span>
+          </ConversationHeader.Content>
+        </ConversationHeader>
 
-      </div>
+        <ChatContainer>
+          <MessageList
+            scrollBehavior="smooth"
+            typingIndicator={typing ? <TypingIndicator content="Chatbot is typing" /> : null}>
+            {messages.map((message, i) => {
+              // eslint-disable-next-line react/no-array-index-key
+              return <Message key={i} model={message} />
+            })}
+          </MessageList>
+          <MessageInput placeholder="Write your question here!" onSend={handleSend} attachButton={false} sendButton={false} />
+        </ChatContainer>
+      </MainContainer>
 
-    </OuterWrapper>
+    </div>
+
   )
 }
-
-const OuterWrapper = styled.section`
-
-
-.maincontainer{
-  display: block;
-}
-.cs-chat-container{
-  height: 90%;
-}
-.header{
-background-color:#A0D8B3;
-}
-`

@@ -8,7 +8,7 @@ export const user = createSlice({
     userId: null,
     username: '',
     email: '',
-    avatar: '',
+    avatar: null,
     badges: [],
     history: [],
     totalScore: 0,
