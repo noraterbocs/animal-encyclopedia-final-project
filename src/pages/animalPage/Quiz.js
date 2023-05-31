@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { Card, CardContent } from '@mui/material';
+// import { Image } from '@mui/icons-material';
 import { Summary } from './Summary';
 
 export const Quiz = () => {
@@ -19,6 +20,10 @@ export const Quiz = () => {
   const question = questions[currentQuestionIndex];
   const theme = useTheme();
   const totalSteps = questions.length;
+
+  // useEffect(() => {
+  //  dispatch(quiz.actions.restart());
+  // }, [dispatch]);
 
   const handleOptionClick = (index) => {
     dispatch(quiz.actions.submitAnswer({ questionId: question.id, answerIndex: index, animalId }));
@@ -39,6 +44,26 @@ export const Quiz = () => {
     }
   };
 
+  const animalImg = [
+    { path: '/images/eagle.png', id: 'eagle' },
+    { path: '/images/bear.png', id: 'bear' },
+    { path: '/images/hedgehog.png', id: 'hedgehog' },
+    { path: '/images/lion.png', id: 'lion' },
+    { path: '/images/elephant.png', id: 'elephant' },
+    { path: '/images/fox.png', id: 'fox' },
+    { path: '/images/jaguar.png', id: 'jaguar' },
+    { path: '/images/toucan.png', id: 'toucan' },
+    { path: '/images/panda.png', id: 'panda' },
+    { path: '/images/tiger.png', id: 'tiger' },
+    { path: '/images/kangaroo.png', id: 'kangaroo' },
+    { path: '/images/koala.png', id: 'koala' },
+    { path: '/images/seal.png', id: 'seal' },
+    { path: '/images/penguin.png', id: 'penguin' }]
+
+  const animalImagePath = animalImg.find((animal) => animal.id === animalId).path
+  console.log(animalImagePath)
+  console.log(animalId)
+
   if (!question) {
     return <h1>Oh no! Could not find that animal. Please return to the home page.</h1>;
   }
@@ -50,6 +75,7 @@ export const Quiz = () => {
       <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Card variant="outlined" sx={{ maxWidth: 500, textAlign: 'center', marginTop: 20 }}>
           <CardContent>
+            <img src={animalImagePath} alt={animalImagePath} />
             <Typography variant="h3" sx={{ margin: 5 }}>{question.questionText}</Typography>
             <ButtonGroup size="large" aria-label="large button group" color="secondary" variant="contained" spacing={2}>
               {question.options.map((singleOption, index) => (

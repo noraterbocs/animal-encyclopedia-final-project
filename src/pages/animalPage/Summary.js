@@ -55,6 +55,7 @@ export const Summary = () => {
           </Box>
         </Modal>
       </div>
+      <Button>Try more animals</Button>
     </div>
   )
 }
