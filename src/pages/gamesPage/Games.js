@@ -1,44 +1,57 @@
+/* eslint-disable max-len */
 import React from 'react';
-// import { TextGeneratorGame } from './TextGeneratorGame';
-// import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import { Card, Typography } from '@mui/material';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
+import { Typography } from '@mui/material';
+import { Image, ImageButton, ImageBackdrop, ImageSrc, ImageMarked } from './ImageButtonStyle';
 
 export const Games = () => {
+  const images = [
+    {
+      url: 'https://placehold.co/600x400?text=Story+Generator',
+      title: 'Story generator',
+      width: '30%',
+      id: 'storygenerator'
+    },
+    {
+      url: 'https://placehold.co/600x400?text=Coming+Soon',
+      title: 'Coming soon',
+      width: '30%',
+      id: 'comingsoon'
+    }
+  ];
+
   return (
-    // <div>
-    //   <h1>Games</h1>
-    //   <TextGeneratorGame />
-    // </div>
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="h1">Games</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letra</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/games/storygenerator">
-            <Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                alt="story generator"
-                height="140"
-                image="https://placehold.co/600x400?text=Story+Generator" />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-          Story generator
-                </Typography>
-              </CardContent>
-            </Card>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
+      {images.map((image) => (
+        <ImageButton
+          focusRipple
+          key={image.title}
+          style={{
+            width: image.width
+          }}>
+          <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+          <ImageBackdrop className="MuiImageBackdrop-root" />
+          <Link to={`/games/${image.id}`}>
+            <Image>
+              <Typography
+                component="span"
+                variant="subtitle1"
+                color="inherit"
+                sx={{
+                  position: 'relative',
+                  p: 4,
+                  pt: 2,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`
+                }}>
+                {image.title}
+                <ImageMarked className="MuiImageMarked-root" />
+              </Typography>
+            </Image>
           </Link>
-        </Grid>
-      </Grid>
+        </ImageButton>
+      ))}
     </Box>
-  )
+
+  );
 }

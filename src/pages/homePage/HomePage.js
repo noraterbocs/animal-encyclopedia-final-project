@@ -20,6 +20,7 @@ export const HomePage = () => {
     } else {
       dispatch(getUser())
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
   return (
     <Container sx={{ bgcolor: '#108bdfeb;', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', p: 0, m: 0, minWidth: '100vw' }}>
