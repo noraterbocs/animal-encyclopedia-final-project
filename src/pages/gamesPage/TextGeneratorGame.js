@@ -1,65 +1,13 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, Button, Container, Menu, Typography } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
-import React from 'react';
+import { Box, Button, Card, CardContent, CardHeader, CardMedia, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+// import { styled, alpha } from '@mui/material/styles';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { generateText } from 'reducers/games';
-import { Image, ImageButton, ImageBackdrop, ImageSrc, ImageMarked } from './ImageButtonStyle';
+import { generateText, getStories } from 'reducers/games';
+import { PreviousStories } from './PreviousStories';
 
-const StyledMenu = styled((props) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right'
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right'
-    }}
-    {...props} />
-))(({ theme }) => ({
-  '& .MuiPaper-root': {
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
-    minWidth: 180,
-    color:
-      theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-    boxShadow:
-      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-    '& .MuiMenu-list': {
-      padding: '4px 0'
-    },
-    '& .MuiMenuItem-root': {
-      '& .MuiSvgIcon-root': {
-        fontSize: 18,
-        color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5)
-      },
-      '&:active': {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
-        )
-      }
-    }
-  }
-}));
 export const TextGeneratorGame = () => {
-  const dispatch = useDispatch()
-  const mainCharacter = 'cat'
-  const location = ' jungle'
-  const friends = ['zebra', 'dog'].toString()
-  const genre = 'comedy'
-  const generatedText = useSelector((store) => store.games.generatedText)
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const parameters = [
     {
       url: 'https://placehold.co/600x400?text=',
@@ -90,61 +38,74 @@ export const TextGeneratorGame = () => {
       options: ['Adventure', 'Fantasy', 'Drama', 'Comedy']
     }
   ];
+  const dispatch = useDispatch()
+  const [selectedOptions, setSelectedOptions] = useState(Array(parameters.length).fill(null));
+  const mainCharacter = selectedOptions[0]
+  const location = selectedOptions[2]
+  const friends = selectedOptions[1]
+  const genre = selectedOptions[3]
+
+  const currentGeneratedText = useSelector((store) => store.games.generatedText)
+  const generatedTitle = useSelector((store) => store.games.generatedTitle)
+  const currentGeneratedImage = useSelector((store) => store.games.generatedImage)
+  console.log(selectedOptions)
+
+  const handleChange = (event, index) => {
+    const newSelectedOptions = [...selectedOptions];
+    newSelectedOptions[index] = event.target.value;
+    setSelectedOptions(newSelectedOptions);
+  };
+
   return (
     <Container>
-      <Typography variant="h1">Story Generator</Typography>
+      <Typography variant="h2">Story Generator</Typography>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
-        {parameters.map((parameter) => (
-          <>
-            <ImageButton
-              focusRipple
-              key={parameter.id}
-              style={{
-                width: parameter.width,
-                height: '100px'
-              }}
-              onClick={handleClick}>
-              <ImageSrc style={{ backgroundImage: `url(${parameter.url})` }} />
-              <ImageBackdrop className="MuiImageBackdrop-root" />
-              <Image>
-                <Typography
-                  component="span"
-                  variant="subtitle1"
-                  color="inherit"
-                  sx={{
-                    position: 'relative',
-                    p: 4,
-                    pt: 2,
-                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`
-                  }}>
-                  {parameter.title}
-                  <ImageMarked className="MuiImageMarked-root" />
-                </Typography>
-              </Image>
-            </ImageButton>
-            <StyledMenu
-              id="demo-customized-menu"
-              MenuListProps={{
-                'aria-labelledby': 'demo-customized-button'
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}>
-              {parameter.options.map((option) => {
-                return (
-                  <Typography key={option} onClick={handleClose} disableripple="true">
-                    {option}
-                  </Typography>
-                )
-              })}
-            </StyledMenu>
-          </>
-        ))}
+        {parameters.map((parameter, index) => {
+          return (
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 130 }}>
+              <InputLabel id={`${parameter.id}-title`}>{parameter.title}</InputLabel>
+              <Select
+                labelId={`${parameter.id}-label`}
+                id={`${parameter.id}-select`}
+                value={selectedOptions[index]}
+                onChange={(event) => handleChange(event, index)}
+                label={parameter.title}>
+                {parameter.options.map((option) => {
+                  return (
+                    <MenuItem value={option} key={option}>
+                      {option}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          )
+        })}
       </Box>
-      <Button onClick={() => dispatch(generateText(mainCharacter, location, friends, genre))}>
+      <Box>
+        <Card sx={{ maxWidth: '100%' }}>
+          <CardHeader
+            title={generatedTitle} />
+          <CardMedia
+            sx={{ width: 'auto', margin: 'auto' }}
+            component="img"
+            height="200px"
+            image={currentGeneratedImage}
+            alt="new generated image" />
+          <CardContent>
+            <Typography variant="body2" color="text.secondary" sx={{ height: 'max-content' }}>
+              {currentGeneratedText}
+            </Typography>
+          </CardContent>
+        </Card>
+        <Button onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
         Generate text
-      </Button>
-      <Typography variant="body1">{generatedText}</Typography>
+        </Button>
+      </Box>
+      <Button onClick={() => dispatch(getStories())}>Load previous stories</Button>
+      <Box>
+        <PreviousStories />
+      </Box>
     </Container>
   )
 }
