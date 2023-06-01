@@ -1,20 +1,35 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { Card, CardContent } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { Card, CardContent, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import CardMedia from '@mui/material/CardMedia';
+import { Link } from 'react-router-dom';
+import { quiz } from 'reducers/quiz';
+import Confetti from 'react-confetti'
 import { Chatbot } from './ChatBot';
-import ChatbotAvatar from '../../assets/chatbot/195.jpg'
+import ChatbotAvatar from '../../assets/chatbot/195.jpg';
+import SummaryPicture from '../../assets/summary/summarypic.jpg'
 
-const style = {
+const chatbotStyle = {
   position: 'absolute',
   bottom: '5%',
   right: '5%',
   width: '60vw',
-  height: '80vh',
-  bgcolor: 'background.paper',
+  height: '70vh',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+};
+const summaryStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '70vw',
+  height: '70vh',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4
@@ -28,15 +43,63 @@ export const Summary = () => {
   const answers = useSelector((store) => store.quiz.answers)
   const animalId = useSelector((store) => store.quiz.animalId)
   const correctAnswers = answers.filter((item) => item.isCorrect)
+  const dispatch = useDispatch();
+  const { quizOver } = useSelector((store) => store.quiz);
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
+  const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);
+
+  const handleOpenSummaryModal = () => setSummaryModalOpen(true);
+  const handleCloseSummaryModal = () => setSummaryModalOpen(false);
+
+  const handleOpenChatbotModal = () => setChatbotModalOpen(true);
+  const handleCloseChatbotModal = () => setChatbotModalOpen(false);
+
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+
+  const handleQuizOver = () => {
+    if (quizOver) {
+      dispatch(quiz.actions.restart());
+    }
+  }
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      handleCloseSummaryModal();
+    }, 10000);
+
+    handleOpenSummaryModal();
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div>
-      <h1>Summary</h1>
-      <h2>Congratulations you got {correctAnswers.length}/{answers.length} questions right! Learn more about the {animalId} here</h2>
+      <div>
+        <Typography variant="h1">Learn more about the {animalId} here</Typography>
+      </div>
+
+      <Modal
+        open={summaryModalOpen}
+        onClose={handleCloseSummaryModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box sx={summaryStyle}>
+          <Card sx={{ backgroundColor: 'green', height: '100%' }}>
+            <Confetti maxwidth={1200} />
+            <CardMedia
+              sx={{ }}
+              image={SummaryPicture}
+              title="party background" />
+            <CardContent>
+              <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>Congratulations you got {correctAnswers.length}/{answers.length} questions right!</Typography>
+            </CardContent>
+          </Card>
+        </Box>
+      </Modal>
+
       <Card>
         <CardContent>
           <p>animal stuff here</p>
@@ -44,18 +107,20 @@ export const Summary = () => {
       </Card>
 
       <div>
-        <Button onClick={handleOpen}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
+        <Button onClick={handleOpenChatbotModal}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
         <Modal
-          open={open}
-          onClose={handleClose}
+          open={chatbotModalOpen}
+          onClose={handleCloseChatbotModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description">
-          <Box sx={style}>
+          <Box sx={chatbotStyle}>
             <Chatbot />
           </Box>
         </Modal>
       </div>
-      <Button>Try more animals</Button>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <Button onClick={handleQuizOver}>Try more animals</Button>
+      </Link>
     </div>
   )
 }

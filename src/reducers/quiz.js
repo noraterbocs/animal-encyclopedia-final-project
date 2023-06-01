@@ -1,12 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// /images/quizimgs/meat.jpg
 const questions = [
-  { id: 0, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'] },
-  { id: 1, questionText: 'Where does this animal live?', options: ['ocean', 'trees', 'land', 'snow'] },
-  { id: 2, questionText: 'Does this animal have live babies or lay eggs?', options: ['eggs', 'live babies'] },
-  { id: 3, questionText: 'Does this animal like to live alone or in groups?', options: ['Alone', 'Groups'] },
-  { id: 4, questionText: 'How many hours per day does this animal sleep?', options: ['less than 5 hours', '5-10 hours', 'more than 10hours'] },
-  { id: 5, questionText: 'What is the best way for this animal to get around?', options: ['walking', 'hopping', 'flying', 'swimming'] }
+  { id: 0,
+    questionText: 'What does this animal eat?',
+    options: [{ text: 'Carnivore:Meat', image: '' }, { text: 'Herbivore:Plants', image: '' }, { text: 'Omnivore:Everything', image: '' }] },
+  { id: 1,
+    questionText: 'Where does this animal live?',
+    options: [{ text: 'ocean', image: '' }, { text: 'trees', image: '' }, { text: 'land', image: '' }, { text: 'snow', image: '' }] },
+  { id: 2,
+    questionText: 'Does this animal have live babies or lay eggs?',
+    options: [{ text: 'eggs', image: '' }, { text: 'live babies', image: '' }] },
+  { id: 3,
+    questionText: 'Does this animal like to live alone or in groups?',
+    options: [{ text: 'Alone', image: '' }, { text: 'Groups', image: '' }] },
+  { id: 4,
+    questionText: 'How many hours per day does this animal sleep?',
+    options: [{ text: 'less than 5 hours', image: '' }, { text: '5-10 hours', image: '' }, { text: 'more than 10hours', image: '' }] },
+  { id: 5,
+    questionText: 'What is the best way for this animal to get around?',
+    options: [{ text: 'walking', image: '' }, { text: 'hopping', image: '' }, { text: 'flying', image: '' }, { text: 'swimming', image: '' }] }
 ]
 
 const animalAnswers = [
@@ -20,9 +33,9 @@ const animalAnswers = [
   { id: 'kangaroo', correctAnswerIndex: [1, 2, 1, 1, 1, 1], answerIndex: [] },
   { id: 'koala', correctAnswerIndex: [1, 1, 1, 0, 2, 0], answerIndex: [] },
   { id: 'panda', correctAnswerIndex: [1, 2, 1, 0, 2, 0], answerIndex: [] },
-  { id: 'penguin', correctAnswerIndex: [2, 2, 0, 1, 0, 3], answerIndex: [] },
+  { id: 'penguin', correctAnswerIndex: [0, 2, 0, 1, 0, 3], answerIndex: [] },
   { id: 'racoon', correctAnswerIndex: [3, 1, 1, 0, 2, 0], answerIndex: [] },
-  { id: 'seal', correctAnswerIndex: [2, 0, 1, 0, 0, 3], answerIndex: [] },
+  { id: 'seal', correctAnswerIndex: [0, 0, 1, 0, 0, 3], answerIndex: [] },
   { id: 'tiger', correctAnswerIndex: [0, 2, 1, 0, 2, 0], answerIndex: [] },
   { id: 'toucan', correctAnswerIndex: [1, 1, 0, 1, 2, 2], answerIndex: [] }
 ]

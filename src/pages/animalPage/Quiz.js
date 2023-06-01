@@ -41,6 +41,7 @@ export const Quiz = () => {
   const handleBack = () => {
     if (currentQuestionIndex > 0) {
       dispatch(quiz.actions.goToPreviousQuestion());
+      console.log(handleBack)
     }
   };
 
@@ -75,9 +76,9 @@ export const Quiz = () => {
       <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Card variant="outlined" sx={{ maxWidth: 500, textAlign: 'center', marginTop: 20 }}>
           <CardContent>
-            <img src={animalImagePath} alt={animalImagePath} />
             <Typography variant="h3" sx={{ margin: 5 }}>{question.questionText}</Typography>
-            <ButtonGroup size="large" aria-label="large button group" color="secondary" variant="contained" spacing={2}>
+            <img src={animalImagePath} alt={animalImagePath} />
+            <ButtonGroup size="large" aria-label="large button group" color="primary" variant="outlined" spacing={2} sx={{ maxWidth: '100%' }}>
               {question.options.map((singleOption, index) => (
                 <Button
                   key={singleOption}
@@ -85,9 +86,10 @@ export const Quiz = () => {
                   value={index}
                   index={index}
                   isCorrectAnswer={index === question.correctAnswerIndex}
-                  aria-label={`Answer option ${index + 1}: ${singleOption}`}
+                  aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
                   onClick={() => handleOptionClick(index)}>
-                  {singleOption}
+                  <img src={singleOption.image} alt={singleOption.text} />
+                  {singleOption.text}
                 </Button>
               ))}
             </ButtonGroup>
