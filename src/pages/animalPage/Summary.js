@@ -77,37 +77,42 @@ export const Summary = () => {
 
   return (
     <div>
+
       <div>
-        <Typography variant="h1">Learn more about the {animalId} here</Typography>
+        <Modal
+          open={summaryModalOpen}
+          onClose={handleCloseSummaryModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description">
+          <Box sx={summaryStyle}>
+            <Card sx={{ backgroundColor: 'green', height: '100%' }}>
+              <Confetti maxwidth={1200} />
+              <CardMedia
+                sx={{ }}
+                image={SummaryPicture}
+                title="party background" />
+              <CardContent>
+                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>🎉 🥳 You got {correctAnswers.length}/{answers.length} questions right! 🥳 🎉</Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        </Modal>
       </div>
 
-      <Modal
-        open={summaryModalOpen}
-        onClose={handleCloseSummaryModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <Box sx={summaryStyle}>
-          <Card sx={{ backgroundColor: 'green', height: '100%' }}>
-            <Confetti maxwidth={1200} />
-            <CardMedia
-              sx={{ }}
-              image={SummaryPicture}
-              title="party background" />
-            <CardContent>
-              <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>Congratulations you got {correctAnswers.length}/{answers.length} questions right!</Typography>
-            </CardContent>
-          </Card>
-        </Box>
-      </Modal>
-
-      <Card>
-        <CardContent>
-          <p>animal stuff here</p>
-        </CardContent>
-      </Card>
+      <div>
+        <Card>
+          <CardContent>
+            <Typography variant="h1">Learn more about the {animalId} here</Typography>
+            <p>animal stuff here</p>
+          </CardContent>
+        </Card>
+      </div>
 
       <div>
         <Button onClick={handleOpenChatbotModal}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
+      </div>
+
+      <div>
         <Modal
           open={chatbotModalOpen}
           onClose={handleCloseChatbotModal}

@@ -1,24 +1,23 @@
+/* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable max-len */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { quiz } from 'reducers/quiz';
-import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Typography from '@mui/material/Typography';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { Card, CardContent } from '@mui/material';
-// import { Image } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Summary } from './Summary';
 
 export const Quiz = () => {
   const dispatch = useDispatch();
   const { currentQuestionIndex, questions, animalId, quizOver } = useSelector((store) => store.quiz);
   const question = questions[currentQuestionIndex];
-  const theme = useTheme();
   const totalSteps = questions.length;
 
   // useEffect(() => {
@@ -40,7 +39,7 @@ export const Quiz = () => {
 
   const handleBack = () => {
     if (currentQuestionIndex > 0) {
-      dispatch(quiz.actions.goToPreviousQuestion());
+      dispatch(quiz.actions.goToPreviousQuestion(currentQuestionIndex - 1));
       console.log(handleBack)
     }
   };
@@ -74,11 +73,11 @@ export const Quiz = () => {
   } else {
     return (
       <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Card variant="outlined" sx={{ maxWidth: 500, textAlign: 'center', marginTop: 20 }}>
-          <CardContent>
+        <Card variant="outlined" sx={{ maxWidth: 700, textAlign: 'center', marginTop: 20 }}>
+          <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Typography variant="h3" sx={{ margin: 5 }}>{question.questionText}</Typography>
             <img src={animalImagePath} alt={animalImagePath} />
-            <ButtonGroup size="large" aria-label="large button group" color="primary" variant="outlined" spacing={2} sx={{ maxWidth: '100%' }}>
+            <ButtonGroup size="large" aria-label="large button group" color="success" variant="contained" spacing={2} sx={{ maxWidth: '100%' }}>
               {question.options.map((singleOption, index) => (
                 <Button
                   key={singleOption}
@@ -88,8 +87,7 @@ export const Quiz = () => {
                   isCorrectAnswer={index === question.correctAnswerIndex}
                   aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
                   onClick={() => handleOptionClick(index)}>
-                  <img src={singleOption.image} alt={singleOption.text} />
-                  {singleOption.text}
+                  {singleOption}
                 </Button>
               ))}
             </ButtonGroup>
@@ -98,30 +96,23 @@ export const Quiz = () => {
               steps={totalSteps}
               position="static"
               activeStep={currentQuestionIndex}
-              sx={{ maxWidth: 400, flexGrow: 1 }}
+              sx={{ maxWidth: 400, flexGrow: 1, alignItems: 'center' }}
               nextButton={
-                <Button size="small" onClick={handleNext} disabled={currentQuestionIndex === totalSteps - 1}>
-                Next
-                  {theme.direction === 'rtl' ? (
-                    <KeyboardArrowLeft />
-                  ) : (
-                    <KeyboardArrowRight />
-                  )}
-                </Button>
+                <IconButton size="small" onClick={handleNext} disabled={currentQuestionIndex === totalSteps - 1}>
+                  <ArrowForwardIcon fontSize="large" />
+                </IconButton>
               }
               backButton={
-                <Button size="small" onClick={handleBack} disabled={currentQuestionIndex === 0}>
-                  {theme.direction === 'rtl' ? (
-                    <KeyboardArrowRight />
-                  ) : (
-                    <KeyboardArrowLeft />
-                  )}
-                Back
-                </Button>
-              } />
+                <IconButton size="small" onClick={handleBack} disabled={currentQuestionIndex === 0}>
+                  <ArrowBackIcon fontSize="large" />
+                </IconButton>
+              }
+            />
           </CardContent>
         </Card>
       </Container>
     );
   }
 }
+
+// <img src={singleOption.image} alt={singleOption.text} />

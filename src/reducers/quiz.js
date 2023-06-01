@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
 
 // /images/quizimgs/meat.jpg
-const questions = [
+/* const questions = [
   { id: 0,
     questionText: 'What does this animal eat?',
     options: [{ text: 'Carnivore:Meat', image: '' }, { text: 'Herbivore:Plants', image: '' }, { text: 'Omnivore:Everything', image: '' }] },
@@ -20,6 +21,27 @@ const questions = [
   { id: 5,
     questionText: 'What is the best way for this animal to get around?',
     options: [{ text: 'walking', image: '' }, { text: 'hopping', image: '' }, { text: 'flying', image: '' }, { text: 'swimming', image: '' }] }
+] */
+
+const questions = [
+  { id: 0,
+    questionText: 'What does this animal eat?',
+    options: ['Carnivore 🥩', 'Herbivore🍓🥦', 'Omnivore🥩🍓🥦'] },
+  { id: 1,
+    questionText: 'Where does this animal live?',
+    options: ['ocean🌊', 'trees🌲', 'land🌄', 'snow☃️'] },
+  { id: 2,
+    questionText: 'Does this animal have live babies or lay eggs?',
+    options: ['eggs🥚', 'live babies👶'] },
+  { id: 3,
+    questionText: 'Does this animal like to live alone or in groups?',
+    options: ['Alone', 'Groups'] },
+  { id: 4,
+    questionText: 'How many hours per day does this animal sleep?',
+    options: ['less than 5 hours', '5-10 hours', 'more than 10 hours'] },
+  { id: 5,
+    questionText: 'What is the best way for this animal to get around?',
+    options: ['walking', 'hopping', 'flying', 'swimming'] }
 ]
 
 const animalAnswers = [
@@ -111,6 +133,16 @@ export const quiz = createSlice({
         state.quizOver = true
       } else {
         state.currentQuestionIndex += 1
+      }
+    },
+    goToPreviousQuestion: (state) => {
+      state.disabledButtons = false;
+      state.btnColor = ''
+      state.correctAnswerIndicator = false
+      if (state.currentQuestionIndex === 0) {
+        state.currentQuestionIndex = state.questions.length - 1;
+      } else {
+        state.currentQuestionIndex -= 1
       }
     },
 
