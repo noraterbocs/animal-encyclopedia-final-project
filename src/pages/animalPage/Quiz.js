@@ -8,10 +8,11 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Card, CardContent } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Card, CardContent, ThemeProvider } from '@mui/material';
+// import IconButton from '@mui/material/IconButton';
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+// import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { createTheme } from '@mui/material/styles';
 import { Summary } from './Summary';
 
 export const Quiz = () => {
@@ -20,29 +21,27 @@ export const Quiz = () => {
   const question = questions[currentQuestionIndex];
   const totalSteps = questions.length;
 
-  // useEffect(() => {
-  //  dispatch(quiz.actions.restart());
-  // }, [dispatch]);
-
   const handleOptionClick = (index) => {
     dispatch(quiz.actions.submitAnswer({ questionId: question.id, answerIndex: index, animalId }));
     dispatch(quiz.actions.goToNextQuestion());
   };
 
-  const handleNext = () => {
-    if (currentQuestionIndex < totalSteps - 1) {
-      dispatch(quiz.actions.goToNextQuestion());
-    } else {
-      dispatch(quiz.actions.finishQuiz());
-    }
-  };
+  const theme = createTheme({ Typography: { fontSize: 12 } })
 
-  const handleBack = () => {
-    if (currentQuestionIndex > 0) {
-      dispatch(quiz.actions.goToPreviousQuestion(currentQuestionIndex - 1));
-      console.log(handleBack)
-    }
-  };
+  // const handleNext = () => {
+  //   if (currentQuestionIndex < totalSteps - 1) {
+  //     dispatch(quiz.actions.goToNextQuestion());
+  //   } else {
+  //     dispatch(quiz.actions.finishQuiz());
+  //   }
+  // };
+
+  // const handleBack = () => {
+  //   if (currentQuestionIndex > 0) {
+  //     dispatch(quiz.actions.goToPreviousQuestion(currentQuestionIndex - 1));
+  //     console.log(handleBack)
+  //   }
+  // };
 
   const animalImg = [
     { path: '/images/eagle.png', id: 'eagle' },
@@ -97,23 +96,25 @@ export const Quiz = () => {
               ))}
             </Stack>
 
-            <MobileStepper
-              variant="dots"
-              steps={totalSteps}
-              position="static"
-              activeStep={currentQuestionIndex}
-              sx={{ maxWidth: 400, flexGrow: 1, alignItems: 'center' }}
-              nextButton={
-                <IconButton size="small" onClick={handleNext} disabled={currentQuestionIndex === totalSteps - 1}>
-                  <ArrowForwardIcon fontSize="large" />
-                </IconButton>
-              }
-              backButton={
-                <IconButton size="small" onClick={handleBack} disabled={currentQuestionIndex === 0}>
-                  <ArrowBackIcon fontSize="large" />
-                </IconButton>
-              }
-            />
+            <ThemeProvider theme={theme}>
+              <MobileStepper
+                variant="dots"
+                steps={totalSteps}
+                position="static"
+                activeStep={currentQuestionIndex}
+                sx={{ maxWidth: 400 }}
+              // nextButton={
+              //   <IconButton size="small" onClick={handleNext} disabled={currentQuestionIndex === totalSteps - 1}>
+              //     <ArrowForwardIcon fontSize="large" />
+              //   </IconButton>
+              // }
+              // backButton={
+              //   <IconButton size="small" onClick={handleBack} disabled={currentQuestionIndex === 0}>
+              //     <ArrowBackIcon fontSize="large" />
+              //   </IconButton>
+              // }
+              />
+            </ThemeProvider>
           </CardContent>
         </Card>
       </Container>
