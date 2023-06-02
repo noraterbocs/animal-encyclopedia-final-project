@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { API_URL } from 'utils/urls';
-// import { useSelector } from 'react-redux';
 import { API_URL } from 'utils/urls';
 import { loading } from './loading';
 import { user } from './user';
@@ -8,23 +6,16 @@ import { user } from './user';
 export const games = createSlice({
   name: 'games',
   initialState: {
-    generatedText: 'Sample text',
-    generatedImage: '',
-    generatedTitle: 'Sample title',
+    generatedStory: null,
     previousStories: []
   },
   reducers: {
-    setGeneratedText: (store, action) => {
-      store.generatedText = action.payload.newGeneratedText
-      store.generatedTitle = action.payload.title
-      console.log('generated text:', action.payload)
-    },
-    setGeneratedImage: (store, action) => {
-      store.generatedImage = action.payload
-      console.log('generated img:', action.payload)
+    setGeneratedStory: (store, action) => {
+      store.generatedStory = action.payload
+      console.log('generated story:', action.payload)
     },
     setPreviousStories: (store, action) => {
-      store.previousStories = [...store.previousStories, ...action.payload]
+      store.previousStories = action.payload
       console.log('previous stories:', action.payload)
     }
   }
@@ -51,12 +42,8 @@ export const generateText = (mainCharacter, friends, location, genre) => {
 
       if (data.success) {
         console.log(data)
-        dispatch(games.actions.setGeneratedText(data.response))
-        // comment it back if image genenration is on again:
-        // dispatch(games.actions.setGeneratedImage(data.response.image))
-        // dispatch(user.actions.setError(null))
+        dispatch(games.actions.setGeneratedStory(data.response))
       } else {
-        // dispatch(user.actions.setError('Error'))
         console.error(data)
       }
     } catch (error) {

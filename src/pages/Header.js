@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/jsx-closing-tag-location */
 import * as React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,6 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Button, Container } from '@mui/material';
+import { useState, useEffect } from 'react';
 import { user } from '../reducers/user';
 
 const drawerWidth = 240;
@@ -30,13 +31,23 @@ const navItems = [
 ];
 
 export const Header = (props) => {
+  const location = useLocation();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  // Excluding pages to show Header:
+  const [display, setDisplay] = useState(true)
+  useEffect(() => {
+    if (location.pathname.includes('animal') || location.pathname.includes('login')) {
+      setDisplay(false)
+    } else {
+      setDisplay(true)
+    }
+  }, [location])
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -74,7 +85,7 @@ export const Header = (props) => {
   }
   return (
     <Container maxWidth="100vw">
-      {accessToken ? <Box sx={{ display: 'flex' }}>
+      {display ? <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar component="nav">
           <Toolbar>

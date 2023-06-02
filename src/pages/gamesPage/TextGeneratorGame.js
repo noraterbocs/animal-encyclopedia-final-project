@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable react/jsx-props-no-spreading */
 import { Box, Button, Card, CardContent, CardHeader, CardMedia, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
-// import { styled, alpha } from '@mui/material/styles';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generateText, getStories } from 'reducers/games';
 import { PreviousStories } from './PreviousStories';
@@ -45,10 +44,12 @@ export const TextGeneratorGame = () => {
   const friends = selectedOptions[1]
   const genre = selectedOptions[3]
 
-  const currentGeneratedText = useSelector((store) => store.games.generatedText)
-  const generatedTitle = useSelector((store) => store.games.generatedTitle)
-  const currentGeneratedImage = useSelector((store) => store.games.generatedImage)
+  const generatedStory = useSelector((store) => store.games.generatedStory)
   console.log(selectedOptions)
+
+  useEffect(() => {
+    dispatch(getStories())
+  }, [dispatch, generatedStory])
 
   const handleChange = (event, index) => {
     const newSelectedOptions = [...selectedOptions];
@@ -83,26 +84,27 @@ export const TextGeneratorGame = () => {
         })}
       </Box>
       <Box>
-        <Card sx={{ maxWidth: '100%' }}>
+        {generatedStory !== null
+        && <Card sx={{ maxWidth: '100%' }}>
           <CardHeader
-            title={generatedTitle} />
+            title={generatedStory.title} />
           <CardMedia
             sx={{ width: 'auto', margin: 'auto' }}
             component="img"
             height="200px"
-            image={currentGeneratedImage}
+            image={generatedStory.image}
             alt="new generated image" />
           <CardContent>
             <Typography variant="body2" color="text.secondary" sx={{ height: 'max-content' }}>
-              {currentGeneratedText}
+              {generatedStory.newGeneratedText}
             </Typography>
           </CardContent>
-        </Card>
+          {/* eslint-disable-next-line indent */}
+           </Card>}
         <Button onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
         Generate text
         </Button>
       </Box>
-      <Button onClick={() => dispatch(getStories())}>Load previous stories</Button>
       <Box>
         <PreviousStories />
       </Box>

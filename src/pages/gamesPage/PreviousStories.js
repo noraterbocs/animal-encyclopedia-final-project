@@ -19,7 +19,7 @@ export const PreviousStories = () => {
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', gap: '1em' }}>
       {(previousStories.length > 0 || previousStories !== undefined) && previousStories.map((story) => {
         return (
-          <Card sx={{ maxWidth: 280 }}>
+          <Card key={story.storyId} sx={{ maxWidth: 280 }}>
             <CardHeader
               avatar={
                 <Avatar sx={{ backgroundImage: `url(${userAvatar})` }} aria-label="recipe">
@@ -33,11 +33,11 @@ export const PreviousStories = () => {
               component="img"
               height="200px"
               // if image generator is fixed:   image={story.image}
-              image={story.mainCharacter !== null && `/images/${story.mainCharacter.toLowerCase()}.png`}
+              image={story.mainCharacter !== null ? `/images/${story.mainCharacter.toLowerCase()}.png` : ''}
               alt={`${story.mainCharacter} & ${story.friends}`} />
             <CardContent>
               <Typography variant="body2" color="text.secondary" sx={{ height: 'max-content' }}>
-                {story.generatedtext}
+                {story.newGeneratedtext}
               </Typography>
             </CardContent>
           </Card>
