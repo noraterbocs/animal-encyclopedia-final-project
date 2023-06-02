@@ -35,8 +35,8 @@ const summaryStyle = {
   p: 4
 };
 const ChatbotAvatarStyle = {
-  width: '40px',
-  height: '40px'
+  width: '60px',
+  height: '60px'
 }
 
 export const Summary = () => {
@@ -85,8 +85,8 @@ export const Summary = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description">
           <Box sx={summaryStyle}>
-            <Card sx={{ backgroundColor: 'green', height: '100%' }}>
-              <Confetti maxwidth={1200} />
+            <Card sx={{ backgroundColor: 'green', height: '100%', position: 'relative' }}>
+              <Confetti sx={{ position: 'absolute' }} />
               <CardMedia
                 sx={{ }}
                 image={SummaryPicture}
@@ -108,9 +108,9 @@ export const Summary = () => {
         </Card>
       </div>
 
-      <div>
-        <Button onClick={handleOpenChatbotModal}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
-      </div>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button onClick={handleOpenChatbotModal} sx={{ alignItems: 'center' }}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
+      </Box>
 
       <div>
         <Modal

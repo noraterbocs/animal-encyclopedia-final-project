@@ -6,7 +6,7 @@ import { quiz } from 'reducers/quiz';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Card, CardContent } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -77,20 +77,26 @@ export const Quiz = () => {
           <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Typography variant="h3" sx={{ margin: 5 }}>{question.questionText}</Typography>
             <img src={animalImagePath} alt={animalImagePath} />
-            <ButtonGroup size="large" aria-label="large button group" color="success" variant="contained" spacing={2} sx={{ maxWidth: '100%' }}>
+
+            <Stack spacing={2} direction="row">
               {question.options.map((singleOption, index) => (
                 <Button
-                  key={singleOption}
+                  key={singleOption.text}
                   type="button"
+                  variant="outlined"
+                  color="primary"
+                  size="large"
                   value={index}
                   index={index}
                   isCorrectAnswer={index === question.correctAnswerIndex}
                   aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
                   onClick={() => handleOptionClick(index)}>
-                  {singleOption}
+                  {singleOption.text}
+                  <img src={singleOption.image} alt={singleOption.text} style={{ height: '20px' }} />
                 </Button>
               ))}
-            </ButtonGroup>
+            </Stack>
+
             <MobileStepper
               variant="dots"
               steps={totalSteps}
@@ -115,4 +121,4 @@ export const Quiz = () => {
   }
 }
 
-// <img src={singleOption.image} alt={singleOption.text} />
+//  <img src={singleOption.image} alt={singleOption.text} />
