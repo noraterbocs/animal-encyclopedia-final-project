@@ -17,6 +17,7 @@ import { loading } from './reducers/loading';
 import { leaderboard } from './reducers/leaderboard';
 
 export const App = () => {
+  // const { location } = useLocation();
   const reducer = combineReducers({
     user: user.reducer,
     leaderboard: leaderboard.reducer,
@@ -28,6 +29,12 @@ export const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        {/* {
+          location.pathname === '/login' ? <Header /> : ''
+        } */}
+        {/* {window.location.pathname === '/login' ? (
+          <Header />
+        ) : null} */}
         <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
