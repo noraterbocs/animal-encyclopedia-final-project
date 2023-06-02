@@ -100,7 +100,7 @@ export const Header = (props) => {
             <Typography
               variant="h6"
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}> ZooQuest
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}> AnimalQuest
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {navItems.map((item) => (

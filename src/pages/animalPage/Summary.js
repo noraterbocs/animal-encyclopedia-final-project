@@ -1,87 +1,131 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { Card, CardContent, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import CardMedia from '@mui/material/CardMedia';
+import { Link } from 'react-router-dom';
+import { quiz } from 'reducers/quiz';
+import Confetti from 'react-confetti'
 import { Chatbot } from './ChatBot';
-// import { useSelector } from 'react-redux';
+import ChatbotAvatar from '../../assets/chatbot/195.jpg';
+import SummaryPicture from '../../assets/summary/summarypic.jpg'
+
+const chatbotStyle = {
+  position: 'absolute',
+  bottom: '5%',
+  right: '5%',
+  width: '60vw',
+  height: '70vh',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+};
+const summaryStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '70vw',
+  height: '70vh',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+};
+const ChatbotAvatarStyle = {
+  width: '60px',
+  height: '60px'
+}
 
 export const Summary = () => {
+  const answers = useSelector((store) => store.quiz.answers)
+  const animalId = useSelector((store) => store.quiz.animalId)
+  const correctAnswers = answers.filter((item) => item.isCorrect)
+  const dispatch = useDispatch();
+  const { quizOver } = useSelector((store) => store.quiz);
+
+  const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
+  const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);
+
+  const handleOpenSummaryModal = () => setSummaryModalOpen(true);
+  const handleCloseSummaryModal = () => setSummaryModalOpen(false);
+
+  const handleOpenChatbotModal = () => setChatbotModalOpen(true);
+  const handleCloseChatbotModal = () => setChatbotModalOpen(false);
+
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+
+  const handleQuizOver = () => {
+    if (quizOver) {
+      dispatch(quiz.actions.restart());
+    }
+  }
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      handleCloseSummaryModal();
+    }, 10000);
+
+    handleOpenSummaryModal();
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div>
-      <h1>Summary</h1>
-      <Chatbot />
+
+      <div>
+        <Modal
+          open={summaryModalOpen}
+          onClose={handleCloseSummaryModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description">
+          <Box sx={summaryStyle}>
+            <Card sx={{ backgroundColor: 'green', height: '100%', position: 'relative' }}>
+              <Confetti sx={{ position: 'absolute' }} />
+              <CardMedia
+                sx={{ }}
+                image={SummaryPicture}
+                title="party background" />
+              <CardContent>
+                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>🎉 🥳 You got {correctAnswers.length}/{answers.length} questions right! 🥳 🎉</Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        </Modal>
+      </div>
+
+      <div>
+        <Card>
+          <CardContent>
+            <Typography variant="h1">Learn more about the {animalId} here</Typography>
+            <p>animal stuff here</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button onClick={handleOpenChatbotModal} sx={{ alignItems: 'center' }}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
+      </Box>
+
+      <div>
+        <Modal
+          open={chatbotModalOpen}
+          onClose={handleCloseChatbotModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description">
+          <Box sx={chatbotStyle}>
+            <Chatbot />
+          </Box>
+        </Modal>
+      </div>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <Button onClick={handleQuizOver}>Try more animals</Button>
+      </Link>
     </div>
   )
 }
-
-// import React, { useEffect, useState } from 'react';
-
-// const Results = () => {
-
-// const answers = useSelector((store) => store.quiz.answers)
-// const correctAnswers = answers.filter((item) => item.isCorrect)
-
-//   const [scorePercent, setScorePercent] = useState(0);
-
-//   useEffect(() => {
-//     // Update scorePercent state variable
-//     const newScorePercent = (correctAnswers.length * 100) / answers.length;
-//     setScorePercent(newScorePercent);
-//   }, [answers, correctAnswers]);
-//   const quizOver = useSelector((store) => store.quiz.quizOver);
-//   console.log(quizOver)
-
-//   const grade = () => {
-//     return scorePercent >= 90 ? 'You are smashing this bootcamp A!'
-//       : scorePercent >= 80 ? 'Well done you got a B!'
-//         : scorePercent >= 70 ? 'Such a nice middle of the curve type student its a C for you.'
-//           : scorePercent >= 60 ? 'Who says guessing cant get you a passing grade? Its a D for you.'
-//             : scorePercent >= 50 ? 'Sadly a chimpanzee randomly poking at a keyboard could do better'
-//               : scorePercent >= 40 ? 'Unspeakable, lets pretend that didnt happen and you try again?'
-//                 : <p>what? Lets give it another try shall we????</p>
-//   }
-//   return (
-//     <ResultsParentContainer>
-//       <ResultsChildContainer>
-//         <ResultsH1>{grade()}</ResultsH1>
-//         <ResultsH3>Score: {correctAnswers.length}/{answers.length}</ResultsH3>
-//         <RestartButton />
-//       </ResultsChildContainer>
-//     </ResultsParentContainer>
-//   )
-// }
-
-// export default Results;
-/*
-const ResultsParentContainer = styled.div`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  background-color: black;`
-
-const ResultsChildContainer = styled.div`
-  background-image: url(${matrix});
-  background-size: cover;
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 20px;
-  padding-bottom: 20px;
-`
-const ResultsH1 = styled.h1`
-color:white;
-font-size:3rem;
-text-align:center;
-width: 90%;
-text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-`
-const ResultsH3 = styled.h3`
-color:white;
-font-size:3rem;
-text-align:center;
-width: 90%;
-text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-margin-top:0;
-`;/ */

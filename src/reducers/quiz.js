@@ -1,15 +1,48 @@
 /* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
-// import { loading } from './loading';
 
+// /images/quizimgs/meat.jpg
 const questions = [
-  { id: 0, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'] },
-  { id: 1, questionText: 'Where does this animal live?', options: ['ocean', 'trees', 'land', 'snow'] },
-  { id: 2, questionText: 'Does this animal have live babies or lay eggs?', options: ['eggs', 'live babies'] },
-  { id: 3, questionText: 'Does this animal like to live alone or in groups?', options: ['Alone', 'Groups'] },
-  { id: 4, questionText: 'How many hours per day does this animal sleep?', options: ['less than 5 hours', '5-10 hours', 'more than 10hours'] },
-  { id: 5, questionText: 'What is the best way for this animal to get around?', options: ['walking', 'hopping', 'flying', 'swimming'] }
+  { id: 0,
+    questionText: 'What does this animal eat?',
+    options: [{ text: 'Carnivore:Meat', image: '/images/quizimgs/meat.jpg' }, { text: 'Herbivore:Plants', image: '/images/quizimgs/meat.jpg' }, { text: 'Omnivore:Everything', image: '/images/quizimgs/meat.jpg' }] },
+  { id: 1,
+    questionText: 'Where does this animal live?',
+    options: [{ text: 'ocean', image: '' }, { text: 'trees', image: '' }, { text: 'land', image: '' }, { text: 'snow', image: '' }] },
+  { id: 2,
+    questionText: 'Does this animal have live babies or lay eggs?',
+    options: [{ text: 'eggs', image: '' }, { text: 'live babies', image: '' }] },
+  { id: 3,
+    questionText: 'Does this animal like to live alone or in groups?',
+    options: [{ text: 'Alone', image: '' }, { text: 'Groups', image: '' }] },
+  { id: 4,
+    questionText: 'How many hours per day does this animal sleep?',
+    options: [{ text: 'less than 5 hours', image: '' }, { text: '5-10 hours', image: '' }, { text: 'more than 10hours', image: '' }] },
+  { id: 5,
+    questionText: 'What is the best way for this animal to get around?',
+    options: [{ text: 'walking', image: '' }, { text: 'hopping', image: '' }, { text: 'flying', image: '' }, { text: 'swimming', image: '' }] }
 ]
+
+// const questions = [
+//   { id: 0,
+//     questionText: 'What does this animal eat?',
+//     options: ['Carnivore 🥩', 'Herbivore🍓🥦', 'Omnivore🥩🍓🥦'] },
+//   { id: 1,
+//     questionText: 'Where does this animal live?',
+//     options: ['ocean🌊', 'trees🌲', 'land🌄', 'snow☃️'] },
+//   { id: 2,
+//     questionText: 'Does this animal have live babies or lay eggs?',
+//     options: ['eggs🥚', 'live babies👶'] },
+//   { id: 3,
+//     questionText: 'Does this animal like to live alone or in groups?',
+//     options: ['Alone', 'Groups'] },
+//   { id: 4,
+//     questionText: 'How many hours per day does this animal sleep?',
+//     options: ['less than 5 hours', '5-10 hours', 'more than 10 hours'] },
+//   { id: 5,
+//     questionText: 'What is the best way for this animal to get around?',
+//     options: ['walking', 'hopping', 'flying', 'swimming'] }
+// ]
 
 const animalAnswers = [
   { id: 'bear', correctAnswerIndex: [3, 2, 1, 0, 2, 0], answerIndex: [] },
@@ -22,9 +55,9 @@ const animalAnswers = [
   { id: 'kangaroo', correctAnswerIndex: [1, 2, 1, 1, 1, 1], answerIndex: [] },
   { id: 'koala', correctAnswerIndex: [1, 1, 1, 0, 2, 0], answerIndex: [] },
   { id: 'panda', correctAnswerIndex: [1, 2, 1, 0, 2, 0], answerIndex: [] },
-  { id: 'penguin', correctAnswerIndex: [2, 2, 0, 1, 0, 3], answerIndex: [] },
+  { id: 'penguin', correctAnswerIndex: [0, 2, 0, 1, 0, 3], answerIndex: [] },
   { id: 'racoon', correctAnswerIndex: [3, 1, 1, 0, 2, 0], answerIndex: [] },
-  { id: 'seal', correctAnswerIndex: [2, 0, 1, 0, 0, 3], answerIndex: [] },
+  { id: 'seal', correctAnswerIndex: [0, 0, 1, 0, 0, 3], answerIndex: [] },
   { id: 'tiger', correctAnswerIndex: [0, 2, 1, 0, 2, 0], answerIndex: [] },
   { id: 'toucan', correctAnswerIndex: [1, 1, 0, 1, 2, 2], answerIndex: [] }
 ]
@@ -47,13 +80,12 @@ export const quiz = createSlice({
 
     submitAnswer: (state, action) => {
       const { questionId, answerIndex, animalId } = action.payload
-      // identify the current question eg:  { id: 0, questionText: 'What does this animal eat?', options: ['Meat', 'Plants', 'Fish', 'Everything'] },
+      // identify the current question eg:
+      // { id: 0, questionText: 'What does this animal eat?',
+      // options: ['Meat', 'Plants', 'Fish', 'Everything'] },
       const question = state.questions.find((q) => q.id === questionId)
       // identify current animal
       const selectedAnimal = state.animalAnswers.find((q) => q.id === animalId)
-
-      // const selectedQuestion = state.questions.find((q) => q.id === questionId);
-      // const selectedAnimalAnswer = state.animalAnswers.find((a) => a.animal === selectedQuestion.animal);
 
       // let newAnswer = question.options[animalAnswers];
       // state.correctAnswerIndicator = true
@@ -64,7 +96,8 @@ export const quiz = createSlice({
       // }
 
       // if (!question) {
-      //   throw new Error('Could not find question! Check to make sure you are passing the question id correctly.')
+      //   throw new Error('Could not find question!
+      // Check to make sure you are passing the question id correctly.')
       // }
 
       // if (question.correctAnswerIndex) {
@@ -74,7 +107,8 @@ export const quiz = createSlice({
       //   console.log('correct index', question.correctAnswerIndex, 'selectedIndex', answerIndex)
       //   state.btnColor = '#56ab2f'
       // } else {
-      //   console.log('correct index', question.correctAnswerIndex, 'wrongselectedIndex', answerIndex)
+      //   console.log('correct index',
+      // question.correctAnswerIndex, 'wrongselectedIndex', answerIndex)
       //   state.btnColor = '#FF416C';
       // }
 
@@ -101,6 +135,16 @@ export const quiz = createSlice({
         state.currentQuestionIndex += 1
       }
     },
+    goToPreviousQuestion: (state) => {
+      state.disabledButtons = false;
+      state.btnColor = ''
+      state.correctAnswerIndicator = false
+      if (state.currentQuestionIndex === 0) {
+        state.currentQuestionIndex = state.questions.length - 1;
+      } else {
+        state.currentQuestionIndex -= 1
+      }
+    },
 
     startQuiz: (state) => {
       if (state.quizOver === null) {
@@ -115,3 +159,17 @@ export const quiz = createSlice({
 
   }
 })
+
+// const xmlSample = '<tag>tag content</tag><tag2>another content</tag2><tag3><insideTag>inside content</insideTag><emptyTag /></tag3>';
+// console.log(parseXmlToJson(xmlSample));
+
+// function parseXmlToJson(xml) {
+//     const json = {};
+//     for (const res of xml.matchAll(/(?:<(\w*)(?:\s[^>]*)*>)((?:(?!<\1).)*)(?:<\/\1>)|<(\w*)(?:\s*)*\/>/gm)) {
+//         const key = res[1] || res[3];
+//         const value = res[2] && parseXmlToJson(res[2]);
+//         json[key] = ((value && Object.keys(value).length) ? value : res[2]) || null;
+
+//     }
+//     return json;
+// }
