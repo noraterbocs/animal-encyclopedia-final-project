@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, Button, Card, CardContent, CardHeader, CardMedia, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generateText, getStories } from 'reducers/games';
+import { getLastGeneratedStoryDate } from 'reducers/user';
 import { PreviousStories } from './PreviousStories';
 
 export const TextGeneratorGame = () => {
@@ -43,18 +44,27 @@ export const TextGeneratorGame = () => {
   const location = selectedOptions[2]
   const friends = selectedOptions[1]
   const genre = selectedOptions[3]
+  const [isFormValid, setIsFormValid] = useState(false);
+  // const lastGeneratedStoryInDays = useSelector((store) => store.games.lastGeneratedStoryInDays)
+
+  // logged in user's stories:
+  const lastGeneratedStoryDate = useSelector((store) => store.user.lastGeneratedStoryDate)
+  const timeDifference = Math.floor((new Date().getTime() - new Date(lastGeneratedStoryDate).getTime()) / (1000 * 60 * 60 * 24));// use date fns to check the remaining time
 
   const generatedStory = useSelector((store) => store.games.generatedStory)
   console.log(selectedOptions)
 
   useEffect(() => {
     dispatch(getStories())
+    dispatch(getLastGeneratedStoryDate())
   }, [dispatch, generatedStory])
 
   const handleChange = (event, index) => {
     const newSelectedOptions = [...selectedOptions];
     newSelectedOptions[index] = event.target.value;
     setSelectedOptions(newSelectedOptions);
+    setIsFormValid(newSelectedOptions.every((option) => option !== null));
+    console.log(timeDifference)
   };
 
   return (
@@ -70,7 +80,8 @@ export const TextGeneratorGame = () => {
                 id={`${parameter.id}-select`}
                 value={selectedOptions[index]}
                 onChange={(event) => handleChange(event, index)}
-                label={parameter.title}>
+                label={parameter.title}
+                required>
                 {parameter.options.map((option) => {
                   return (
                     <MenuItem value={option} key={option}>
@@ -84,25 +95,8 @@ export const TextGeneratorGame = () => {
         })}
       </Box>
       <Box>
-        {generatedStory !== null
-        && <Card sx={{ maxWidth: '100%' }}>
-          <CardHeader
-            title={generatedStory.title} />
-          <CardMedia
-            sx={{ width: 'auto', margin: 'auto' }}
-            component="img"
-            height="200px"
-            image={generatedStory.image}
-            alt="new generated image" />
-          <CardContent>
-            <Typography variant="body2" color="text.secondary" sx={{ height: 'max-content' }}>
-              {generatedStory.newGeneratedText}
-            </Typography>
-          </CardContent>
-          {/* eslint-disable-next-line indent */}
-           </Card>}
-        <Button onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
-        Generate text
+        <Button disabled={!isFormValid || timeDifference === 0} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
+          {timeDifference === 0 ? 'You have already generated a story today' : 'Generate text'}
         </Button>
       </Box>
       <Box>
