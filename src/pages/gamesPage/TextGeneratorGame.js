@@ -49,7 +49,7 @@ export const TextGeneratorGame = () => {
 
   // logged in user's stories:
   const lastGeneratedStoryDate = useSelector((store) => store.user.lastGeneratedStoryDate)
-  const timeDifference = Math.floor((new Date().getTime() - new Date(lastGeneratedStoryDate).getTime()) / (1000 * 60 * 60 * 24));// use date fns to check the remaining time
+  const timeDifference = Math.floor((new Date().getTime() - new Date(lastGeneratedStoryDate).getTime()) / (1000 * 60 * 60 * 24));// use date fns to check the remaining time and add a countdown to the button
 
   const generatedStory = useSelector((store) => store.games.generatedStory)
   console.log(selectedOptions)
