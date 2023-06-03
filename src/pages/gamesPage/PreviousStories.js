@@ -16,7 +16,7 @@ export const PreviousStories = () => {
   const userName = useSelector((store) => store.user.username).charAt[0]
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', gap: '1em' }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, gap: '1em', justifyContent: 'center' }}>
       {(previousStories.length > 0 || previousStories !== undefined) && previousStories.map((story) => {
         return (
           <Card key={story.storyId} sx={{ maxWidth: 280 }}>

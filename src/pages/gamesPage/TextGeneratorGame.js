@@ -58,9 +58,9 @@ export const TextGeneratorGame = () => {
   };
 
   return (
-    <Container>
-      <Typography variant="h2">Story Generator</Typography>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
+    <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      <Typography variant="h2" sx={{ textAlign: 'center' }}>Story Generator</Typography>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, justifyContent: 'center' }}>
         {parameters.map((parameter, index) => {
           return (
             <FormControl variant="standard" sx={{ m: 1, minWidth: 130 }}>

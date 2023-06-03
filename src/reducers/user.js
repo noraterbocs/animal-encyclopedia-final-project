@@ -14,7 +14,7 @@ export const user = createSlice({
     history: [],
     totalScore: 0,
     createdAt: '',
-    accessToken: '',
+    accessToken: '39804dfc98c71614f0ceaf199012274f03ef7037125e16dfe0c08b6f7e09a9e9d1818df9e7dd47ac1fef7b422d43ecc306a18e4ff2cd3f9093c262f85e492c6704e74b39f6827f6cebf676f43aaacba8fc19989c8d7dbdc6a557b684af64f64d1db1307a13104080cf1729794b2cbbe99901d5a1186fe08a7cd8bb9592abfc55',
     error: null,
     mode: 'login'
   },
