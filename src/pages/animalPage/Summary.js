@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
@@ -8,10 +8,12 @@ import Modal from '@mui/material/Modal';
 import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
 import { quiz } from 'reducers/quiz';
+import { setArticleContent } from 'reducers/articles';
 import Confetti from 'react-confetti'
+import { ANIMAL_API_KEY } from 'utils/urls';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/195.jpg';
-import SummaryPicture from '../../assets/summary/summarypic.jpg'
+import SummaryPicture from '../../assets/summary/summarypic.jpg';
 
 const chatbotStyle = {
   position: 'absolute',
@@ -40,11 +42,15 @@ const ChatbotAvatarStyle = {
 }
 
 export const Summary = () => {
+  // useSelector from quiz reducer
   const answers = useSelector((store) => store.quiz.answers)
   const animalId = useSelector((store) => store.quiz.animalId)
   const correctAnswers = answers.filter((item) => item.isCorrect)
   const dispatch = useDispatch();
   const { quizOver } = useSelector((store) => store.quiz);
+
+  // useSelector from article reducer
+  const animalArticles = useSelector((store) => store.animalArticles.animalArticles[animalId])
 
   const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
   const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);
@@ -75,6 +81,40 @@ export const Summary = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const fetchArticleContent = async () => {
+      try {
+        const response = await fetch(`https://api.britannica.com/api/article/content/${animalArticles.id}?key=${ANIMAL_API_KEY}`);
+        if (response.ok) {
+          const data = await response.text();
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(data, 'text/xml');
+          const articleText = xmlDoc.getElementsByTagName('content')[0].textContent;
+          dispatch(setArticleContent({ id: animalArticles.id, content: articleText }));
+          console.log(articleText);
+        } else {
+          throw new Error('Failed to fetch article content');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchArticleContent();
+
+    const timer = setTimeout(() => {
+      handleCloseSummaryModal();
+    }, 10000);
+
+    handleOpenSummaryModal();
+
+    return () => clearTimeout(timer);
+  }, [dispatch, animalId]);
+
+  if (!animalArticles) {
+    return <p>Article not found</p>
+  }
+
   return (
     <div>
 
@@ -103,7 +143,7 @@ export const Summary = () => {
         <Card>
           <CardContent>
             <Typography variant="h1">Learn more about the {animalId} here</Typography>
-            <p>animal stuff here</p>
+            <h1>{animalArticles.name}</h1>
           </CardContent>
         </Card>
       </div>
@@ -129,3 +169,21 @@ export const Summary = () => {
     </div>
   )
 }
+
+// article numbers for animals currently in project
+// bear-352836
+// eagle-353071
+// elephant-353093
+// Fox-353145
+// giraffe - 353182
+// hedgehog - 391021
+// jaguar - 353312
+// kangaroo - 353331
+// Koala - 353344
+// lion - 353389
+// panda - 353596
+// penguin - 353611
+// raccoon - 353690
+// seal -353754
+// tiger - 353858
+// toucan - 353869

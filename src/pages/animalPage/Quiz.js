@@ -26,7 +26,7 @@ export const Quiz = () => {
     dispatch(quiz.actions.goToNextQuestion());
   };
 
-  const theme = createTheme({ Typography: { fontSize: 12 } })
+  const theme = createTheme({ Typography: { fontSize: 50 } })
 
   // const handleNext = () => {
   //   if (currentQuestionIndex < totalSteps - 1) {
@@ -102,7 +102,7 @@ export const Quiz = () => {
                 steps={totalSteps}
                 position="static"
                 activeStep={currentQuestionIndex}
-                sx={{ maxWidth: 400 }}
+                sx={{ maxWidth: 400, fontSize: 12 }}
               // nextButton={
               //   <IconButton size="small" onClick={handleNext} disabled={currentQuestionIndex === totalSteps - 1}>
               //     <ArrowForwardIcon fontSize="large" />
