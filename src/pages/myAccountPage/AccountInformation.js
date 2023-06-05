@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { Box, Typography, Button, Container, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
+import { Box, Typography, Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Grid, useMediaQuery } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,10 +30,11 @@ export const AccountInformation = () => {
     dispatch(deleteUser())
     setOpen(false);
   }
+  const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
-    <Container>
+    <Grid item xs={isMobileView ? 12 : 4} sx={{ padding: '2em', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">Account information: </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <Typography>Username: {username}</Typography><Button onClick={handleClickOpen}><EditIcon /></Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Update information</DialogTitle>
@@ -56,12 +57,13 @@ export const AccountInformation = () => {
             <Button onClick={handleSaveUsername}>Save</Button>
           </DialogActions>
         </Dialog>
-
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <Typography>Email: {email}</Typography>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <Typography>Password: **********</Typography><Button onClick={handleClickOpen}><EditIcon /></Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Update information</DialogTitle>
@@ -108,6 +110,7 @@ export const AccountInformation = () => {
         </Dialog>
         {/* <Alert severity="success">Your account has been deleted!</Alert> */}
       </Box>
-    </Container>
+
+    </Grid>
   )
 }
