@@ -11,12 +11,23 @@ export const AccountInformation = () => {
   const username = useSelector((store) => store.user.username);
   const [dialogValue, setDialogValue] = useState('');
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
+  const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
+
+  const handleClickOpen = (id) => {
+    if (id === 'username') {
+      setOpen(true);
+    } else if (id === 'password') {
+      setChangePasswordOpen(true);
+    } else if (id === 'delete') {
+      setDeleteAccountOpen(true)
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
+    setDeleteAccountOpen(false)
+    setChangePasswordOpen(false)
   };
   const handleSaveUsername = () => {
     dispatch(updateUsername(dialogValue))
@@ -24,18 +35,18 @@ export const AccountInformation = () => {
   }
   const handleSavePassword = () => {
     dispatch(updatePassword(dialogValue))
-    setOpen(false);
+    setChangePasswordOpen(false);
   }
   const handleDeleteAccount = () => {
     dispatch(deleteUser())
-    setOpen(false);
+    setDeleteAccountOpen(false);
   }
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
     <Grid item xs={isMobileView ? 12 : 4} sx={{ padding: '2em', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">Account information: </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <Typography>Username: {username}</Typography><Button onClick={handleClickOpen}><EditIcon /></Button>
+        <Typography>Username: {username}</Typography><Button id="username" onClick={() => handleClickOpen('username')}><EditIcon /></Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Update information</DialogTitle>
           <DialogContent>
@@ -45,8 +56,8 @@ export const AccountInformation = () => {
             <TextField
               autoFocus
               margin="dense"
-              id="username"
-              label="New Psername"
+              // id="username"
+              label="New Username"
               type="text"
               fullWidth
               onChange={(e) => setDialogValue(e.target.value)}
@@ -64,8 +75,8 @@ export const AccountInformation = () => {
       </Box>
 
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <Typography>Password: **********</Typography><Button onClick={handleClickOpen}><EditIcon /></Button>
-        <Dialog open={open} onClose={handleClose}>
+        <Typography>Password: **********</Typography><Button id="password" onClick={() => handleClickOpen('password')}><EditIcon /></Button>
+        <Dialog open={changePasswordOpen} onClose={handleClose}>
           <DialogTitle>Update information</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -74,7 +85,7 @@ export const AccountInformation = () => {
             <TextField
               autoFocus
               margin="dense"
-              id="password"
+              // id="password"
               label="New Password"
               type="text"
               fullWidth
@@ -87,20 +98,15 @@ export const AccountInformation = () => {
           </DialogActions>
         </Dialog>
       </Box>
-      <Box><Button>Delete account</Button>
+      <Box><Button id="delete" onClick={() => handleClickOpen('delete')}>Delete account</Button>
         <Dialog
-          open={open}
+          open={deleteAccountOpen}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">
             Are you sure you want to delete your account?
           </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-            Please confirm of the deletion of your account.
-            </DialogContentText>
-          </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
             <Button onClick={handleDeleteAccount} autoFocus>

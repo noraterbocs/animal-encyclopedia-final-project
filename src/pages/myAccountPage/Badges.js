@@ -14,7 +14,7 @@ export const Badges = () => {
         {badges.map((badge) => {
           return (
             <Tooltip key={badge.title} title={`${badge.title}: ${badge.description}`}>
-              <Avatar alt={badge.title} src={badge.path} />
+              <Avatar alt={badge.title} src={badge.path} sx={{ height: '60px', width: '60px', margin: '1em 0' }} />
             </Tooltip>
           )
         })}
