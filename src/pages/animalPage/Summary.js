@@ -8,7 +8,7 @@ import Modal from '@mui/material/Modal';
 import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
 import { quiz } from 'reducers/quiz';
-import { setArticleContent } from 'reducers/articles';
+// import { setArticleContent } from 'reducers/articles';
 import Confetti from 'react-confetti'
 import { ANIMAL_API_KEY } from 'utils/urls';
 import { Chatbot } from './ChatBot';
@@ -50,7 +50,9 @@ export const Summary = () => {
   const { quizOver } = useSelector((store) => store.quiz);
 
   // useSelector from article reducer
-  const animalArticles = useSelector((store) => store.animalArticles.animalArticles[animalId])
+  const animalArticles = useSelector((store) => store.animalArticles[animalId])
+
+  const animalArticle = animalArticles.find((article) => article.id === animalId);
 
   const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
   const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);
@@ -84,14 +86,22 @@ export const Summary = () => {
   useEffect(() => {
     const fetchArticleContent = async () => {
       try {
-        const response = await fetch(`https://api.britannica.com/api/article/content/${animalArticles.id}?key=${ANIMAL_API_KEY}`);
+        const response = await fetch('https://syndication.api.eb.com/production/article/352836/xml', {
+          headers: {
+            // eslint-disable-next-line prefer-template
+            'x-api-key': ANIMAL_API_KEY,
+            'Content-Type': 'application/json'
+          }
+        })
+
+        // const response = await fetch(`https://syndication.api.eb.com/production/article/${animalArticles.id}/xml?key=${ANIMAL_API_KEY}`);
         if (response.ok) {
           const data = await response.text();
           const parser = new DOMParser();
           const xmlDoc = parser.parseFromString(data, 'text/xml');
           const articleText = xmlDoc.getElementsByTagName('content')[0].textContent;
-          dispatch(setArticleContent({ id: animalArticles.id, content: articleText }));
-          console.log(articleText);
+          // dispatch(setArticleContent({ id: animalArticles.id, content: articleText }));
+          console.log('is the fetched??', articleText);
         } else {
           throw new Error('Failed to fetch article content');
         }
@@ -111,7 +121,7 @@ export const Summary = () => {
     return () => clearTimeout(timer);
   }, [dispatch, animalId]);
 
-  if (!animalArticles) {
+  if (!animalArticle) {
     return <p>Article not found</p>
   }
 
@@ -143,7 +153,7 @@ export const Summary = () => {
         <Card>
           <CardContent>
             <Typography variant="h1">Learn more about the {animalId} here</Typography>
-            <h1>{animalArticles.name}</h1>
+            <h1>{animalArticle.name}</h1>
           </CardContent>
         </Card>
       </div>
