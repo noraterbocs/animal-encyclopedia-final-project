@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/jsx-closing-tag-location */
 import * as React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -35,6 +35,7 @@ export const Header = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -72,6 +73,7 @@ export const Header = (props) => {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   const onLogoutButtonClick = () => {
+    navigate('/')
     dispatch(user.actions.setAccessToken(null));
     dispatch(user.actions.setUsername(null));
     dispatch(user.actions.setEmail(null));
