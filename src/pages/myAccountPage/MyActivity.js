@@ -11,9 +11,11 @@ export const options = {
 
 export const MyActivity = () => {
   const myActivity = useSelector((store) => store.user.history)
+
   const performance = [['Date', 'Score']]
   myActivity.map((item) => {
-    return performance.push([item.timestamp, item.score])
+    console.log(new Date(item.timestamp).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }))
+    return performance.push([new Date(item.timestamp).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }), item.score])
   })
   console.log(performance)
   return (

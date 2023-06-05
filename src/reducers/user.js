@@ -8,6 +8,7 @@ export const user = createSlice({
   initialState: {
     userId: null,
     username: '',
+    password: '',
     email: '',
     avatar: 'https://picsum.photos/200',
     badges: [],
@@ -29,6 +30,10 @@ export const user = createSlice({
     setUsername: (store, action) => {
       store.username = action.payload
       console.log('username:', action.payload)
+    },
+    setPassword: (store, action) => {
+      store.password = action.payload
+      console.log('password:', action.payload)
     },
     setEmail: (store, action) => {
       store.email = action.payload
@@ -173,6 +178,62 @@ export const getUser = () => {
   };
 };
 
+// PATCH - update username
+export const updateUsername = (username) => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ username })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setUsername(data.response.username));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
+// PATCH - update password
+export const updatePassword = (password) => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ password })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setPassword(data.response.password));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
 // GET date of last generated Story
 export const getLastGeneratedStoryDate = () => {
   return (dispatch, getState) => {
@@ -193,6 +254,32 @@ export const getLastGeneratedStoryDate = () => {
         if (data.success) {
           dispatch(user.actions.setLastGeneratedStoryDate(data.response))
         } else {
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => setTimeout(() => dispatch(loading.actions.setLoading(false)), 5000))
+  };
+};
+
+// DELETE user account
+export const deleteUser = () => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      }
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
           dispatch(loading.actions.setLoading(false))
         }
       })
