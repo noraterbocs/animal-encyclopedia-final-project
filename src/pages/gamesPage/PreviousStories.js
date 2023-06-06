@@ -31,7 +31,7 @@ export const PreviousStories = () => {
               sx={{ width: 'auto', margin: 'auto' }}
               component="img"
               height="200px"
-              image={story.image === 'https://placehold.co/200' ? '/images/testing/img2.png' : story.image}
+              image={story.image}
               alt={`${story.mainCharacter} & ${story.friends}`} />
             <CardContent>
               <Typography variant="body2" color="text.secondary" sx={{ height: 'max-content' }}>
