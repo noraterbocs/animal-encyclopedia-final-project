@@ -3,7 +3,7 @@ import { API_URL } from 'utils/urls';
 import { loading } from './loading';
 
 export const animalArticles = createSlice({
-  name: 'animalarticles',
+  name: 'animalArticles',
   initialState: {
     animalText: {
       animalName: '',
@@ -24,9 +24,9 @@ export const animalArticles = createSlice({
 
 export const fetchAnimalArticles = () => {
   return (dispatch) => {
-    // dispatch(loading.actions.setLoading(true))
+    dispatch(loading.actions.setLoading(true))
 
-    fetch(API_URL('animal'))
+    fetch(API_URL('animals'))
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
@@ -40,7 +40,7 @@ export const fetchAnimalArticles = () => {
         dispatch(loading.actions.setError(error.message))
       })
       .finally(() => {
-        // dispatch(loading.actions.setLoading(false))
+        dispatch(loading.actions.setLoading(false))
       })
   };
 };

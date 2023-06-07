@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { Animal } from 'pages/animalPage/Animal.js';
 import { quiz } from 'reducers/quiz.js';
 import { TextGeneratorGame } from 'pages/gamesPage/TextGeneratorGame.js';
+import { animalArticles } from 'reducers/articles.js';
 import { Header } from './pages/Header.js';
 import { HomePage } from './pages/homePage/HomePage.js';
 import { Games } from './pages/gamesPage/Games.js';
@@ -25,7 +26,8 @@ export const App = () => {
     leaderboard: leaderboard.reducer,
     loading: loading.reducer,
     quiz: quiz.reducer,
-    games: games.reducer
+    games: games.reducer,
+    animalArticles: animalArticles.reducer
 
   });
   const store = configureStore({ reducer })

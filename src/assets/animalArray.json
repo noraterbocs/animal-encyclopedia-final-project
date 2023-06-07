@@ -1,5 +1,5 @@
-{
-    "animals": [
+
+    [
       {
         "animalName": "Brown Bear",
         "animalIntroduction": "The brown bear is a big and strong animal that lives in different parts of the world, like North America, Europe, and Asia. They have a thick fur coat to keep them warm in cold places.",
@@ -113,5 +113,4 @@
         "animalFacts": "Toucans are excellent fliers and can maneuver through the trees with ease. They also make funny croaking sounds that help them communicate!"
       }
     ]
-  }
   

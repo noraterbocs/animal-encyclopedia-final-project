@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-// import CardMedia from '@mui/material/CardMedia';
+import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
 import { quiz } from 'reducers/quiz';
-// import Confetti from 'react-confetti'
+import Confetti from 'react-confetti'
 // import { animalArticles } from 'reducers/articles';
 import { fetchAnimalArticles } from 'reducers/articles';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/195.jpg';
-// import SummaryPicture from '../../assets/summary/summarypic.jpg';
+import SummaryPicture from '../../assets/summary/summarypic.jpg';
 
 const chatbotStyle = {
   position: 'absolute',
@@ -25,17 +25,17 @@ const chatbotStyle = {
   boxShadow: 24,
   p: 4
 };
-// const summaryStyle = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: '70vw',
-//   height: '70vh',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4
-// };
+const summaryStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '70vw',
+  height: '70vh',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+};
 const ChatbotAvatarStyle = {
   width: '60px',
   height: '60px'
@@ -43,24 +43,24 @@ const ChatbotAvatarStyle = {
 
 export const Summary = () => {
   // useSelector from quiz reducer
-  // const answers = useSelector((store) => store.quiz.answers)
+  const answers = useSelector((store) => store.quiz.answers)
   const animalId = useSelector((store) => store.quiz.animalId)
-  // const correctAnswers = answers.filter((item) => item.isCorrect)
+  const correctAnswers = answers.filter((item) => item.isCorrect)
   const dispatch = useDispatch();
   const { quizOver } = useSelector((store) => store.quiz);
 
   // useSelector from article reducer
-  const animalText = useSelector((store) => store.fetchAnimalarticles.animalText);
+  const animalText = useSelector((store) => store.animalArticles.animalText);
 
   useEffect(() => {
     dispatch(fetchAnimalArticles());
   }, [dispatch]);
 
-  // const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
+  const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
   const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);
 
-  // const handleOpenSummaryModal = () => setSummaryModalOpen(true);
-  // const handleCloseSummaryModal = () => setSummaryModalOpen(false);
+  const handleOpenSummaryModal = () => setSummaryModalOpen(true);
+  const handleCloseSummaryModal = () => setSummaryModalOpen(false);
 
   const handleOpenChatbotModal = () => setChatbotModalOpen(true);
   const handleCloseChatbotModal = () => setChatbotModalOpen(false);
@@ -71,15 +71,15 @@ export const Summary = () => {
     }
   }
 
-  // React.useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     handleCloseSummaryModal();
-  //   }, 10000);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      handleCloseSummaryModal();
+    }, 10000);
 
-  //   handleOpenSummaryModal();
+    handleOpenSummaryModal();
 
-  //   return () => clearTimeout(timer);
-  // }, []);
+    return () => clearTimeout(timer);
+  }, []);
   console.log('Animal Text:', animalText);
   console.log('Animal ID:', animalId);
 
@@ -103,7 +103,7 @@ export const Summary = () => {
   return (
     <div>
 
-      {/* <div>
+      <div>
         <Modal
           open={summaryModalOpen}
           onClose={handleCloseSummaryModal}
@@ -122,7 +122,7 @@ export const Summary = () => {
             </Card>
           </Box>
         </Modal>
-      </div> */}
+      </div>
 
       <div>
         <Card>
