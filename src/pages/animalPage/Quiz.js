@@ -59,7 +59,10 @@ export const Quiz = () => {
     { path: '/images/seal.png', id: 'seal' },
     { path: '/images/penguin.png', id: 'penguin' }]
 
-  const animalImagePath = animalImg.find((animal) => animal.id === animalId).path
+  // const animalImagePath = animalImg.find((animal) => animal.id === animalId).path
+  const animalObject = animalImg.find((animal) => animal.id === animalId);
+  const animalImagePath = animalObject ? animalObject.path : '';
+
   console.log(animalImagePath)
   console.log(animalId)
 
@@ -121,5 +124,3 @@ export const Quiz = () => {
     );
   }
 }
-
-//  <img src={singleOption.image} alt={singleOption.text} />

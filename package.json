@@ -11,6 +11,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.2",
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.21.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -24,7 +25,8 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^5.0.1",
-    "styled-components": "^5.3.10"
+    "styled-components": "^5.3.10",
+    "xml2js": "^0.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

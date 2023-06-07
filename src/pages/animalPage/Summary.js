@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import CardMedia from '@mui/material/CardMedia';
+// import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
 import { quiz } from 'reducers/quiz';
-// import { setArticleContent } from 'reducers/articles';
-import Confetti from 'react-confetti'
-import { ANIMAL_API_KEY } from 'utils/urls';
+// import Confetti from 'react-confetti'
+// import { animalArticles } from 'reducers/articles';
+import { fetchAnimalArticles } from 'reducers/articles';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/195.jpg';
-import SummaryPicture from '../../assets/summary/summarypic.jpg';
+// import SummaryPicture from '../../assets/summary/summarypic.jpg';
 
 const chatbotStyle = {
   position: 'absolute',
@@ -25,17 +25,17 @@ const chatbotStyle = {
   boxShadow: 24,
   p: 4
 };
-const summaryStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '70vw',
-  height: '70vh',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4
-};
+// const summaryStyle = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: '70vw',
+//   height: '70vh',
+//   border: '2px solid #000',
+//   boxShadow: 24,
+//   p: 4
+// };
 const ChatbotAvatarStyle = {
   width: '60px',
   height: '60px'
@@ -43,29 +43,27 @@ const ChatbotAvatarStyle = {
 
 export const Summary = () => {
   // useSelector from quiz reducer
-  const answers = useSelector((store) => store.quiz.answers)
+  // const answers = useSelector((store) => store.quiz.answers)
   const animalId = useSelector((store) => store.quiz.animalId)
-  const correctAnswers = answers.filter((item) => item.isCorrect)
+  // const correctAnswers = answers.filter((item) => item.isCorrect)
   const dispatch = useDispatch();
   const { quizOver } = useSelector((store) => store.quiz);
 
   // useSelector from article reducer
-  const animalArticles = useSelector((store) => store.animalArticles[animalId])
+  const animalText = useSelector((store) => store.fetchAnimalarticles.animalText);
 
-  const animalArticle = animalArticles.find((article) => article.id === animalId);
+  useEffect(() => {
+    dispatch(fetchAnimalArticles());
+  }, [dispatch]);
 
-  const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
+  // const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
   const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);
 
-  const handleOpenSummaryModal = () => setSummaryModalOpen(true);
-  const handleCloseSummaryModal = () => setSummaryModalOpen(false);
+  // const handleOpenSummaryModal = () => setSummaryModalOpen(true);
+  // const handleCloseSummaryModal = () => setSummaryModalOpen(false);
 
   const handleOpenChatbotModal = () => setChatbotModalOpen(true);
   const handleCloseChatbotModal = () => setChatbotModalOpen(false);
-
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
 
   const handleQuizOver = () => {
     if (quizOver) {
@@ -73,62 +71,41 @@ export const Summary = () => {
     }
   }
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      handleCloseSummaryModal();
-    }, 10000);
+  // React.useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     handleCloseSummaryModal();
+  //   }, 10000);
 
-    handleOpenSummaryModal();
+  //   handleOpenSummaryModal();
 
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
+  console.log('Animal Text:', animalText);
+  console.log('Animal ID:', animalId);
 
-  useEffect(() => {
-    const fetchArticleContent = async () => {
-      try {
-        const response = await fetch('https://syndication.api.eb.com/production/article/352836/xml', {
-          headers: {
-            // eslint-disable-next-line prefer-template
-            'x-api-key': ANIMAL_API_KEY,
-            'Content-Type': 'application/json'
-          }
-        })
+  // const timer = setTimeout(() => {
+  //   handleCloseSummaryModal();
+  // }, 10000);
 
-        // const response = await fetch(`https://syndication.api.eb.com/production/article/${animalArticles.id}/xml?key=${ANIMAL_API_KEY}`);
-        if (response.ok) {
-          const data = await response.text();
-          const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(data, 'text/xml');
-          const articleText = xmlDoc.getElementsByTagName('content')[0].textContent;
-          // dispatch(setArticleContent({ id: animalArticles.id, content: articleText }));
-          console.log('is the fetched??', articleText);
-        } else {
-          throw new Error('Failed to fetch article content');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
+  // handleOpenSummaryModal();
 
-    fetchArticleContent();
+  //   return () => clearTimeout(timer);
+  // }, [animalId]);
 
-    const timer = setTimeout(() => {
-      handleCloseSummaryModal();
-    }, 10000);
-
-    handleOpenSummaryModal();
-
-    return () => clearTimeout(timer);
-  }, [dispatch, animalId]);
-
-  if (!animalArticle) {
+  if (!animalText[animalId]) {
+    console.log('Animal text not found:', animalId);
+    console.log('Animal text:', animalText);
+    console.log('All animal texts:', animalText);
     return <p>Article not found</p>
   }
+
+  const animalArticle = animalText[animalId];
+  console.log('Animal Article:', animalArticle);
 
   return (
     <div>
 
-      <div>
+      {/* <div>
         <Modal
           open={summaryModalOpen}
           onClose={handleCloseSummaryModal}
@@ -147,13 +124,17 @@ export const Summary = () => {
             </Card>
           </Box>
         </Modal>
-      </div>
+      </div> */}
 
       <div>
         <Card>
           <CardContent>
             <Typography variant="h1">Learn more about the {animalId} here</Typography>
-            <h1>{animalArticle.name}</h1>
+            <h2>{animalArticle.animalName}</h2>
+            <p>{animalArticle.animalIntroduction}</p>
+            <p>Diet: {animalArticle.animalDiet}</p>
+            <p>Reproduction: {animalArticle.animalReproduction}</p>
+            <p>Interesting Facts: {animalArticle.animalFacts}</p>
           </CardContent>
         </Card>
       </div>
@@ -179,21 +160,3 @@ export const Summary = () => {
     </div>
   )
 }
-
-// article numbers for animals currently in project
-// bear-352836
-// eagle-353071
-// elephant-353093
-// Fox-353145
-// giraffe - 353182
-// hedgehog - 391021
-// jaguar - 353312
-// kangaroo - 353331
-// Koala - 353344
-// lion - 353389
-// panda - 353596
-// penguin - 353611
-// raccoon - 353690
-// seal -353754
-// tiger - 353858
-// toucan - 353869
