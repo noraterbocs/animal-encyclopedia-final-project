@@ -40,6 +40,10 @@ const AnimalImg = styled.img`
 height: 80px;
 position: absolute;
 top:${(props) => props.top};
-left:${(props) => props.left} 
-
+left:${(props) => props.left};
+filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.632));
+transition: filter 0.8s ease-in-out;
+&:hover{
+filter: drop-shadow(0px 0px 50px #333);
+}
 `
