@@ -94,8 +94,6 @@ export const Summary = () => {
 
   if (!animalText[animalId]) {
     console.log('Animal text not found:', animalId);
-    console.log('Animal text:', animalText);
-    console.log('All animal texts:', animalText);
     return <p>Article not found</p>
   }
 

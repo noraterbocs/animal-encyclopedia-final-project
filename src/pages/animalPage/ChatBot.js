@@ -3,7 +3,7 @@ import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, Avatar, ConversationHeader } from '@chatscope/chat-ui-kit-react'
 import { useSelector } from 'react-redux';
 import { API_KEY } from '../../utils/urls';
-import AlligatorAvatar from './images/avatars/AlligatorAvatar.png';
+import AlligatorAvatar from '../../assets/avatars/AlligatorAvatar.svg';
 
 export const Chatbot = () => {
   // const [playerAvatar, setPlayerAvatar] = useState(null);
