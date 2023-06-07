@@ -165,3 +165,11 @@ export const getUser = () => {
       .finally(() => setTimeout(() => dispatch(loading.actions.setLoading(false)), 5000))
   };
 };
+
+// // Badges:
+// 1. Explorer
+// 2. Apprentice
+// 3. Species Sleuth
+// 4. Junior Zoologist
+// 5. Senior Zoologist
+// 6. Wildlife Champion
