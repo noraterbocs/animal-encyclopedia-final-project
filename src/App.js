@@ -7,6 +7,7 @@ import { quiz } from 'reducers/quiz.js';
 import { TextGeneratorGame } from 'pages/gamesPage/TextGeneratorGame.js';
 import { animalArticles } from 'reducers/articles.js';
 import StickyFooter from 'Footer.js';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Header } from './pages/Header.js';
 import { HomePage } from './pages/homePage/HomePage.js';
 import { Games } from './pages/gamesPage/Games.js';
@@ -20,6 +21,7 @@ import { loading } from './reducers/loading';
 import { leaderboard } from './reducers/leaderboard';
 import { games } from './reducers/games';
 
+const theme = createTheme();
 export const App = () => {
   // const { location } = useLocation();
   const reducer = combineReducers({
@@ -33,29 +35,31 @@ export const App = () => {
   });
   const store = configureStore({ reducer })
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        {/* {
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <BrowserRouter>
+          {/* {
           location.pathname === '/login' ? <Header /> : ''
         } */}
-        {/* {window.location.pathname === '/login' ? (
+          {/* {window.location.pathname === '/login' ? (
           <Header />
         ) : null} */}
-        <Header />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/games" element={<Games />} />
-          <Route path="/games/storygenerator" element={<TextGeneratorGame />} />
-          <Route path="/animal/:animalId" element={<Animal />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/myaccount" element={<MyAccount />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<Navigate to="/404" replace />} />
-        </Routes>
+          <Header />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/games" element={<Games />} />
+            <Route path="/games/storygenerator" element={<TextGeneratorGame />} />
+            <Route path="/animal/:animalId" element={<Animal />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/myaccount" element={<MyAccount />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
         <StickyFooter />
-      </BrowserRouter>
-    </Provider>
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   )
 }

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
 import { API_URL } from 'utils/urls';
 import { loading } from './loading';
@@ -7,7 +8,8 @@ export const games = createSlice({
   name: 'games',
   initialState: {
     generatedStory: null,
-    previousStories: []
+    previousStories: [],
+    lastGeneratedStoryInDays: 0
   },
   reducers: {
     setGeneratedStory: (store, action) => {

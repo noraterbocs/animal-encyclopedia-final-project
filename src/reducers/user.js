@@ -7,16 +7,20 @@ export const user = createSlice({
   name: 'user',
   initialState: {
     userId: null,
-    username: 'Nora',
+    username: '',
+    password: '',
     email: '',
     avatar: 'https://picsum.photos/200',
     badges: [],
+    // history: [{ quiz: 'bear', score: 10, timestamp: '2023-06-03T09:04:53.761Z' }, { quiz: 'toucan', score: 5, timestamp: '2023-06-02T09:04:53.761Z' }],
     history: [],
     totalScore: 0,
     createdAt: '',
-    accessToken: '',
+    // accessToken: '39804dfc98c71614f0ceaf199012274f03ef7037125e16dfe0c08b6f7e09a9e9d1818df9e7dd47ac1fef7b422d43ecc306a18e4ff2cd3f9093c262f85e492c6704e74b39f6827f6cebf676f43aaacba8fc19989c8d7dbdc6a557b684af64f64d1db1307a13104080cf1729794b2cbbe99901d5a1186fe08a7cd8bb9592abfc55',
+    accessToken: null,
     error: null,
-    mode: 'login'
+    mode: 'login',
+    lastGeneratedStoryDate: ''
   },
   reducers: {
     setUserId: (store, action) => {
@@ -26,6 +30,10 @@ export const user = createSlice({
     setUsername: (store, action) => {
       store.username = action.payload
       console.log('username:', action.payload)
+    },
+    setPassword: (store, action) => {
+      store.password = action.payload
+      console.log('password:', action.payload)
     },
     setEmail: (store, action) => {
       store.email = action.payload
@@ -61,6 +69,10 @@ export const user = createSlice({
     },
     setMode: (store, action) => {
       store.mode = action.payload
+    },
+    setLastGeneratedStoryDate: (store, action) => {
+      store.lastGeneratedStoryDate = action.payload
+      console.log('date for last gen story:', action.payload)
     }
   }
 });
@@ -166,10 +178,111 @@ export const getUser = () => {
   };
 };
 
-// // Badges:
-// 1. Explorer
-// 2. Apprentice
-// 3. Species Sleuth
-// 4. Junior Zoologist
-// 5. Senior Zoologist
-// 6. Wildlife Champion
+// PATCH - update username
+export const updateUsername = (username) => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ username })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setUsername(data.response.username));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
+// PATCH - update password
+export const updatePassword = (password) => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ password })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setPassword(data.response.password));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
+// GET date of last generated Story
+export const getLastGeneratedStoryDate = () => {
+  return (dispatch, getState) => {
+    dispatch(loading.actions.setLoading(false))
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      }
+    }
+    fetch(API_URL('completion/lastgeneratedstory'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        if (data.success) {
+          dispatch(user.actions.setLastGeneratedStoryDate(data.response))
+        } else {
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => setTimeout(() => dispatch(loading.actions.setLoading(false)), 5000))
+  };
+};
+
+// DELETE user account
+export const deleteUser = () => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      }
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => setTimeout(() => dispatch(loading.actions.setLoading(false)), 5000))
+  };
+};
