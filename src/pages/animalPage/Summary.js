@@ -92,13 +92,12 @@ export const Summary = () => {
   //   return () => clearTimeout(timer);
   // }, [animalId]);
 
-  if (!animalText[animalId]) {
+  const animalArticle = animalText[animalId];
+  console.log('Animal Article:', animalArticle);
+  if (!animalArticle) {
     console.log('Animal text not found:', animalId);
     return <p>Article not found</p>
   }
-
-  const animalArticle = animalText[animalId];
-  console.log('Animal Article:', animalArticle);
 
   return (
     <div>
@@ -128,11 +127,11 @@ export const Summary = () => {
         <Card>
           <CardContent>
             <Typography variant="h1">Learn more about the {animalId} here</Typography>
-            <h2>{animalArticle.animalName}</h2>
-            <p>{animalArticle.animalIntroduction}</p>
-            <p>Diet: {animalArticle.animalDiet}</p>
-            <p>Reproduction: {animalArticle.animalReproduction}</p>
-            <p>Interesting Facts: {animalArticle.animalFacts}</p>
+            <h2>{animalText.animalName}</h2>
+            <p>{animalText.animalIntroduction}</p>
+            <p>Diet: {animalText.animalDiet}</p>
+            <p>Reproduction: {animalText.animalReproduction}</p>
+            <p>Interesting Facts: {animalText.animalFacts}</p>
           </CardContent>
         </Card>
       </div>
