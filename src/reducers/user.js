@@ -234,6 +234,65 @@ export const updatePassword = (password) => {
   };
 };
 
+// PATCH - update badges
+const userBadges = [
+  { explorer: '/images/badges/Explorer.png' },
+  { apprentice: '/images/badges/Apprentice.png' },
+  { speciesSleuth: '/images/badges/SpeciesSleuth.png' },
+  { juniorZoologist: '/images/badges/JuniorZoologist.png' },
+  { seniorZoologist: '/images/badges/SeniorZoologist.png' },
+  { wildlifeChampion: '/images/badges/WildlifeChampion2.png' }
+]
+export const updateBadges = (badges) => {
+  return (dispatch, getState) => {
+    const { accessToken, totalScore } = getState().user;
+
+    let badgeRank = '';
+    if (totalScore > 60) {
+      badgeRank = 'wildlifeChampion';
+    } else if (totalScore > 50) {
+      badgeRank = 'seniorZoologist';
+    } else if (totalScore > 40) {
+      badgeRank = 'juniorZoologist';
+    } else if (totalScore > 30) {
+      badgeRank = 'speciesSleuth';
+    } else if (totalScore > 20) {
+      badgeRank = 'apprentice';
+    } else if (totalScore > 10) {
+      badgeRank = 'explorer';
+    }
+
+    const currentBadgeIndex = badges.findIndex((badge) => Object.prototype.hasOwnProperty.call(badge, badgeRank));
+    if (currentBadgeIndex !== -1) {
+      return;
+    }
+
+    const updatedBadges = [...badges, { [badgeRank]: userBadges.find((badge) => Object.prototype.hasOwnProperty.call(badge, badgeRank))[badgeRank] }];
+
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ badges: updatedBadges })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setBadges(data.response.badges));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
 // GET date of last generated Story
 export const getLastGeneratedStoryDate = () => {
   return (dispatch, getState) => {

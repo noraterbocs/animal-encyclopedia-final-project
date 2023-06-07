@@ -23,27 +23,6 @@ const questions = [
     options: [{ text: 'walking', image: '' }, { text: 'hopping', image: '' }, { text: 'flying', image: '' }, { text: 'swimming', image: '' }] }
 ]
 
-// const questions = [
-//   { id: 0,
-//     questionText: 'What does this animal eat?',
-//     options: ['Carnivore', 'Herbivore', 'Omnivore'] },
-//   { id: 1,
-//     questionText: 'Where does this animal live?',
-//     options: ['ocean', 'trees', 'land', 'snow'] },
-//   { id: 2,
-//     questionText: 'Does this animal have live babies or lay eggs?',
-//     options: ['eggs', 'live babies'] },
-//   { id: 3,
-//     questionText: 'Does this animal like to live alone or in groups?',
-//     options: ['Alone', 'Groups'] },
-//   { id: 4,
-//     questionText: 'How many hours per day does this animal sleep?',
-//     options: ['less than 5 hours', '5-10 hours', 'more than 10 hours'] },
-//   { id: 5,
-//     questionText: 'What is the best way for this animal to get around?',
-//     options: ['walking', 'hopping', 'flying', 'swimming'] }
-// ]
-
 const animalAnswers = [
   { id: 'bear', correctAnswerIndex: [3, 2, 1, 0, 2, 0], answerIndex: [] },
   { id: 'eagle', correctAnswerIndex: [0, 1, 0, 0, 0, 2], answerIndex: [] },
@@ -159,17 +138,3 @@ export const quiz = createSlice({
 
   }
 })
-
-// const xmlSample = '<tag>tag content</tag><tag2>another content</tag2><tag3><insideTag>inside content</insideTag><emptyTag /></tag3>';
-// console.log(parseXmlToJson(xmlSample));
-
-// function parseXmlToJson(xml) {
-//     const json = {};
-//     for (const res of xml.matchAll(/(?:<(\w*)(?:\s[^>]*)*>)((?:(?!<\1).)*)(?:<\/\1>)|<(\w*)(?:\s*)*\/>/gm)) {
-//         const key = res[1] || res[3];
-//         const value = res[2] && parseXmlToJson(res[2]);
-//         json[key] = ((value && Object.keys(value).length) ? value : res[2]) || null;
-
-//     }
-//     return json;
-// }
