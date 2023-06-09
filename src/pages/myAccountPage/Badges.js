@@ -1,8 +1,13 @@
+/* eslint-disable max-len */
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
-import { Grid, Tooltip, Typography, useMediaQuery } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Tooltip from '@mui/material/Tooltip';
+// import { updateBadges } from 'reducers/user';
 
 export const Badges = () => {
   const badges = useSelector((store) => store.user.badges)
@@ -12,9 +17,10 @@ export const Badges = () => {
       <Typography variant="h4">Badges: </Typography>
       <Stack direction="row" spacing={2}>
         {badges.map((badge) => {
+          const { id, title, description, path } = badge;
           return (
-            <Tooltip key={badge.title} title={`${badge.title}: ${badge.description}`}>
-              <Avatar alt={badge.title} src={badge.path} sx={{ height: '60px', width: '60px', margin: '1em 0' }} />
+            <Tooltip key={id} title={`${title}: ${description}`}>
+              <Avatar alt={title} src={path} sx={{ height: '60px', width: '60px', margin: '1em 0' }} />
             </Tooltip>
           )
         })}

@@ -50,7 +50,9 @@ const initialState = {
   btnColor: '',
   disabledButtons: false, // after selecting an answer
   correctAnswerIndicator: false,
-  animalId: null
+  animalId: null,
+  history: [],
+  totalScore: 0
 }
 export const quiz = createSlice({
   name: 'quiz',
@@ -59,12 +61,10 @@ export const quiz = createSlice({
 
     submitAnswer: (state, action) => {
       const { questionId, answerIndex, animalId } = action.payload
-      // identify the current question eg:
-      // { id: 0, questionText: 'What does this animal eat?',
-      // options: ['Meat', 'Plants', 'Fish', 'Everything'] },
+      // identify the current question
       const question = state.questions.find((q) => q.id === questionId)
       // identify current animal
-      const selectedAnimal = state.animalAnswers.find((q) => q.id === animalId)
+      const selectedAnimal = state.animalAnswers.find((a) => a.id === animalId)
 
       // let newAnswer = question.options[animalAnswers];
       // state.correctAnswerIndicator = true
@@ -96,8 +96,18 @@ export const quiz = createSlice({
         selectedAnswerIndex: answerIndex,
         question: question.questionText,
         isCorrect: selectedAnimal.correctAnswerIndex[questionId] === answerIndex,
-        correctAnswerIndex: selectedAnimal.correctAnswerIndex[questionId]
+        correctAnswerIndex: selectedAnimal.correctAnswerIndex[questionId],
+        quizName: animalId
       })
+
+      const score = selectedAnimal.correctAnswerIndex[questionId] === answerIndex ? 1 : 0;
+      const historyEntry = {
+        quiz: animalId,
+        score,
+        timestamp: new Date().toISOString()
+      };
+      state.history.push(historyEntry);
+      state.totalScore += score;
     },
 
     saveAnimalId: (state, action) => {
