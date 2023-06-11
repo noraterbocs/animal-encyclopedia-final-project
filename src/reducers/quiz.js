@@ -29,6 +29,7 @@ const animalAnswers = [
   { id: 'eagle', correctAnswerIndex: [0, 1, 0, 0, 0, 2], answerIndex: [] },
   { id: 'elephant', correctAnswerIndex: [1, 2, 1, 1, 0, 0], answerIndex: [] },
   { id: 'fox', correctAnswerIndex: [0, 1, 1, 0, 1, 0], answerIndex: [] },
+  { id: 'lion', correctAnswerIndex: [0, 2, 1, 1, 2, 0], answerIndex: [] },
   { id: 'giraffe', correctAnswerIndex: [1, 2, 1, 1, 0, 0], answerIndex: [] },
   { id: 'hedgehog', correctAnswerIndex: [1, 2, 1, 0, 2, 0], answerIndex: [] },
   { id: 'jaguar', correctAnswerIndex: [0, 2, 1, 0, 2, 0], answerIndex: [] },
