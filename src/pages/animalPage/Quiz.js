@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { quiz } from 'reducers/quiz';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -10,18 +10,35 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Card, CardContent, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import { updateTotalScore } from 'reducers/user';
 import { Summary } from './Summary';
 
 export const Quiz = () => {
   const dispatch = useDispatch();
-  const { currentQuestionIndex, questions, animalId, quizOver } = useSelector((store) => store.quiz);
+  const { currentQuestionIndex, questions, animalId, quizOver, answers } = useSelector((store) => store.quiz);
   const question = questions[currentQuestionIndex];
   const totalSteps = questions.length;
+
+  const updateUserTotalScore = (currentScore) => {
+    console.log('updateTotalScore')
+    const correctAnswers = answers.filter((item) => item.isCorrect);
+    const sum = correctAnswers.length + currentScore;
+    dispatch(updateTotalScore(sum))
+  };
 
   const handleOptionClick = (index) => {
     dispatch(quiz.actions.submitAnswer({ questionId: question.id, answerIndex: index, animalId }));
     dispatch(quiz.actions.goToNextQuestion());
+    // console.log(quizOver)
+    // if (index === questions.length - 1) updateUserTotalScore()
   };
+
+  const currentScore = useSelector((store) => store.user.totalScore);
+  useEffect(() => {
+    if (quizOver) {
+      updateUserTotalScore(currentScore)
+    }
+  });
 
   const theme = createTheme({ Typography: { fontSize: 50 } })
 
@@ -71,7 +88,7 @@ export const Quiz = () => {
                   size="large"
                   value={index}
                   index={index}
-                  isCorrectAnswer={index === question.correctAnswerIndex}
+                  //                isCorrectAnswer={index === question.correctAnswerIndex}
                   aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
                   onClick={() => handleOptionClick(index)}>
                   {singleOption.text}
