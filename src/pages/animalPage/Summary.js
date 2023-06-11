@@ -54,8 +54,8 @@ export const Summary = () => {
   const animalText = useSelector((store) => store.animalArticles.animalText);
 
   useEffect(() => {
-    dispatch(fetchAnimalArticles());
-  }, [dispatch]);
+    dispatch(fetchAnimalArticles(animalId));
+  });
 
   const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
   const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
 import { API_URL } from 'utils/urls';
 import { loading } from './loading';
@@ -22,16 +23,20 @@ export const animalArticles = createSlice({
   }
 });
 
-export const fetchAnimalArticles = () => {
+export const fetchAnimalArticles = (animalName) => {
   return (dispatch) => {
     dispatch(loading.actions.setLoading(true))
 
-    fetch(API_URL('animals'))
+    fetch(API_URL(`animals?animalName=${animalName}`))
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
         if (data.success) {
-          dispatch(animalArticles.actions.setAnimalText(data.response))
+          const foundAnimal = data.response.find((singleAnimal) => {
+            const lowerCaseAnimal = singleAnimal.animalName.toLowerCase();
+            return lowerCaseAnimal.includes(animalName.toLowerCase());
+          });
+          dispatch(animalArticles.actions.setAnimalText(foundAnimal))
         } else {
           dispatch(loading.actions.setError(data.response.message))
         }

@@ -9,7 +9,7 @@ export const Leaderboard = () => {
   console.log(users)
   useEffect(() => {
     dispatch(getUsers())
-  }, [])
+  })
   return (
     <Container>
       {users.map((user) => {

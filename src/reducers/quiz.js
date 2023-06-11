@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
+// import { updateTotalScore } from './user';
 
 // /images/quizimgs/meat.jpg
 const questions = [
@@ -51,8 +52,8 @@ const initialState = {
   disabledButtons: false, // after selecting an answer
   correctAnswerIndicator: false,
   animalId: null,
-  history: [],
-  totalScore: 0
+  history: []
+  // totalScore: 0
 }
 export const quiz = createSlice({
   name: 'quiz',
