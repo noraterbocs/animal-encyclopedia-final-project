@@ -6,8 +6,8 @@ import { loading } from './loading';
 export const animalArticles = createSlice({
   name: 'animalArticles',
   initialState: {
-    animalText: [
-    ],
+    animalText: [],
+    animalImages: '',
     loading: false,
     error: 'Information not found'
   },
@@ -16,6 +16,9 @@ export const animalArticles = createSlice({
       store.animalText = action.payload;
       console.log(action.payload)
     }
+    // setAnimalImages: (store, action) => {
+    //   store.animalImages = action.payload;
+    // }
   }
 });
 
@@ -30,6 +33,7 @@ export const fetchAnimalArticles = (animalName) => {
         console.log(data.response)
         if (data.success) {
           dispatch(animalArticles.actions.setAnimalText(data.response))
+          // dispatch(animalArticles.actions.setAnimalImages(data.response))
         } else {
           // dispatch(user.actions.setError(data.response.message))
           console.log('error')

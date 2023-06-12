@@ -1,3 +1,4 @@
+/* eslint-disable import/no-absolute-path */
 import React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -9,19 +10,40 @@ import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import PurpleBackground from '../../assets/background/purplebackground.jpg'
+
+const containerStyle = {
+  backgroundImage: `url(${PurpleBackground})`,
+  backgroundSize: 'cover',
+  minWidth: '100vw',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center'
+};
+
+const cardStyle = {
+  maxWidth: '30vw',
+  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+  margin: '20px'
+};
+
+const avatarStyle = {
+  width: '75px',
+  height: '75px'
+}
 
 export const AboutUs = () => {
   const noraCard = (
-    <>
-      <CardContent>
-        <Typography variant="h2" component="div">
+    <CardContent>
+      <Avatar alt="Nora Terbocs" src="/images/AboutUsImg/NoraProfileImg.png" sx={avatarStyle} />
+      <Typography variant="h3" component="div">
         Nora Terbocs
-        </Typography>
-        <Typography variant="h4" color="text.secondary">
+      </Typography>
+      <Typography variant="h4" color="text.secondary">
         Frontend developer
-        </Typography>
-        <Avatar alt="Nora Terbocs" src="/images/AboutUsImg/NoraProfileImg.png" />
-        <Typography variant="body2">
+      </Typography>
+      <Typography variant="body2">
         Hey there! I am a frontend developer aspiring to become a fullstack developer.
         I started learning coding by taking free online courses and making small projects
         during my free time. I gained hands-on experience in creating and maintaining Javascript
@@ -32,8 +54,8 @@ export const AboutUs = () => {
         have demonstrated a consistent ability to manage my time efficiently while maintaining
         clear and effective communication with stakeholders across diverse functions and
         departments.
-        </Typography>
-      </CardContent>
+      </Typography>
+
       <CardActions>
 
         <IconButton size="medium" href="https://github.com/noraterbocs" target="_blank">
@@ -44,19 +66,22 @@ export const AboutUs = () => {
           <LinkedInIcon color="primary" />
         </IconButton>
       </CardActions>
-    </>
+
+    </CardContent>
   );
 
   const jenniferCard = (
-    <>
-      <CardContent>
-        <Typography variant="h2" component="div">
+    <CardContent>
+      <Box sx={{ margin: '0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Avatar alt="Jennifer Feenstra-Arengård" src="/images/AboutUsImg/jenniferProfileImg.png" sx={avatarStyle} />
+        <>
+          <Typography variant="h3" component="div">
         Jennifer Feenstra
-        </Typography>
-        <Typography variant="h4" color="text.secondary">
+          </Typography>
+          <Typography variant="h4" color="text.secondary">
         Frontend developer
-        </Typography>
-        <Avatar alt="Jennifer Feenstra-Arengård" src="/images/AboutUsImg/jenniferProfileImg.png" />
+          </Typography>
+        </>
         <Typography variant="body2">
         Hello! Welcome to Animal Quest I hope you are enjoying our App. As for me I
         am a front-end developer with a background in scientific research. My thesis
@@ -68,27 +93,30 @@ export const AboutUs = () => {
         project intriguing and would like to discuss either of them, please do not
         hesitate to reach out via one of the links provided.
         </Typography>
-      </CardContent>
-      <CardActions>
 
-        <IconButton size="medium" href="https://github.com/jenster5" target="_blank">
-          <GitHubIcon color="primary" />
-        </IconButton>
+        <CardActions>
 
-        <IconButton size="medium" href="https://www.linkedin.com/in/jennifer-feenstra-areng%C3%A5rd-299b1a60/" target="_blank">
-          <LinkedInIcon color="primary" />
-        </IconButton>
-      </CardActions>
-    </>
+          <IconButton size="medium" href="https://github.com/jenster5" target="_blank">
+            <GitHubIcon color="primary" />
+          </IconButton>
+
+          <IconButton size="medium" href="https://www.linkedin.com/in/jennifer-feenstra-areng%C3%A5rd-299b1a60/" target="_blank">
+            <LinkedInIcon color="primary" />
+          </IconButton>
+        </CardActions>
+      </Box>
+    </CardContent>
   );
 
   return (
-    <Container>
-      <Box sx={{ minWidth: 275 }}>
-        <Typography variant="h2"> Meet the Creators of Animal Quest! </Typography>
-        <Card variant="outlined">{noraCard}</Card>
-        <Card variant="outlined">{jenniferCard}</Card>
-      </Box>
-    </Container>
+    <>
+      <Typography variant="h2"> Meet the Creators! </Typography>
+      <Container sx={containerStyle}>
+        <Box>
+          <Card variant="outlined" sx={cardStyle}>{noraCard}</Card>
+          <Card variant="outlined" sx={cardStyle}>{jenniferCard}</Card>
+        </Box>
+      </Container>
+    </>
   );
 }

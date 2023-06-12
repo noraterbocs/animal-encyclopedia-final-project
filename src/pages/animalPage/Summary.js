@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
+import CardContent from '@mui/material/CardContent';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,6 +13,10 @@ import Confetti from 'react-confetti'
 import { fetchAnimalArticles } from 'reducers/articles';
 import Stack from '@mui/material/Stack';
 import { updateBadges } from 'reducers/user';
+import ImageList from '@mui/material/ImageList';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import ImageListItem from '@mui/material/ImageListItem';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/195.jpg';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
@@ -66,6 +70,7 @@ export const Summary = () => {
 
   // useSelector from article reducer
   const animalText = useSelector((store) => store.animalArticles.animalText);
+  // const animalImages = useSelector((store) => store.animalArticles.animalImages)
 
   useEffect(() => {
     dispatch(fetchAnimalArticles(animalId));
@@ -176,6 +181,15 @@ export const Summary = () => {
 
               <Typography variant="h4">Interesting Facts</Typography>
               <Typography variant="body2">{animalText.animalFacts}</Typography>
+
+              <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+                <ImageListItem>
+                  <img src={animalText.imageURL1} alt={animalId} />
+                  <img src={animalText.imageURL2} alt={animalId} />
+                  <img src={animalText.imageURL3} alt={animalId} />
+                </ImageListItem>
+              </ImageList>
+
             </Stack>
           </CardContent>
         </Card>
