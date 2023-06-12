@@ -85,6 +85,7 @@ export const AboutUs = () => {
   return (
     <Container>
       <Box sx={{ minWidth: 275 }}>
+        <Typography variant="h2"> Meet the Creators of Animal Quest! </Typography>
         <Card variant="outlined">{noraCard}</Card>
         <Card variant="outlined">{jenniferCard}</Card>
       </Box>

@@ -10,9 +10,12 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { format } from 'date-fns'
+import ShowMoreText from 'react-show-more-text';
+import { useState } from 'react';
 
 export const PreviousStories = () => {
   const previousStories = useSelector((store) => store.games.previousStories)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, gap: '1em', justifyContent: 'center' }}>
@@ -31,15 +34,26 @@ export const PreviousStories = () => {
               sx={{ width: 'auto', margin: 'auto' }}
               component="img"
               height="200px"
-              image={story.image === 'https://placehold.co/200' ? '/images/testing/img2.png' : story.image}
+              image={story.image}
               alt={`${story.mainCharacter} & ${story.friends}`} />
             <CardContent>
               <Typography variant="body2" color="text.secondary" sx={{ height: 'max-content' }}>
                 {story.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ height: 'max-content' }}>
-                {story.newGeneratedText}
-              </Typography>
+              <ShowMoreText
+                /* Default options */
+                lines={3}
+                more="Show more"
+                less="Show less"
+                className="content-css"
+                anchorClass="show-more-less-clickable"
+                onClick={() => setIsExpanded(true)}
+                expanded={isExpanded}
+                truncatedEndingComponent="... ">
+                <Typography variant="body2" color="text.secondary" sx={{ height: 'max-content' }}>
+                  {story.newGeneratedText}
+                </Typography>
+              </ShowMoreText>
             </CardContent>
           </Card>
         )

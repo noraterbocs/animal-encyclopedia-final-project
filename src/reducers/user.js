@@ -10,23 +10,29 @@ export const user = createSlice({
     username: '',
     password: '',
     email: '',
-    avatar: 'https://picsum.photos/200',
+    avatar: '/images/avatars/AlligatorAvatar.png',
     badges: [],
     // history: [{ quiz: 'bear', score: 10, timestamp: '2023-06-03T09:04:53.761Z' }, { quiz: 'toucan', score: 5, timestamp: '2023-06-02T09:04:53.761Z' }],
     history: [],
     totalScore: 0,
     createdAt: '',
-    // accessToken: '39804dfc98c71614f0ceaf199012274f03ef7037125e16dfe0c08b6f7e09a9e9d1818df9e7dd47ac1fef7b422d43ecc306a18e4ff2cd3f9093c262f85e492c6704e74b39f6827f6cebf676f43aaacba8fc19989c8d7dbdc6a557b684af64f64d1db1307a13104080cf1729794b2cbbe99901d5a1186fe08a7cd8bb9592abfc55',
-    accessToken: null,
+    accessToken: 'dd97006238677b9cbdef92be251025a692e065268b780d5a7caf09d29a9c576aa23a0f9008739f935ad12bf46b9e50cf22629496bcfff1c23f8a19127b208e66b40658f076d15a0adea6f388ce7663b15077c3f4effa93958ffd025dc90358dd784120ab4fb044d4ae43d255770415daecc5206ac8012bdc134a77eab8cfb17d',
+    // accessToken: null,
     error: null,
     mode: 'login',
-    lastGeneratedStoryDate: ''
+    lastGeneratedStoryDate: '',
+    highestBadgeRank: 'explorer'
   },
   reducers: {
+    // modifies the state directly
     setUserId: (store, action) => {
       store.userId = action.payload
       console.log('userId:', action.payload)
     },
+    //  modifies the state indirectly
+    // setUserId: (state, action) => {
+    //   return Object.assign({}, state, { userId: action.payload });
+    // },
     setUsername: (store, action) => {
       store.username = action.payload
       console.log('username:', action.payload)
@@ -44,8 +50,15 @@ export const user = createSlice({
       console.log('avatar:', action.payload)
     },
     setBadges: (store, action) => {
-      store.badges = action.payload
-      console.log('badges:', action.payload)
+      if (Array.isArray(action.payload)) {
+        // Overwrite the current badges with the new payload
+        store.badges = [...action.payload];
+      } else {
+        // Add the single payload object to the current badges array
+        store.badges = [...store.badges, action.payload];
+      }
+      store.highestBadgeRank = action.payload[action.payload.length - 1].title
+      console.log('badges:', action.payload, store.highestBadgeRank)
     },
     setHistory: (store, action) => {
       store.history = action.payload
@@ -224,6 +237,64 @@ export const updatePassword = (password) => {
       .then((data) => {
         if (data.success) {
           dispatch(user.actions.setPassword(data.response.password));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
+// PATCH - update badges
+export const updateBadges = (badges) => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ badges })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setBadges(data.response.badges));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
+// PATCH - update quiz history
+export const updateHistory = (history) => {
+  return (dispatch, getState) => {
+    const { accessToken, totalScore } = getState().user;
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ history })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setHistory(data.response.history));
+          dispatch(user.actions.setTotalScore(data.response.history[data.response.history.length - 1].score + totalScore));
           dispatch(user.actions.setError(null))
         } else {
           dispatch(user.actions.setError(data.response.message))
