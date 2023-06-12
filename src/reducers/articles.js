@@ -2,24 +2,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { API_URL } from 'utils/urls';
 import { loading } from './loading';
-import { user } from './user';
 
 export const animalArticles = createSlice({
   name: 'animalArticles',
   initialState: {
-    animalText: {
-      animalName: '',
-      animalIntroduction: '',
-      animalDiet: '',
-      animalReproduction: '',
-      animalFacts: ''
-    },
+    animalText: [
+    ],
     loading: false,
     error: 'Information not found'
   },
   reducers: {
     setAnimalText: (store, action) => {
       store.animalText = action.payload;
+      console.log(action.payload)
     }
   }
 });
@@ -28,22 +23,21 @@ export const fetchAnimalArticles = (animalName) => {
   return (dispatch) => {
     dispatch(loading.actions.setLoading(true))
 
-    fetch(API_URL(`animals?animalName=${animalName}`))
+    fetch(API_URL(`animals/${animalName}`))
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
+        console.log(data.response)
         if (data.success) {
-          const foundAnimal = data.response.find((singleAnimal) => {
-            const lowerCaseAnimal = singleAnimal.animalName.toLowerCase();
-            return lowerCaseAnimal.includes(animalName.toLowerCase());
-          });
-          dispatch(animalArticles.actions.setAnimalText(foundAnimal))
+          dispatch(animalArticles.actions.setAnimalText(data.response))
         } else {
-          dispatch(user.actions.setError(data.response.message))
+          // dispatch(user.actions.setError(data.response.message))
+          console.log('error')
         }
       })
       .catch((error) => {
-        dispatch(user.actions.setError(error.message))
+        // dispatch(user.actions.setError(error.message))
+        console.log(error)
       })
       .finally(() => {
         dispatch(loading.actions.setLoading(false))
