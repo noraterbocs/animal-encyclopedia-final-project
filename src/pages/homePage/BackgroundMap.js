@@ -2,5 +2,5 @@ import React from 'react';
 import BackgroundSVG from '../../assets/background/plainmapwithoutsea.svg'
 
 export const BackgroundMap = () => {
-  return <img style={{ overFlow: 'scroll', width: '1200px', zIndex: -1, borderRadius: '25%' }} src={BackgroundSVG} alt="Map" />
+  return <img style={{ bgcolor: '#4facebfc', overFlow: 'scroll', width: '800px', zIndex: -1, height: '100%' }} src={BackgroundSVG} alt="Map" />
 };

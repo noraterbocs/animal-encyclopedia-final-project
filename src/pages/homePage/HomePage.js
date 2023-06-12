@@ -6,6 +6,7 @@ import { Container } from '@mui/material';
 import { Map } from './Map';
 import { getUser } from '../../reducers/user';
 import { Loading } from '../../components/Loading';
+import BackgroundAnimals from '../../assets/background/BackgroundAnimals.png'
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -23,10 +24,13 @@ export const HomePage = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
   return (
-    <Container sx={{ bgcolor: '#108bdfeb;', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', p: 0, m: 0, minWidth: '100vw' }}>
+    <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '90vh', p: 0, m: 0, minWidth: '100vw' }}>
+      <img style={{ position: 'absolute', height: '100vh', width: '100%', top: '0px', left: '0px', zIndex: '-2' }} src={BackgroundAnimals} alt="main background" />
       {!isLoading
         ? <Map />
         : <Loading />}
     </Container>
   )
 }
+
+// bgcolor: '#108bdfeb;'
