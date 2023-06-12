@@ -11,7 +11,7 @@ export const user = createSlice({
     password: '',
     email: '',
     avatar: '/images/avatars/AlligatorAvatar.png',
-    badges: [{ id: '1', title: 'explorer', path: '/images/badges/Explorer.png', description: 'Congratulations! You have earned the Explorer badge! As an explorer, you have taken your first steps into the exciting world of animals. You have shown curiosity and a keen interest in learning about different species. Keep exploring and discovering fascinating facts about animals from all around the world.' }],
+    badges: [],
     // history: [{ quiz: 'bear', score: 10, timestamp: '2023-06-03T09:04:53.761Z' }, { quiz: 'toucan', score: 5, timestamp: '2023-06-02T09:04:53.761Z' }],
     history: [],
     totalScore: 0,
@@ -20,7 +20,8 @@ export const user = createSlice({
     // accessToken: null,
     error: null,
     mode: 'login',
-    lastGeneratedStoryDate: ''
+    lastGeneratedStoryDate: '',
+    highestBadgeRank: 'explorer'
   },
   reducers: {
     // modifies the state directly
@@ -49,8 +50,15 @@ export const user = createSlice({
       console.log('avatar:', action.payload)
     },
     setBadges: (store, action) => {
-      store.badges = action.payload
-      console.log('badges:', action.payload)
+      if (Array.isArray(action.payload)) {
+        // Overwrite the current badges with the new payload
+        store.badges = [...action.payload];
+      } else {
+        // Add the single payload object to the current badges array
+        store.badges = [...store.badges, action.payload];
+      }
+      store.highestBadgeRank = action.payload[action.payload.length - 1].title
+      console.log('badges:', action.payload, store.highestBadgeRank)
     },
     setHistory: (store, action) => {
       store.history = action.payload
@@ -240,38 +248,9 @@ export const updatePassword = (password) => {
 };
 
 // PATCH - update badges
-// From badges.js--Tooltip key={badge.title} title={`${badge.title}: ${badge.description}`}>
-// const userBadges = [
-//   { id: '1', title: 'explorer', path: '/images/badges/Explorer.png', description: 'Congratulations! You have earned the Explorer badge! As an explorer, you have taken your first steps into the exciting world of animals. You have shown curiosity and a keen interest in learning about different species. Keep exploring and discovering fascinating facts about animals from all around the world.' },
-//   { id: '2', title: 'apprentice', path: '/images/badges/Apprentice.png', description: 'Well done on achieving the Apprentice badge! You are now progressing beyond the beginner stage and showing dedication to expanding your animal knowledge. As an apprentice, you are developing a deeper understanding of various species and their unique characteristics. Continue to explore, ask questions, and grow your expertise in the animal kingdom.' },
-//   { id: '3', title: 'speciesSleuth', path: '/images/badges/SpeciesSleuth.png', description: 'Fantastic work! You have earned the Species Sleuth badge! As a species sleuth, you have proven yourself to be a skilled investigator of the animal world. You have developed an eye for detail and can identify different species based on their distinctive features. Your knowledge and observation skills are becoming more advanced, enabling you to unravel the secrets of the animal kingdom.' },
-//   { id: '4', title: 'juniorZoologist', path: '/images/badges/JuniorZoologist.png', description: 'Congratulations on reaching the Junior Zoologist badge! You have now become a young expert in the field of zoology. Your dedication and hard work have paid off, and you have gained a wealth of knowledge about various animal groups, their habitats, and behaviors. Your passion for animals shines through as you continue to explore and deepen your understanding of the incredible diversity of life on Earth.' },
-//   { id: '5', title: 'seniorZoologist', path: '/images/badges/SeniorZoologist.png', description: 'Well done! You have achieved the prestigious Senior Zoologist badge! As a senior zoologist, you have become a true authority on the subject of animals. Your extensive knowledge and experience make you a valuable resource for others seeking information about the natural world. You have demonstrated a deep understanding of complex concepts and can analyze animal behavior and ecological relationships with expertise.' },
-//   { id: '6', title: 'wildlifeChampion', path: '/images/badges/WildlifeChampion2.png', description: 'Congratulations! You have reached the pinnacle of animal knowledge and earned the esteemed Wildlife Champion badge! As a wildlife champion, you stand out as a true advocate for the conservation and protection of animal species. Your dedication to preserving the natural world and raising awareness about the importance of wildlife is truly inspiring. You are a role model for others,and your passion and commitment make a significant impact on the future of our planet&apos;s biodiversity.' }
-// ]
 export const updateBadges = (badges) => {
   return (dispatch, getState) => {
-    const { accessToken, totalScore } = getState().user;
-
-    let badgeRank = '';
-    if (totalScore > 60) {
-      badgeRank = 'wildlifeChampion';
-    } else if (totalScore > 50) {
-      badgeRank = 'seniorZoologist';
-    } else if (totalScore > 40) {
-      badgeRank = 'juniorZoologist';
-    } else if (totalScore > 30) {
-      badgeRank = 'speciesSleuth';
-    } else if (totalScore > 20) {
-      badgeRank = 'apprentice';
-    } else {
-      badgeRank = 'explorer'
-    }
-    //  no new badge will be pushed to the badges array if this is not undefined
-    const currentBadge = badges.find((badge) => badge.title === badgeRank);
-    console.log(currentBadge)
-
-    // const updatedBadges = [...badges, { [badgeRank]: userBadges.find((badge) => Object.prototype.hasOwnProperty.call(badge, badgeRank))[badgeRank] }];
+    const { accessToken } = getState().user;
 
     const options = {
       method: 'PATCH',
@@ -280,7 +259,7 @@ export const updateBadges = (badges) => {
         'Content-Type': 'application/json',
         Authorization: accessToken
       },
-      body: JSON.stringify({ badges: updateBadges })
+      body: JSON.stringify({ badges })
     }
     fetch(API_URL('user'), options)
       .then((response) => response.json())
@@ -300,7 +279,7 @@ export const updateBadges = (badges) => {
 // PATCH - update quiz history
 export const updateHistory = (history) => {
   return (dispatch, getState) => {
-    const { accessToken } = getState().user;
+    const { accessToken, totalScore } = getState().user;
     const options = {
       method: 'PATCH',
       mode: 'cors',
@@ -315,6 +294,7 @@ export const updateHistory = (history) => {
       .then((data) => {
         if (data.success) {
           dispatch(user.actions.setHistory(data.response.history));
+          dispatch(user.actions.setTotalScore(data.response.history[data.response.history.length - 1].score + totalScore));
           dispatch(user.actions.setError(null))
         } else {
           dispatch(user.actions.setError(data.response.message))
