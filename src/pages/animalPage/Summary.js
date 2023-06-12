@@ -11,6 +11,7 @@ import { quiz } from 'reducers/quiz';
 import Confetti from 'react-confetti'
 // import { animalArticles } from 'reducers/articles';
 import { fetchAnimalArticles } from 'reducers/articles';
+import Stack from '@mui/material/Stack';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/195.jpg';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
@@ -53,8 +54,8 @@ export const Summary = () => {
   const animalText = useSelector((store) => store.animalArticles.animalText);
 
   useEffect(() => {
-    dispatch(fetchAnimalArticles());
-  }, [dispatch]);
+    dispatch(fetchAnimalArticles(animalId));
+  });
 
   const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
   const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);
@@ -83,21 +84,18 @@ export const Summary = () => {
   console.log('Animal Text:', animalText);
   console.log('Animal ID:', animalId);
 
-  // const timer = setTimeout(() => {
-  //   handleCloseSummaryModal();
-  // }, 10000);
+  // const animalIntroduction = animalText ? animalText.animalIntroduction : '';
+  // const animalDiet = animalText ? animalText.animalDiet : '';
+  // const animalReproduction = animalText ? animalText.animalReproduction : '';
+  // const animalFacts = animalText ? animalText.animalFacts : '';
 
-  // handleOpenSummaryModal();
-
-  //   return () => clearTimeout(timer);
-  // }, [animalId]);
-
-  const animalArticle = animalText[animalId];
-  console.log('Animal Article:', animalArticle);
-  if (!animalArticle) {
-    console.log('Animal text not found:', animalId);
-    return <p>Article not found</p>
-  }
+  // const animalArticle = animalText ? animalText[animalId] : null;
+  // // const animalArticle = animalText[animalId];
+  // console.log('Animal Article:', animalArticle);
+  // if (!animalArticle) {
+  //   console.log('Animal text not found:', animalId);
+  //   return <p>Article not found</p>
+  // }
 
   return (
     <div>
@@ -126,12 +124,26 @@ export const Summary = () => {
       <div>
         <Card>
           <CardContent>
-            <Typography variant="h1">Learn more about the {animalId} here</Typography>
-            <h2>{animalText.animalName}</h2>
-            <p>{animalText.animalIntroduction}</p>
-            <p>Diet: {animalText.animalDiet}</p>
-            <p>Reproduction: {animalText.animalReproduction}</p>
-            <p>Interesting Facts: {animalText.animalFacts}</p>
+            <Typography variant="h2">Learn more about the {animalId} here</Typography>
+            <CardMedia
+              sx={{ height: 140 }}
+              image="/static/images/cards/contemplative-reptile.jpg"
+              title="green iguana" />
+            <Stack spacing={2}>
+              <Typography variant="h3">The {animalId}</Typography>
+
+              <Typography variant="h4">Introduction</Typography>
+              <Typography variant="body2">{animalText.animalIntroduction}</Typography>
+
+              <Typography variant="h4">Diet</Typography>
+              <Typography variant="body2">{animalText.animalDiet}</Typography>
+
+              <Typography variant="h4">Reproduction</Typography>
+              <Typography variant="body2">{animalText.animalReproduction}</Typography>
+
+              <Typography variant="h4">Interesting Facts</Typography>
+              <Typography variant="body2">{animalText.animalFacts}</Typography>
+            </Stack>
           </CardContent>
         </Card>
       </div>

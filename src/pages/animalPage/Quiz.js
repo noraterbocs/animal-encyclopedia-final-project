@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { quiz } from 'reducers/quiz';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -9,15 +9,13 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Card, CardContent, ThemeProvider } from '@mui/material';
-// import IconButton from '@mui/material/IconButton';
-// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-// import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { createTheme } from '@mui/material/styles';
+import { updateHistory } from 'reducers/user';
 import { Summary } from './Summary';
 
 export const Quiz = () => {
   const dispatch = useDispatch();
-  const { currentQuestionIndex, questions, animalId, quizOver } = useSelector((store) => store.quiz);
+  const { currentQuestionIndex, questions, animalId, quizOver, currentScore } = useSelector((store) => store.quiz);
   const question = questions[currentQuestionIndex];
   const totalSteps = questions.length;
 
@@ -25,23 +23,16 @@ export const Quiz = () => {
     dispatch(quiz.actions.submitAnswer({ questionId: question.id, answerIndex: index, animalId }));
     dispatch(quiz.actions.goToNextQuestion());
   };
+  useEffect(() => {
+    if (quizOver) {
+      const history = {
+        quizname: animalId, score: currentScore, timestamp: new Date()
+      }
+      dispatch(updateHistory(history))
+    }
+  });
 
   const theme = createTheme({ Typography: { fontSize: 50 } })
-
-  // const handleNext = () => {
-  //   if (currentQuestionIndex < totalSteps - 1) {
-  //     dispatch(quiz.actions.goToNextQuestion());
-  //   } else {
-  //     dispatch(quiz.actions.finishQuiz());
-  //   }
-  // };
-
-  // const handleBack = () => {
-  //   if (currentQuestionIndex > 0) {
-  //     dispatch(quiz.actions.goToPreviousQuestion(currentQuestionIndex - 1));
-  //     console.log(handleBack)
-  //   }
-  // };
 
   const animalImg = [
     { path: '/images/eagle.png', id: 'eagle' },
@@ -59,7 +50,6 @@ export const Quiz = () => {
     { path: '/images/seal.png', id: 'seal' },
     { path: '/images/penguin.png', id: 'penguin' }]
 
-  // const animalImagePath = animalImg.find((animal) => animal.id === animalId).path
   const animalObject = animalImg.find((animal) => animal.id === animalId);
   const animalImagePath = animalObject ? animalObject.path : '';
 
@@ -90,7 +80,6 @@ export const Quiz = () => {
                   size="large"
                   value={index}
                   index={index}
-                  isCorrectAnswer={index === question.correctAnswerIndex}
                   aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
                   onClick={() => handleOptionClick(index)}>
                   {singleOption.text}
@@ -106,16 +95,6 @@ export const Quiz = () => {
                 position="static"
                 activeStep={currentQuestionIndex}
                 sx={{ maxWidth: 400, fontSize: 12 }}
-              // nextButton={
-              //   <IconButton size="small" onClick={handleNext} disabled={currentQuestionIndex === totalSteps - 1}>
-              //     <ArrowForwardIcon fontSize="large" />
-              //   </IconButton>
-              // }
-              // backButton={
-              //   <IconButton size="small" onClick={handleBack} disabled={currentQuestionIndex === 0}>
-              //     <ArrowBackIcon fontSize="large" />
-              //   </IconButton>
-              // }
               />
             </ThemeProvider>
           </CardContent>

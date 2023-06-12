@@ -9,12 +9,12 @@ export const Leaderboard = () => {
   console.log(users)
   useEffect(() => {
     dispatch(getUsers())
-  }, [])
+  })
   return (
     <Container>
       {users.map((user) => {
         return (
-          <Stack sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '1em' }}>
+          <Stack key={user.username} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '1em' }}>
             <Avatar sx={{ backgroundColor: 'transparent' }} aria-label="avatar">
               <img src={user.avatar} alt="avatar" style={{ width: '100%' }} />
             </Avatar>
