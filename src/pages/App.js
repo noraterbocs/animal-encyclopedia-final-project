@@ -8,18 +8,18 @@ import { TextGeneratorGame } from 'pages/gamesPage/TextGeneratorGame.js';
 import { animalArticles } from 'reducers/articles.js';
 import StickyFooter from 'Footer.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Header } from './pages/Header.js';
-import { HomePage } from './pages/homePage/HomePage.js';
-import { Games } from './pages/gamesPage/Games.js';
-import { NotFound } from './pages/NotFound.js';
-import { Leaderboard } from './pages/leaderboardPage/Leaderboard';
-import { AboutUs } from './pages/aboutUsPage/AboutUs';
-import { MyAccount } from './pages/myAccountPage/MyAccount';
-import { Login } from './pages/RegisterLoginPage/Login';
-import { user } from './reducers/user';
-import { loading } from './reducers/loading';
-import { leaderboard } from './reducers/leaderboard';
-import { games } from './reducers/games';
+import { Header } from './Header.js';
+import { HomePage } from './homePage/HomePage.js';
+import { Games } from './gamesPage/Games.js';
+import { NotFound } from './NotFound.js';
+import { Leaderboard } from './leaderboardPage/Leaderboard.js';
+import { AboutUs } from './aboutUsPage/AboutUs.js';
+import { MyAccount } from './myAccountPage/MyAccount.js';
+import { Login } from './RegisterLoginPage/Login.js';
+import { user } from '../reducers/user.js';
+import { loading } from '../reducers/loading.js';
+import { leaderboard } from '../reducers/leaderboard.js';
+import { games } from '../reducers/games.js';
 
 const theme = createTheme();
 export const App = () => {
@@ -57,7 +57,7 @@ export const App = () => {
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
-        <StickyFooter />
+          <StickyFooter />
         </BrowserRouter>
       </Provider>
     </ThemeProvider>
