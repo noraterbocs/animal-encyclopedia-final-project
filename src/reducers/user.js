@@ -239,35 +239,6 @@ export const updatePassword = (password) => {
   };
 };
 
-// PATCH - update TotalScore
-export const updateTotalScore = (totalScore) => {
-  console.log('updateTotalScore')
-  return (dispatch, getState) => {
-    const { accessToken } = getState().user;
-    const options = {
-      method: 'PATCH',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken
-      },
-      body: JSON.stringify({ totalScore })
-    }
-    fetch(API_URL('user'), options)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          dispatch(user.actions.setTotalScore(data.response.totalScore));
-          dispatch(user.actions.setError(null))
-        } else {
-          dispatch(user.actions.setError(data.response.message))
-          dispatch(loading.actions.setLoading(false))
-        }
-      })
-      .finally(() => dispatch(loading.actions.setLoading(false)))
-  };
-};
-
 // PATCH - update badges
 // From badges.js--Tooltip key={badge.title} title={`${badge.title}: ${badge.description}`}>
 // const userBadges = [
@@ -326,7 +297,7 @@ export const updateBadges = (badges) => {
   };
 };
 
-// PATCH - update History
+// PATCH - update quiz history
 export const updateHistory = (history) => {
   return (dispatch, getState) => {
     const { accessToken } = getState().user;

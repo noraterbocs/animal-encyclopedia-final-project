@@ -48,10 +48,11 @@ const initialState = {
   animalAnswers,
   answers: [],
   currentQuestionIndex: 0, // this should be somewhere in the json from the api request
-  quizOver: false,
+  quizOver: null,
   btnColor: '',
   disabledButtons: false, // after selecting an answer
   correctAnswerIndicator: false,
+  currentScore: 0,
   animalId: null,
   history: []
   // totalScore: 0
@@ -101,15 +102,18 @@ export const quiz = createSlice({
         correctAnswerIndex: selectedAnimal.correctAnswerIndex[questionId],
         quizName: animalId
       })
-
-      const score = selectedAnimal.correctAnswerIndex[questionId] === answerIndex ? 1 : 0;
-      const historyEntry = {
-        quiz: animalId,
-        score,
-        timestamp: new Date().toISOString()
-      };
-      state.history.push(historyEntry);
-      state.totalScore += score;
+      if (selectedAnimal.correctAnswerIndex[questionId] === answerIndex) {
+        state.currentScore += 1
+        console.log(state.currentScore)
+      }
+      // const historyEntry = {
+      //   quiz: animalId,
+      //   score,
+      //   timestamp: new Date().toISOString()
+      // };
+      // state.history.push(historyEntry);
+      // state.totalScore += score;
+      console.log('state.currentScore:', state.currentScore, 'corret answerindex:', selectedAnimal.correctAnswerIndex[questionId], 'answerindex:', answerIndex, 'state.answers:', state.answers)
     },
 
     saveAnimalId: (state, action) => {

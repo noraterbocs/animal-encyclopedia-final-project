@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { API_URL } from 'utils/urls';
 import { loading } from './loading';
+import { user } from './user';
 
 export const animalArticles = createSlice({
   name: 'animalArticles',
@@ -38,11 +39,11 @@ export const fetchAnimalArticles = (animalName) => {
           });
           dispatch(animalArticles.actions.setAnimalText(foundAnimal))
         } else {
-          dispatch(loading.actions.setError(data.response.message))
+          dispatch(user.actions.setError(data.response.message))
         }
       })
       .catch((error) => {
-        dispatch(loading.actions.setError(error.message))
+        dispatch(user.actions.setError(error.message))
       })
       .finally(() => {
         dispatch(loading.actions.setLoading(false))
