@@ -17,10 +17,9 @@ export const Badges = () => {
       <Typography variant="h4">Badges: </Typography>
       <Stack direction="row" spacing={2}>
         {badges.map((badge) => {
-          const { id, title, description } = badge;
           return (
-            <Tooltip key={id} title={`${title}: ${description}`}>
-              <Avatar alt={title} src={badges} sx={{ height: '60px', width: '60px', margin: '1em 0' }} />
+            <Tooltip key={badge.id} title={`${badge.title}: ${badge.description}`}>
+              <Avatar alt={badge.title} src={badge.path} sx={{ height: '60px', width: '60px', margin: '1em 0' }} />
             </Tooltip>
           )
         })}
