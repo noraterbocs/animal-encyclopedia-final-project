@@ -355,6 +355,14 @@ export const deleteUser = () => {
         if (data.success) {
           dispatch(user.actions.setError(null))
           dispatch(user.actions.setAccessToken(null))
+          dispatch(user.actions.setUsername(null))
+          dispatch(user.actions.setAvatar(null))
+          dispatch(user.actions.setBadges(null))
+          dispatch(user.actions.setCreatedAt(null))
+          dispatch(user.actions.setTotalScore(null))
+          dispatch(user.actions.setHistory(null))
+          dispatch(user.actions.setEmail(null))
+          dispatch(user.actions.setError(null))
         } else {
           dispatch(user.actions.setError(data.response.message))
           dispatch(loading.actions.setLoading(false))
