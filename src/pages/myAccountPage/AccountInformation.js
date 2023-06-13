@@ -12,7 +12,6 @@ export const AccountInformation = () => {
   const username = useSelector((store) => store.user.username);
   const [dialogValue, setDialogValue] = useState('');
   const [open, setOpen] = useState(false);
-  // const [setDeleteAccountOpen] = useState(false);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
   const handleClickOpen = (id) => {
@@ -35,13 +34,10 @@ export const AccountInformation = () => {
     dispatch(updatePassword(dialogValue))
     setChangePasswordOpen(false);
   }
-  // const handleDeleteAccount = () => {
-  //   dispatch(deleteUser())
-  //   setDeleteAccountOpen(false);
-  // }
+
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
-    <Grid item xs={isMobileView ? 12 : 4} sx={{ padding: '2em', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
+    <Grid item xs={isMobileView ? 12 : 5} sx={{ padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">Account information: </Typography>
 
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
