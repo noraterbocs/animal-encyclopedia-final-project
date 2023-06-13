@@ -20,6 +20,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/195.jpg';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
+import Amazing from '../../assets/animations/amazing2.gif';
 
 const chatbotStyle = {
   position: 'absolute',
@@ -145,14 +146,17 @@ export const Summary = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description">
           <Box sx={summaryStyle}>
-            <Card sx={{ backgroundColor: 'green', height: '100%', position: 'relative' }}>
+            <Card sx={{ backgroundColor: '#F3F9F5', height: '100%', position: 'relative' }}>
               <Confetti sx={{ position: 'absolute' }} />
               <CardMedia
                 sx={{ }}
                 image={SummaryPicture}
                 title="party background" />
               <CardContent>
-                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>🎉 🥳 You got {correctAnswers.length}/{answers.length} questions right! 🥳 🎉</Typography>
+                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                  <img src={Amazing} alt="Amazing" style={{ width: '80vw', margin: '0' }} />
+                You got {correctAnswers.length} points!
+                </Typography>
               </CardContent>
             </Card>
           </Box>
