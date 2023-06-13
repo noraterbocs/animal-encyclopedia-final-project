@@ -6,7 +6,8 @@ import { Container } from '@mui/material';
 import { Map } from './Map';
 import { getUser } from '../../reducers/user';
 import { Loading } from '../../components/Loading';
-import BackgroundAnimals from '../../assets/background/BackgroundAnimals.png'
+// import BackgroundAnimals from '../../assets/background/BackgroundAnimals.png'
+import BackgroundAnimals from '../../assets/background/forest.jpg'
 
 export const HomePage = () => {
   const dispatch = useDispatch();

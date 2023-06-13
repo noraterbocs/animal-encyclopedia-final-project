@@ -14,7 +14,7 @@ export const MyActivity = () => {
 
   // Calculate the date 7 days ago
   const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
 
   // Prepare the chart data
   const performance = [['Date', 'Score']];
