@@ -6,7 +6,7 @@ import { Animal } from 'pages/animalPage/Animal.js';
 import { quiz } from 'reducers/quiz.js';
 import { TextGeneratorGame } from 'pages/gamesPage/TextGeneratorGame.js';
 import { animalArticles } from 'reducers/articles.js';
-// import StickyFooter from 'Footer.js';
+import StickyFooter from 'Footer.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Header } from './pages/Header.js';
 import { HomePage } from './pages/homePage/HomePage.js';
@@ -57,7 +57,7 @@ export const App = () => {
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
-          {/* <StickyFooter /> */}
+          <StickyFooter />
         </BrowserRouter>
       </Provider>
     </ThemeProvider>
