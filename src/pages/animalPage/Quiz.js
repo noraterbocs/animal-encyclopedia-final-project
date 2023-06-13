@@ -12,6 +12,19 @@ import { Card, CardContent, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { updateHistory } from 'reducers/user';
 import { Summary } from './Summary';
+import GreenArchway from '../../assets/background/greenarchway.jpg'
+
+const containerStyle = {
+  backgroundImage: `url(${GreenArchway})`,
+  backgroundSize: 'cover',
+  // backgroundPosition: 'center',
+  minWidth: '80vw',
+  minHeight: '80vh',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center'
+};
 
 export const Quiz = () => {
   const dispatch = useDispatch();
@@ -64,8 +77,8 @@ export const Quiz = () => {
     return <Summary />;
   } else {
     return (
-      <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Card variant="outlined" sx={{ maxWidth: 700, textAlign: 'center', marginTop: 20 }}>
+      <Container maxWidth="lg" sx={containerStyle}>
+        <Card variant="outlined" sx={{ maxWidth: 600, textAlign: 'center', marginTop: 20 }}>
           <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Typography variant="h3" sx={{ margin: 5 }}>{question.questionText}</Typography>
             <img src={animalImagePath} alt={animalImagePath} />
@@ -83,7 +96,6 @@ export const Quiz = () => {
                   aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
                   onClick={() => handleOptionClick(index)}>
                   {singleOption.text}
-                  <img src={singleOption.image} alt={singleOption.text} style={{ height: '20px' }} />
                 </Button>
               ))}
             </Stack>
@@ -102,4 +114,6 @@ export const Quiz = () => {
       </Container>
     );
   }
-}
+};
+
+// <img src={singleOption.image} alt={singleOption.text} style={{ height: '20px' }} />

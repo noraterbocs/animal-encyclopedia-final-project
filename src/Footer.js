@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
+import Logo from './assets/encylogo4.png';
 
 const Copyright = () => {
   return (
@@ -16,37 +17,45 @@ const Copyright = () => {
       .
     </Typography>
   );
-}
+};
 
 const StickyFooter = () => {
   return (
-    <Container>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+      <CssBaseline />
       <Box
+        component="footer"
         sx={{
+          py: 3,
+          px: 2,
+          mt: 'auto',
+          backgroundColor: '#F3F9F5',
           display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh'
+          alignItems: 'center'
         }}>
-        <CssBaseline />
-        <Box
-          component="footer"
+        <Container
+          maxWidth="lg"
           sx={{
-            py: 3,
-            px: 2,
-            mt: 'auto',
-            backgroundColor: (theme) => (theme.palette.mode === 'light'
-              ? theme.palette.grey[200]
-              : theme.palette.grey[800])
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
           }}>
-          <Container sx={{ width: '100%', marginTop: '1rem' }}>
-            <Typography variant="body1">
-              Nora Terbocs and Jennifer Feenstra-Arengårds Pet Project
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <img src={Logo} alt="animal-quest-logo" style={{ width: '150px', height: 'auto', marginRight: '1rem', opacity: 0.8 }} />
+          </Box>
+          <Box>
+            <Typography variant="body1" sx={{ color: '#04211F' }}>
+              Built by Nora Terbocs and Jennifer Feenstra-Arengård
             </Typography>
             <Copyright />
-          </Container>
-        </Box>
+          </Box>
+        </Container>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
