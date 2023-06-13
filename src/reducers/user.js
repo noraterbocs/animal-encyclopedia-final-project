@@ -3,26 +3,28 @@ import { createSlice } from '@reduxjs/toolkit';
 import { API_URL } from 'utils/urls';
 import { loading } from './loading';
 
+const initialState = {
+  userId: null,
+  username: '',
+  password: '',
+  email: '',
+  avatar: '',
+  badges: [],
+  // history: [{ quiz: 'bear', score: 10, timestamp: '2023-06-03T09:04:53.761Z' }, { quiz: 'toucan', score: 5, timestamp: '2023-06-02T09:04:53.761Z' }],
+  history: [],
+  totalScore: 0,
+  createdAt: '',
+  // accessToken: 'dd97006238677b9cbdef92be251025a692e065268b780d5a7caf09d29a9c576aa23a0f9008739f935ad12bf46b9e50cf22629496bcfff1c23f8a19127b208e66b40658f076d15a0adea6f388ce7663b15077c3f4effa93958ffd025dc90358dd784120ab4fb044d4ae43d255770415daecc5206ac8012bdc134a77eab8cfb17d',
+  accessToken: null,
+  error: null,
+  mode: 'login',
+  lastGeneratedStoryDate: '',
+  highestBadgeRank: 'explorer'
+}
+
 export const user = createSlice({
   name: 'user',
-  initialState: {
-    userId: null,
-    username: '',
-    password: '',
-    email: '',
-    avatar: '/images/avatars/AlligatorAvatar.png',
-    badges: [],
-    // history: [{ quiz: 'bear', score: 10, timestamp: '2023-06-03T09:04:53.761Z' }, { quiz: 'toucan', score: 5, timestamp: '2023-06-02T09:04:53.761Z' }],
-    history: [],
-    totalScore: 0,
-    createdAt: '',
-    accessToken: 'dd97006238677b9cbdef92be251025a692e065268b780d5a7caf09d29a9c576aa23a0f9008739f935ad12bf46b9e50cf22629496bcfff1c23f8a19127b208e66b40658f076d15a0adea6f388ce7663b15077c3f4effa93958ffd025dc90358dd784120ab4fb044d4ae43d255770415daecc5206ac8012bdc134a77eab8cfb17d',
-    // accessToken: null,
-    error: null,
-    mode: 'login',
-    lastGeneratedStoryDate: '',
-    highestBadgeRank: 'explorer'
-  },
+  initialState,
   reducers: {
     // modifies the state directly
     setUserId: (store, action) => {
@@ -86,6 +88,9 @@ export const user = createSlice({
     setLastGeneratedStoryDate: (store, action) => {
       store.lastGeneratedStoryDate = action.payload
       console.log('date for last gen story:', action.payload)
+    },
+    reset: () => {
+      return initialState
     }
   }
 });
@@ -349,11 +354,15 @@ export const deleteUser = () => {
       .then((data) => {
         if (data.success) {
           dispatch(user.actions.setError(null))
+          dispatch(user.actions.setAccessToken(null))
         } else {
           dispatch(user.actions.setError(data.response.message))
           dispatch(loading.actions.setLoading(false))
         }
       })
-      .finally(() => setTimeout(() => dispatch(loading.actions.setLoading(false)), 5000))
+      .finally(() => {
+        dispatch(user.actions.reset())
+        setTimeout(() => dispatch(loading.actions.setLoading(false)), 5000)
+      })
   };
 };
