@@ -3,7 +3,8 @@ import { Box, Typography, Button, Dialog, DialogTitle, DialogContent, DialogCont
 import EditIcon from '@mui/icons-material/Edit';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteUser, updatePassword, updateUsername } from 'reducers/user';
+import { updatePassword, updateUsername } from 'reducers/user';
+import { DeleteAccount } from './DeleteAccount';
 
 export const AccountInformation = () => {
   const dispatch = useDispatch()
@@ -11,7 +12,6 @@ export const AccountInformation = () => {
   const username = useSelector((store) => store.user.username);
   const [dialogValue, setDialogValue] = useState('');
   const [open, setOpen] = useState(false);
-  const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
   const handleClickOpen = (id) => {
@@ -19,14 +19,11 @@ export const AccountInformation = () => {
       setOpen(true);
     } else if (id === 'password') {
       setChangePasswordOpen(true);
-    } else if (id === 'delete') {
-      setDeleteAccountOpen(true)
     }
   };
 
   const handleClose = () => {
     setOpen(false);
-    setDeleteAccountOpen(false)
     setChangePasswordOpen(false)
   };
   const handleSaveUsername = () => {
@@ -37,14 +34,12 @@ export const AccountInformation = () => {
     dispatch(updatePassword(dialogValue))
     setChangePasswordOpen(false);
   }
-  const handleDeleteAccount = () => {
-    dispatch(deleteUser())
-    setDeleteAccountOpen(false);
-  }
+
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
-    <Grid item xs={isMobileView ? 12 : 4} sx={{ padding: '2em', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
+    <Grid item xs={isMobileView ? 12 : 5} sx={{ padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">Account information: </Typography>
+
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <Typography>Username: {username}</Typography><Button id="username" onClick={() => handleClickOpen('username')}><EditIcon /></Button>
         <Dialog open={open} onClose={handleClose}>
@@ -98,25 +93,8 @@ export const AccountInformation = () => {
           </DialogActions>
         </Dialog>
       </Box>
-      <Box><Button id="delete" onClick={() => handleClickOpen('delete')}>Delete account</Button>
-        <Dialog
-          open={deleteAccountOpen}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description">
-          <DialogTitle id="alert-dialog-title">
-            Are you sure you want to delete your account?
-          </DialogTitle>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleDeleteAccount} autoFocus>
-            Confirm
-            </Button>
-          </DialogActions>
-        </Dialog>
-        {/* <Alert severity="success">Your account has been deleted!</Alert> */}
-      </Box>
 
+      <DeleteAccount />
     </Grid>
   )
 }

@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Chart } from 'react-google-charts';
@@ -14,7 +14,7 @@ export const MyActivity = () => {
 
   // Calculate the date 7 days ago
   const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
 
   // Prepare the chart data
   const performance = [['Date', 'Score']];
@@ -46,8 +46,9 @@ export const MyActivity = () => {
     currentDate.setDate(currentDate.getDate() + 1);
   }
   console.log(performance)
+  const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
-    <Grid item xs={12} sx={{ padding: '2em', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
+    <Grid xs={isMobileView ? 12 : 7} item sx={{ padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">My activity: </Typography>
       <Chart
         chartType="Line"
