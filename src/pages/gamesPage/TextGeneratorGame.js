@@ -1,13 +1,15 @@
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable max-len */
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generateText, getStories } from 'reducers/games';
 import { getLastGeneratedStoryDate } from 'reducers/user';
 // import Countdown from 'react-countdown';
 import { PreviousStories } from './PreviousStories';
+import { MainHeader } from './MainHeader';
+import BackgroundAnimals from '../../assets/background/jungle2.jpg'
 
 export const TextGeneratorGame = () => {
   const parameters = [
@@ -70,10 +72,18 @@ export const TextGeneratorGame = () => {
     setIsFormValid(newSelectedOptions.every((option) => option !== null));
     // console.log(timeDifference)
   };
+  const mainHeader = {
+    title: 'Story Generator',
+    description:
+    'You can unleash your creativity and bring your imagination to life with the help of our AI-powered story generator. Select various options to customize your story, and watch as the AI generates a unique and exciting narrative just for you!',
+    image: BackgroundAnimals,
+    imageText: 'Image by <a href="https://www.freepik.com/free-vector/organic-flat-jungle-background_13859430.htm#query=jungle%20background%20cartoon&position=35&from_view=search&track=ais#position=35&query=jungle%20background%20cartoon">Freepik</a>'
+  };
 
   return (
-    <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <Typography variant="h2" sx={{ textAlign: 'center' }}>Story Generator</Typography>
+    <Container sx={{ height: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', position: 'relative', margin: 0, maxWidth: 'none !important', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)' }}>
+      {/* <img style={{ position: 'absolute', minHeight: '100vh', height: '100%', width: '100%', top: '0px', left: '0px', zIndex: '-2', opacity: '0.1' }} src={BackgroundAnimals} alt="main background" /> */}
+      <MainHeader post={mainHeader} />
       {/* {timeDifference < 86400000 ? '': */}
       <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, justifyContent: 'center' }}>
         {parameters.map((parameter, index) => {
