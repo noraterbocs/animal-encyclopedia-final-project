@@ -9,15 +9,15 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Card, CardContent, ThemeProvider } from '@mui/material';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, styled } from '@mui/material/styles';
 import { updateHistory } from 'reducers/user';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { Summary } from './Summary';
-import GreenArchway from '../../assets/background/greenarchway.jpg'
+import Jungle from '../../assets/background/jungle2.jpg';
 
 const containerStyle = {
-  backgroundImage: `url(${GreenArchway})`,
+  backgroundImage: `url(${Jungle})`,
   backgroundSize: 'cover',
-  // backgroundPosition: 'center',
   minWidth: '80vw',
   minHeight: '80vh',
   display: 'flex',
@@ -25,6 +25,22 @@ const containerStyle = {
   justifyContent: 'center',
   alignItems: 'center'
 };
+
+const cardStyle = { width: '80% ',
+  textAlign: 'center',
+  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  borderRadius: 16,
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  marginTop: '0' };
+
+const CustomMobileStepper = styled(MobileStepper)({
+  '& .MuiMobileStepper-dots': {
+    '& .MuiMobileStepper-dot': {
+      width: 20,
+      height: 20
+    }
+  }
+});
 
 export const Quiz = () => {
   const dispatch = useDispatch();
@@ -69,6 +85,8 @@ export const Quiz = () => {
   console.log(animalImagePath)
   console.log(animalId)
 
+  const isSmallScreen = useMediaQuery('(max-width: 900px)');
+
   if (!question) {
     return <h1>Oh no! Could not find that animal. Please return to the home page.</h1>;
   }
@@ -78,35 +96,36 @@ export const Quiz = () => {
   } else {
     return (
       <Container maxWidth="lg" sx={containerStyle}>
-        <Card variant="outlined" sx={{ maxWidth: 600, textAlign: 'center', marginTop: 20 }}>
+        <Card variant="outlined" sx={cardStyle}>
           <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Typography variant="h3" sx={{ margin: 5 }}>{question.questionText}</Typography>
-            <img src={animalImagePath} alt={animalImagePath} />
+            <Typography variant="h3" sx={{ margin: 5, color: '#055C29', fontFamily: 'Quicksand', fontWeight: 'bold' }}>{question.questionText}</Typography>
+            <img src={animalImagePath} alt={animalImagePath} style={{ minHeight: '400px' }} />
 
-            <Stack spacing={2} direction="row">
+            <Stack spacing={2} direction={isSmallScreen ? 'column' : 'row'}>
               {question.options.map((singleOption, index) => (
                 <Button
                   key={singleOption.text}
                   type="button"
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                   size="large"
                   value={index}
                   index={index}
                   aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
-                  onClick={() => handleOptionClick(index)}>
+                  onClick={() => handleOptionClick(index)}
+                  sx={{ flex: 1, backgroundColor: '#055C29', color: '#F3F9F5', fontFamily: '"Fredoka One", cursive', fontSize: '20px', padding: '12px 24px' }}>
                   {singleOption.text}
                 </Button>
               ))}
             </Stack>
 
             <ThemeProvider theme={theme}>
-              <MobileStepper
+              <CustomMobileStepper
                 variant="dots"
                 steps={totalSteps}
                 position="static"
                 activeStep={currentQuestionIndex}
-                sx={{ maxWidth: 400, fontSize: 12 }}
+                sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', marginTop: 3 }}
               />
             </ThemeProvider>
           </CardContent>

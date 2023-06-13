@@ -26,22 +26,22 @@ import { createSlice } from '@reduxjs/toolkit';
 const questions = [
   { id: 0,
     questionText: 'What does this animal eat?',
-    options: [{ text: 'Carnivore:Meat' }, { text: 'Herbivore:Plants' }, { text: 'Omnivore:Everything' }] },
+    options: [{ text: 'Carnivore' }, { text: 'Herbivore' }, { text: 'Omnivore' }] },
   { id: 1,
     questionText: 'Where does this animal live?',
-    options: [{ text: 'ocean' }, { text: 'trees' }, { text: 'land' }, { text: 'snow' }] },
+    options: [{ text: 'Ocean' }, { text: 'Trees' }, { text: 'Land' }, { text: 'Snow' }] },
   { id: 2,
     questionText: 'Does this animal have live babies or lay eggs?',
-    options: [{ text: 'eggs' }, { text: 'live babies' }] },
+    options: [{ text: 'Eggs' }, { text: 'Live babies' }] },
   { id: 3,
     questionText: 'Does this animal like to live alone or in groups?',
     options: [{ text: 'Alone' }, { text: 'Groups' }] },
   { id: 4,
     questionText: 'How many hours per day does this animal sleep?',
-    options: [{ text: 'less than 5 hours' }, { text: '5-10 hours' }, { text: 'more than 10hours' }] },
+    options: [{ text: 'Less than 5 hours' }, { text: '5-10 Hours' }, { text: 'More than 10 hours' }] },
   { id: 5,
     questionText: 'What is the best way for this animal to get around?',
-    options: [{ text: 'walking' }, { text: 'hopping' }, { text: 'flying' }, { text: 'swimming' }] }
+    options: [{ text: 'Walking' }, { text: 'Hopping' }, { text: 'Flying' }, { text: 'Swimming' }] }
 ]
 
 const animalAnswers = [
