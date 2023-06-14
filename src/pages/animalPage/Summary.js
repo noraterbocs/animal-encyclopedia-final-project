@@ -111,7 +111,7 @@ export const Summary = () => {
       dispatch(updateBadges(newBadge))
       console.log('earning a new badge:', 'newHighestBadgeRank:', newHighestBadgeRank, 'highestBadgeRank:', highestBadgeRank, 'newBadge:', newBadge)
     }
-  }, []);
+  }, [highestBadgeRank, totalScore]);
 
   const [summaryModalOpen, setSummaryModalOpen] = React.useState(false);
   const [chatbotModalOpen, setChatbotModalOpen] = React.useState(false);
