@@ -11,16 +11,31 @@ import { quiz } from 'reducers/quiz';
 import Confetti from 'react-confetti'
 // import { animalArticles } from 'reducers/articles';
 import { fetchAnimalArticles } from 'reducers/articles';
-import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
 import { updateBadges } from 'reducers/user';
-import ImageList from '@mui/material/ImageList';
+// import ImageList from '@mui/material/ImageList';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import ImageListItem from '@mui/material/ImageListItem';
+// import ImageListItem from '@mui/material/ImageListItem';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/195.jpg';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
 import Amazing from '../../assets/animations/amazing2.gif';
+import BackgroundImage from '../../assets/background/jungle2.jpg';
+
+const rootStyle = {
+  margin: 0,
+  padding: 0,
+  overflowX: 'hidden',
+  backgroundImage: `url(${BackgroundImage})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat'
+};
+// const backgroundStyle = {
+//   backgroundImage: `url(${BackgroundImage})`,
+//   backgroundSize: 'cover',
+//   backgroundRepeat: 'no-repeat'
+// };
 
 const chatbotStyle = {
   position: 'absolute',
@@ -46,7 +61,16 @@ const summaryStyle = {
 const ChatbotAvatarStyle = {
   width: '60px',
   height: '60px'
-}
+};
+
+const subtitleStyle = { fontSize: '2rem',
+  textAlign: 'center',
+  backgroundColor: '#F3F9F5' };
+
+const textStyle = { fontSize: '2rem',
+  padding: '15px',
+  backgroundColor: '#F3F9F5',
+  color: '#21514C' }
 
 const userBadges = [
   { id: '1', title: 'explorer', path: '/images/badges/Explorer.png', description: 'Congratulations! You have earned the Explorer badge! As an explorer, you have taken your first steps into the exciting world of animals. You have shown curiosity and a keen interest in learning about different species. Keep exploring and discovering fascinating facts about animals from all around the world.' },
@@ -137,7 +161,7 @@ export const Summary = () => {
   // }
 
   return (
-    <div>
+    <div style={rootStyle}>
 
       <div>
         <Modal
@@ -153,7 +177,7 @@ export const Summary = () => {
                 image={SummaryPicture}
                 title="party background" />
               <CardContent>
-                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                   <img src={Amazing} alt="Amazing" style={{ width: '80vw', margin: '0' }} />
                 You got {correctAnswers.length} points!
                 </Typography>
@@ -164,39 +188,54 @@ export const Summary = () => {
       </div>
 
       <div>
-        <Card>
-          <CardContent>
-            <Typography variant="h2">Learn more about the {animalId} here</Typography>
-            <CardMedia
-              sx={{ height: 140 }}
-              image="/static/images/cards/contemplative-reptile.jpg"
-              title="green iguana" />
-            <Stack spacing={2}>
-              <Typography variant="h3">The {animalId}</Typography>
+        <Typography variant="h2" sx={{ textAlign: 'center' }}>Learn more about the {animalId}</Typography>
 
-              <Typography variant="h4">Introduction</Typography>
-              <Typography variant="body2">{animalText.animalIntroduction}</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Grid container spacing={2}>
+              {/* <Grid item xs={12}>
+                <Typography variant="h3" style={subtitleStyle}>The {animalId}</Typography>
+              </Grid> */}
 
-              <Typography variant="h4">Diet</Typography>
-              <Typography variant="body2">{animalText.animalDiet}</Typography>
+              <Grid item xs={12}>
+                <Typography variant="h4" style={subtitleStyle}>Introduction</Typography>
+                <Typography variant="body1" style={textStyle}>{animalText.animalIntroduction}</Typography>
+              </Grid>
 
-              <Typography variant="h4">Reproduction</Typography>
-              <Typography variant="body2">{animalText.animalReproduction}</Typography>
+              <Grid item xs={12}>
+                <img src={animalText.imageURL1} alt={animalId} style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+              </Grid>
 
-              <Typography variant="h4">Interesting Facts</Typography>
-              <Typography variant="body2">{animalText.animalFacts}</Typography>
+              <Grid item xs={12}>
+                <Typography variant="h4" style={subtitleStyle}>Diet</Typography>
+                <Typography variant="body1" style={textStyle}>{animalText.animalDiet}</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
 
-              <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-                <ImageListItem>
-                  <img src={animalText.imageURL1} alt={animalId} />
-                  <img src={animalText.imageURL2} alt={animalId} />
-                  <img src={animalText.imageURL3} alt={animalId} />
-                </ImageListItem>
-              </ImageList>
+          <Grid item xs={12} sm={6}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <img src={animalText.imageURL2} alt={animalId} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+              </Grid>
 
-            </Stack>
-          </CardContent>
-        </Card>
+              <Grid item xs={12}>
+                <Typography variant="h4" style={subtitleStyle}>Reproduction</Typography>
+                <Typography variant="body1" style={textStyle}>{animalText.animalReproduction}</Typography>
+              </Grid>
+
+              <Grid item xs={12}>
+                <img src={animalText.imageURL3} alt={animalId} style={{ width: '100%', height: '400px', objectFit: 'cover' }} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography variant="h4" style={subtitleStyle}>Interesting Facts</Typography>
+                <Typography variant="body1" style={textStyle}>{animalText.animalFacts}</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+
       </div>
 
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
