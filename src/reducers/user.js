@@ -14,8 +14,8 @@ const initialState = {
   history: [],
   totalScore: 0,
   createdAt: '',
-  // accessToken: 'dd97006238677b9cbdef92be251025a692e065268b780d5a7caf09d29a9c576aa23a0f9008739f935ad12bf46b9e50cf22629496bcfff1c23f8a19127b208e66b40658f076d15a0adea6f388ce7663b15077c3f4effa93958ffd025dc90358dd784120ab4fb044d4ae43d255770415daecc5206ac8012bdc134a77eab8cfb17d',
-  accessToken: null,
+  accessToken: 'dd97006238677b9cbdef92be251025a692e065268b780d5a7caf09d29a9c576aa23a0f9008739f935ad12bf46b9e50cf22629496bcfff1c23f8a19127b208e66b40658f076d15a0adea6f388ce7663b15077c3f4effa93958ffd025dc90358dd784120ab4fb044d4ae43d255770415daecc5206ac8012bdc134a77eab8cfb17d',
+  // accessToken: null,
   error: null,
   mode: 'login',
   lastGeneratedStoryDate: '',
@@ -242,6 +242,34 @@ export const updatePassword = (password) => {
       .then((data) => {
         if (data.success) {
           dispatch(user.actions.setPassword(data.response.password));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
+// PATCH - update avatar
+export const changeAvatar = (avatar) => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ avatar })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setAvatar(data.response.avatar));
           dispatch(user.actions.setError(null))
         } else {
           dispatch(user.actions.setError(data.response.message))

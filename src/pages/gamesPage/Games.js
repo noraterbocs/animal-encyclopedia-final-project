@@ -8,7 +8,6 @@ import BackgroundAnimals from '../../assets/background/jungle2.jpg'
 import { MainHeader } from './MainHeader';
 import BackgroundForest from '../../assets/background/animals.jpg'
 import { WaitingAnimation } from './WaitingAnimation'
-// import BackgroundGreen from '../../assets/background/green.jpg'
 
 export const Games = () => {
   const images = [

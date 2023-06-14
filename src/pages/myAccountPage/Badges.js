@@ -13,7 +13,7 @@ export const Badges = () => {
   const badges = useSelector((store) => store.user.badges);
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
-    <Grid item xs={isMobileView ? 12 : 5} sx={{ padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
+    <Grid item xs={isMobileView ? 12 : 5} sx={{ borderRadius: '10%', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)', padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">Badges: </Typography>
       <Stack direction="row" spacing={2} sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
         {badges.map((badge) => {

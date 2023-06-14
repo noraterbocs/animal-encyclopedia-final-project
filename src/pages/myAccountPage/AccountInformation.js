@@ -4,7 +4,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updatePassword, updateUsername } from 'reducers/user';
+import { Animation } from 'components/Animation';
 import { DeleteAccount } from './DeleteAccount';
+import { ChangeAvatar } from './ChangeAvatar';
 
 export const AccountInformation = () => {
   const dispatch = useDispatch()
@@ -37,7 +39,7 @@ export const AccountInformation = () => {
 
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
-    <Grid item xs={isMobileView ? 12 : 5} sx={{ padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
+    <Grid item xs={isMobileView ? 12 : 5} sx={{ borderRadius: '10%', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)', padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">Account information: </Typography>
 
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
@@ -93,8 +95,9 @@ export const AccountInformation = () => {
           </DialogActions>
         </Dialog>
       </Box>
-
+      <ChangeAvatar />
       <DeleteAccount />
+      {dialogValue && <Animation src="https://assets3.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" />}
     </Grid>
   )
 }
