@@ -29,7 +29,15 @@ const Copyright = (props) => {
   );
 }
 
-const defaultTheme = createTheme();
+// const defaultTheme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#AEC6BF'
+    }
+  }
+});
+
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -56,7 +64,7 @@ export const Login = () => {
     }
   }
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ minHeight: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -65,7 +73,7 @@ export const Login = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: 'url(https://source.unsplash.com/random?animals)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) => (t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900]),
             backgroundSize: 'cover',
@@ -131,7 +139,8 @@ export const Login = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}>
+                // color="primary"
+                sx={{ mt: 3, mb: 2, color: '#F3F9F5' }}>
                 {isLoading ? <CircularProgress size={10} thickness={5} sx={{ margin: '0 5px', color: '#ffffff' }} /> : ''}
                 {checked ? 'Sign in' : 'Sign up'}
               </Button>
