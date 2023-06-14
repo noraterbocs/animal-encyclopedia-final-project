@@ -5,7 +5,8 @@ import { Chart } from 'react-google-charts';
 
 export const options = {
   chart: {
-    title: 'Score per quiz'
+    title: 'Score per quiz',
+    colors: ['red']
   }
 };
 export const MyActivity = () => {

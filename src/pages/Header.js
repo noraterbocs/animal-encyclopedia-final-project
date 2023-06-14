@@ -17,7 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Button, Container } from '@mui/material';
+import { Button, Container, ThemeProvider, createTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { user } from '../reducers/user';
 
@@ -39,6 +39,13 @@ export const Header = (props) => {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#84a199'
+      }
+    }
+  });
 
   // Excluding pages to show Header:
   const [display, setDisplay] = useState(true)
@@ -86,56 +93,58 @@ export const Header = (props) => {
     dispatch(user.actions.setError(null))
   }
   return (
-    <Container maxWidth="100vw">
-      {display ? <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar component="nav">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}>
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}> AnimalQuest
-            </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {navItems.map((item) => (
-                <NavLink key={item.label} to={item.path} sx={{ color: '#fff' }}>
-                  <Button sx={{ color: '#fff' }}>
-                    {item.label}
-                  </Button>
-                </NavLink>
-              ))}
-              <Button sx={{ color: '#fff' }} onClick={onLogoutButtonClick}><LogoutIcon /></Button>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Box component="nav">
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
-            }}>
-            {drawer}
-          </Drawer>
-        </Box>
-        <Box component="main">
-          <Toolbar />
-        </Box>
-      </Box> : ''}
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="100vw">
+        {display ? <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+          <AppBar component="nav">
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, display: { sm: 'none' } }}>
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}> AnimalQuest
+              </Typography>
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                {navItems.map((item) => (
+                  <NavLink key={item.label} to={item.path} sx={{ color: '#fff' }}>
+                    <Button sx={{ color: '#fff' }}>
+                      {item.label}
+                    </Button>
+                  </NavLink>
+                ))}
+                <Button sx={{ color: '#fff' }} onClick={onLogoutButtonClick}><LogoutIcon /></Button>
+              </Box>
+            </Toolbar>
+          </AppBar>
+          <Box component="nav">
+            <Drawer
+              container={container}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true // Better open performance on mobile.
+              }}
+              sx={{
+                display: { xs: 'block', sm: 'none' },
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
+              }}>
+              {drawer}
+            </Drawer>
+          </Box>
+          <Box component="main">
+            <Toolbar />
+          </Box>
+        </Box> : ''}
+      </Container>
+    </ThemeProvider>
   );
 }
