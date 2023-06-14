@@ -4,9 +4,15 @@ import { useSelector } from 'react-redux';
 import { Chart } from 'react-google-charts';
 
 export const options = {
+  backgroundColor: {
+    fill: '#F3F9F5',
+    opacity: 0.4
+  },
   chart: {
-    title: 'Score per quiz',
-    colors: ['red']
+    title: 'Score per quiz'
+  },
+  chartArea: {
+    backgroundColor: '#F3F9F5'
   }
 };
 export const MyActivity = () => {
@@ -49,7 +55,7 @@ export const MyActivity = () => {
   console.log(performance)
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
-    <Grid xs={isMobileView ? 12 : 7} item sx={{ padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
+    <Grid xs={isMobileView ? 12 : 7} item sx={{ borderRadius: '10%', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)', padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">My activity: </Typography>
       <Chart
         chartType="Line"

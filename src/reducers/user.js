@@ -252,6 +252,34 @@ export const updatePassword = (password) => {
   };
 };
 
+// PATCH - update avatar
+export const changeAvatar = (avatar) => {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().user;
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ avatar })
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setAvatar(data.response.avatar));
+          dispatch(user.actions.setError(null))
+        } else {
+          dispatch(user.actions.setError(data.response.message))
+          dispatch(loading.actions.setLoading(false))
+        }
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
 // PATCH - update badges
 export const updateBadges = (badges) => {
   return (dispatch, getState) => {

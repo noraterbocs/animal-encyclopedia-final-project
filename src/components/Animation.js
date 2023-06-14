@@ -1,12 +1,12 @@
 import React from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
-export const DeletedAnimation = () => {
+export const Animation = ({ src }) => {
   return (
     <Player
       autoplay
-      className="loading"
-      src="https://assets9.lottiefiles.com/packages/lf20_aimunqmw.json"
+      className="deleted"
+      src={src}
       speed={1}
       style={{
         position: 'absolute',

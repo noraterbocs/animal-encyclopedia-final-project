@@ -1,7 +1,10 @@
-import { Avatar, Container, Stack, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from 'reducers/leaderboard';
+import { BackgroundImage } from 'components/BackgroundImage';
+import { UserAvatar } from './UserAvatar';
+import Background from '../../assets/background/jungle2.jpg'
 
 export const Leaderboard = () => {
   const dispatch = useDispatch()
@@ -10,18 +13,13 @@ export const Leaderboard = () => {
   useEffect(() => {
     dispatch(getUsers())
   }, [])
+  const topUsers = users.slice(0, 3)
+  const restOfUsers = users.slice(3)
   return (
-    <Container>
-      {users.map((user) => {
-        return (
-          <Stack key={user.username} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '1em' }}>
-            <Avatar sx={{ backgroundColor: 'transparent' }} aria-label="avatar">
-              <img src={user.avatar} alt="avatar" style={{ width: '100%' }} />
-            </Avatar>
-            <Typography>{user.username}</Typography>
-            <Typography>{user.totalScore}</Typography>
-          </Stack>)
-      })}
+    <Container sx={{ padding: '1em', gap: '1em', display: 'flex', flexDirection: 'column' }}>
+      <BackgroundImage src={Background} alt="main background" />
+      <UserAvatar users={topUsers} isTopUsers />
+      <UserAvatar users={restOfUsers} isTopUsers={false} />
     </Container>
   )
 }

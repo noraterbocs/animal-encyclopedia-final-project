@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-closing-tag-location */
 import * as React from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,7 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Button, Container, ThemeProvider, createTheme } from '@mui/material';
+import { Avatar, Button, Container, ThemeProvider, createTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { user } from '../reducers/user';
 
@@ -36,6 +36,8 @@ export const Header = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const currentAvatar = useSelector((store) => store.user.avatar)
+
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -68,7 +70,7 @@ export const Header = (props) => {
           <NavLink key={item.label} to={item.path}>
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item.label} />
+                {item.label === 'My account' ? <Avatar alt={currentAvatar} src={currentAvatar} sx={{ height: '60px', width: '60px', margin: '0' }} /> : <ListItemText primary={item.label} />}
               </ListItemButton>
             </ListItem>
           </NavLink>

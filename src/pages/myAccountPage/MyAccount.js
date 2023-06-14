@@ -1,18 +1,22 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
+import { BackgroundImage } from 'components/BackgroundImage';
 import { AccountInformation } from './AccountInformation';
 import { Badges } from './Badges';
 import { MyActivity } from './MyActivity';
 import { Scores } from './Scores';
+import Background from '../../assets/background/jungle2.jpg'
 
 export const MyAccount = () => {
   return (
-    <Grid container spacing={2} sx={{ boxSizing: 'border-box', padding: '2em', gap: '3em' }}>
-      {/* <h1>MyAccount</h1> */}
-      <AccountInformation />
-      <Badges />
-      <Scores />
-      <MyActivity />
-    </Grid>
+    <Container>
+      <Grid container spacing={2} sx={{ boxSizing: 'border-box', padding: '2em', gap: '3em' }}>
+        <BackgroundImage src={Background} alt="main background" />
+        <AccountInformation />
+        <Badges />
+        <Scores />
+        <MyActivity />
+      </Grid>
+    </Container>
   )
 }
