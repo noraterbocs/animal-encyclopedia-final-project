@@ -9,18 +9,15 @@ import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
 import { quiz } from 'reducers/quiz';
 import Confetti from 'react-confetti'
-// import { animalArticles } from 'reducers/articles';
 import { fetchAnimalArticles } from 'reducers/articles';
 import Grid from '@mui/material/Grid';
 import { updateBadges } from 'reducers/user';
-// import ImageList from '@mui/material/ImageList';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-// import ImageListItem from '@mui/material/ImageListItem';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/195.jpg';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
-import Amazing from '../../assets/animations/amazing2.gif';
+import Amazing from '../../assets/animations/amazing3.gif';
 import BackgroundImage from '../../assets/background/jungle2.jpg';
 
 const rootStyle = {
@@ -31,16 +28,11 @@ const rootStyle = {
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat'
 };
-// const backgroundStyle = {
-//   backgroundImage: `url(${BackgroundImage})`,
-//   backgroundSize: 'cover',
-//   backgroundRepeat: 'no-repeat'
-// };
 
 const chatbotStyle = {
   position: 'absolute',
   bottom: '5%',
-  right: '5%',
+  left: '5%',
   width: '60vw',
   height: '70vh',
   border: '2px solid #000',
@@ -65,11 +57,15 @@ const ChatbotAvatarStyle = {
 
 const subtitleStyle = { fontSize: '2rem',
   textAlign: 'center',
-  backgroundColor: '#F3F9F5' };
+  backgroundColor: 'rgba(243, 249, 245, 0.8)',
+  borderRadius: '25px',
+  margin: '0.8rem' };
 
 const textStyle = { fontSize: '2rem',
   padding: '15px',
-  backgroundColor: '#F3F9F5',
+  backgroundColor: 'rgba(243, 249, 245, 0.8)',
+  borderRadius: '25px',
+  margin: '0.8rem',
   color: '#21514C' }
 
 const userBadges = [
@@ -147,19 +143,6 @@ export const Summary = () => {
   console.log('Animal Text:', animalText);
   console.log('Animal ID:', animalId);
 
-  // const animalIntroduction = animalText ? animalText.animalIntroduction : '';
-  // const animalDiet = animalText ? animalText.animalDiet : '';
-  // const animalReproduction = animalText ? animalText.animalReproduction : '';
-  // const animalFacts = animalText ? animalText.animalFacts : '';
-
-  // const animalArticle = animalText ? animalText[animalId] : null;
-  // // const animalArticle = animalText[animalId];
-  // console.log('Animal Article:', animalArticle);
-  // if (!animalArticle) {
-  //   console.log('Animal text not found:', animalId);
-  //   return <p>Article not found</p>
-  // }
-
   return (
     <div style={rootStyle}>
 
@@ -170,14 +153,14 @@ export const Summary = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description">
           <Box sx={summaryStyle}>
-            <Card sx={{ backgroundColor: '#F3F9F5', height: '100%', position: 'relative' }}>
+            <Card sx={{ backgroundColor: '#AEC6BF', height: '100%', position: 'relative' }}>
               <Confetti sx={{ position: 'absolute' }} />
               <CardMedia
                 sx={{ }}
                 image={SummaryPicture}
                 title="party background" />
               <CardContent>
-                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontFamily: 'Fredoka One' }}>
                   <img src={Amazing} alt="Amazing" style={{ width: '80vw', margin: '0' }} />
                 You got {correctAnswers.length} points!
                 </Typography>
@@ -188,14 +171,12 @@ export const Summary = () => {
       </div>
 
       <div>
-        <Typography variant="h2" sx={{ textAlign: 'center' }}>Learn more about the {animalId}</Typography>
-
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Typography variant="h2" sx={{ textAlign: 'center', backgroundColor: 'rgba(243, 249, 245, 0.8)', borderRadius: '25px', display: 'inline-block', padding: '0.5em', margin: '0.8rem' }}>Learn more about the {animalId}</Typography>
+        </Box>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Grid container spacing={2}>
-              {/* <Grid item xs={12}>
-                <Typography variant="h3" style={subtitleStyle}>The {animalId}</Typography>
-              </Grid> */}
 
               <Grid item xs={12}>
                 <Typography variant="h4" style={subtitleStyle}>Introduction</Typography>
