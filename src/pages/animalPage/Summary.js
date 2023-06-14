@@ -21,8 +21,8 @@ import Amazing from '../../assets/animations/amazing3.gif';
 import BackgroundImage from '../../assets/background/jungle2.jpg';
 
 const rootStyle = {
-  margin: 0,
-  padding: 0,
+  margin: '0 !important',
+  padding: '0 !important',
   overflowX: 'hidden',
   backgroundImage: `url(${BackgroundImage})`,
   backgroundSize: 'cover',
@@ -31,8 +31,8 @@ const rootStyle = {
 
 const chatbotStyle = {
   position: 'absolute',
-  bottom: '5%',
-  left: '5%',
+  bottom: '10%',
+  left: '10%',
   width: '60vw',
   height: '70vh',
   border: '2px solid #000',
@@ -51,8 +51,8 @@ const summaryStyle = {
   p: 4
 };
 const ChatbotAvatarStyle = {
-  width: '60px',
-  height: '60px'
+  width: '20rem',
+  height: '20rem'
 };
 
 const subtitleStyle = { fontSize: '2rem',
@@ -81,9 +81,7 @@ export const Summary = () => {
   // useSelector from quiz reducer
   const answers = useSelector((store) => store.quiz.answers)
   const animalId = useSelector((store) => store.quiz.animalId)
-  // const allBadges = useSelector((store) => store.quiz.badges)
   const highestBadgeRank = useSelector((store) => store.user.highestBadgeRank)
-  // const userBadges = useSelector((store) => store.user.badges)
   const totalScore = useSelector((store) => store.user.totalScore)
   const correctAnswers = answers.filter((item) => item.isCorrect)
   const dispatch = useDispatch();
@@ -91,7 +89,6 @@ export const Summary = () => {
 
   // useSelector from article reducer
   const animalText = useSelector((store) => store.animalArticles.animalText);
-  // const animalImages = useSelector((store) => store.animalArticles.animalImages)
 
   useEffect(() => {
     dispatch(fetchAnimalArticles(animalId));
@@ -146,94 +143,89 @@ export const Summary = () => {
   return (
     <div style={rootStyle}>
 
-      <div>
-        <Modal
-          open={summaryModalOpen}
-          onClose={handleCloseSummaryModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
-          <Box sx={summaryStyle}>
-            <Card sx={{ backgroundColor: '#AEC6BF', height: '100%', position: 'relative' }}>
-              <Confetti sx={{ position: 'absolute' }} />
-              <CardMedia
-                sx={{ }}
-                image={SummaryPicture}
-                title="party background" />
-              <CardContent>
-                <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontFamily: 'Fredoka One' }}>
-                  <img src={Amazing} alt="Amazing" style={{ width: '80vw', margin: '0' }} />
+      <Modal
+        open={summaryModalOpen}
+        onClose={handleCloseSummaryModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box sx={summaryStyle}>
+          <Card sx={{ backgroundColor: '#AEC6BF', height: '100%', position: 'relative' }}>
+            <Confetti sx={{ position: 'absolute' }} />
+            <CardMedia
+              sx={{ }}
+              image={SummaryPicture}
+              title="party background" />
+            <CardContent>
+              <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontFamily: 'Fredoka One' }}>
+                <img src={Amazing} alt="Amazing" style={{ width: '80vw', margin: '0' }} />
                 You got {correctAnswers.length} points!
-                </Typography>
-              </CardContent>
-            </Card>
-          </Box>
-        </Modal>
-      </div>
-
-      <div>
-        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Typography variant="h2" sx={{ textAlign: 'center', backgroundColor: 'rgba(243, 249, 245, 0.8)', borderRadius: '25px', display: 'inline-block', padding: '0.5em', margin: '0.8rem' }}>Learn more about the {animalId}</Typography>
+              </Typography>
+            </CardContent>
+          </Card>
         </Box>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2}>
+      </Modal>
 
-              <Grid item xs={12}>
-                <Typography variant="h4" style={subtitleStyle}>Introduction</Typography>
-                <Typography variant="body1" style={textStyle}>{animalText.animalIntroduction}</Typography>
-              </Grid>
+      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Typography variant="h2" sx={{ textAlign: 'center', backgroundColor: 'rgba(243, 249, 245, 0.8)', borderRadius: '25px', display: 'inline-block', padding: '0.5em', margin: '0.8rem' }}>Learn more about the {animalId}</Typography>
+      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Grid container spacing={2}>
 
-              <Grid item xs={12}>
-                <img src={animalText.imageURL1} alt={animalId} style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography variant="h4" style={subtitleStyle}>Diet</Typography>
-                <Typography variant="body1" style={textStyle}>{animalText.animalDiet}</Typography>
-              </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h4" style={subtitleStyle}>Introduction</Typography>
+              <Typography variant="body1" style={textStyle}>{animalText.animalIntroduction}</Typography>
             </Grid>
-          </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <img src={animalText.imageURL2} alt={animalId} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
-              </Grid>
+            <Grid item xs={12}>
+              <img src={animalText.imageURL1} alt={animalId} style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+            </Grid>
 
-              <Grid item xs={12}>
-                <Typography variant="h4" style={subtitleStyle}>Reproduction</Typography>
-                <Typography variant="body1" style={textStyle}>{animalText.animalReproduction}</Typography>
-              </Grid>
-
-              <Grid item xs={12}>
-                <img src={animalText.imageURL3} alt={animalId} style={{ width: '100%', height: '400px', objectFit: 'cover' }} />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography variant="h4" style={subtitleStyle}>Interesting Facts</Typography>
-                <Typography variant="body1" style={textStyle}>{animalText.animalFacts}</Typography>
-              </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h4" style={subtitleStyle}>Diet</Typography>
+              <Typography variant="body1" style={textStyle}>{animalText.animalDiet}</Typography>
             </Grid>
           </Grid>
         </Grid>
 
-      </div>
+        <Grid item xs={12} sm={6}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <img src={animalText.imageURL2} alt={animalId} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+            </Grid>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Grid item xs={12}>
+              <Typography variant="h4" style={subtitleStyle}>Reproduction</Typography>
+              <Typography variant="body1" style={textStyle}>{animalText.animalReproduction}</Typography>
+            </Grid>
+
+            <Grid item xs={12}>
+              <img src={animalText.imageURL3} alt={animalId} style={{ width: '100%', height: '400px', objectFit: 'cover' }} />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Typography variant="h4" style={subtitleStyle}>Interesting Facts</Typography>
+              <Typography variant="body1" style={textStyle}>{animalText.animalFacts}</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
         <Button onClick={handleOpenChatbotModal} sx={{ alignItems: 'center' }}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
       </Box>
 
-      <div>
-        <Modal
-          open={chatbotModalOpen}
-          onClose={handleCloseChatbotModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
-          <Box sx={chatbotStyle}>
-            <Chatbot />
-          </Box>
-        </Modal>
-      </div>
+      <Modal
+        open={chatbotModalOpen}
+        onClose={handleCloseChatbotModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+
+        <Box sx={chatbotStyle}>
+          <Chatbot />
+        </Box>
+      </Modal>
+
       <Link to="/" style={{ textDecoration: 'none' }}>
         <Button onClick={handleQuizOver}>Try more animals</Button>
       </Link>
