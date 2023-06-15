@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import CardContent from '@mui/material/CardContent';
