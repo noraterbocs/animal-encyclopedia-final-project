@@ -33,7 +33,6 @@ export const Games = () => {
         <MainHeader post={mainHeader} />
       </Box>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '1em', minWidth: 300, width: '100%', height: '100%', padding: '1em', justifyContent: 'space-around' }}>
-        {/* <img style={{ position: 'absolute', height: '100vh', width: '100%', top: '0px', left: '0px', zIndex: '-2', opacity: '0.7' }} src={BackgroundAnimals} alt="main background" /> */}
         {images.map((image) => (
           <ImageButton
             focusRipple

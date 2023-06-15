@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Tooltip from '@mui/material/Tooltip';
-// import { updateBadges } from 'reducers/user';
 
 export const Badges = () => {
   const badges = useSelector((store) => store.user.badges);

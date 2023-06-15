@@ -6,7 +6,7 @@ import { Animal } from 'pages/animalPage/Animal.js';
 import { quiz } from 'reducers/quiz.js';
 import { TextGeneratorGame } from 'pages/gamesPage/TextGeneratorGame.js';
 import { animalArticles } from 'reducers/articles.js';
-import StickyFooter from 'Footer.js';
+import StickyFooter from 'pages/Footer.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Header } from './Header.js';
 import { HomePage } from './homePage/HomePage.js';
@@ -21,13 +21,13 @@ import { loading } from '../reducers/loading.js';
 import { leaderboard } from '../reducers/leaderboard.js';
 import { games } from '../reducers/games.js';
 
-// const theme = createTheme();
 const theme = createTheme({
   typography: {
     fontFamily: [
       'Fredoka',
       'sans-serif'
-    ].join(',')
+    ].join(','),
+    color: '#04211F'
   },
   palette: {
     primary: {
