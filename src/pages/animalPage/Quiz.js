@@ -18,20 +18,25 @@ import Jungle from '../../assets/background/jungle2.jpg';
 const containerStyle = {
   backgroundImage: `url(${Jungle})`,
   backgroundSize: 'cover',
-  minWidth: '80vw',
-  minHeight: '80vh',
+  minWidth: '100vw',
+  minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  margin: '0 !important',
+  padding: '0 !important'
 };
 
-const cardStyle = { width: '80% ',
+const cardStyle = { width: '70vw',
+  padding: '0 !important',
   textAlign: 'center',
   backgroundColor: 'rgba(255, 255, 255, 0.8)',
   borderRadius: 16,
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  marginTop: '0' };
+  margin: 'auto',
+  marginTop: 'auto',
+  flexGrow: 1 };
 
 const CustomMobileStepper = styled(MobileStepper)({
   '& .MuiMobileStepper-dots': {
@@ -95,42 +100,45 @@ export const Quiz = () => {
     return <Summary />;
   } else {
     return (
-      <Container maxWidth="lg" sx={containerStyle}>
-        <Card variant="outlined" sx={cardStyle}>
-          <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Typography variant="h3" sx={{ margin: 5, color: '#055C29', fontFamily: 'Quicksand', fontWeight: 'bold' }}>{question.questionText}</Typography>
-            <img src={animalImagePath} alt={animalImagePath} style={{ minHeight: '400px' }} />
+      <div style={containerStyle}>
+        <Container sx={{ margin: '0 !important', padding: '0 !important', width: '100%', height: '100%', '@media (min-width: 1200px)': { maxWidth: '100vw' } }}>
 
-            <Stack spacing={2} direction={isSmallScreen ? 'column' : 'row'}>
-              {question.options.map((singleOption, index) => (
-                <Button
-                  key={singleOption.text}
-                  type="button"
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  value={index}
-                  index={index}
-                  aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
-                  onClick={() => handleOptionClick(index)}
-                  sx={{ flex: 1, backgroundColor: '#055C29', color: '#F3F9F5', fontFamily: '"Fredoka One", cursive', fontSize: '20px', padding: '12px 24px' }}>
-                  {singleOption.text}
-                </Button>
-              ))}
-            </Stack>
+          <Card variant="outlined" sx={cardStyle}>
+            <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+              <Typography variant="h3" sx={{ margin: 5, color: '#055C29', fontFamily: 'Quicksand', fontWeight: 'bold' }}>{question.questionText}</Typography>
+              <img src={animalImagePath} alt={animalImagePath} style={{ minHeight: '30%' }} />
 
-            <ThemeProvider theme={theme}>
-              <CustomMobileStepper
-                variant="dots"
-                steps={totalSteps}
-                position="static"
-                activeStep={currentQuestionIndex}
-                sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', marginTop: 3 }}
-              />
-            </ThemeProvider>
-          </CardContent>
-        </Card>
-      </Container>
+              <Stack spacing={2} direction={isSmallScreen ? 'column' : 'row'}>
+                {question.options.map((singleOption, index) => (
+                  <Button
+                    key={singleOption.text}
+                    type="button"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    value={index}
+                    index={index}
+                    aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
+                    onClick={() => handleOptionClick(index)}
+                    sx={{ flex: 1, backgroundColor: '#055C29', color: '#F3F9F5', fontFamily: '"Fredoka One", cursive', fontSize: '20px', padding: '12px 24px' }}>
+                    {singleOption.text}
+                  </Button>
+                ))}
+              </Stack>
+
+              <ThemeProvider theme={theme}>
+                <CustomMobileStepper
+                  variant="dots"
+                  steps={totalSteps}
+                  position="static"
+                  activeStep={currentQuestionIndex}
+                  sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', marginTop: 3 }}
+                />
+              </ThemeProvider>
+            </CardContent>
+          </Card>
+        </Container>
+      </div>
     );
   }
 };

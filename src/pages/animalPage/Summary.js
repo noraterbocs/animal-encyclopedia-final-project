@@ -15,15 +15,15 @@ import { updateBadges } from 'reducers/user';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { Chatbot } from './ChatBot';
-import ChatbotAvatar from '../../assets/chatbot/195.jpg';
+import ChatbotAvatar from '../../assets/chatbot/chatbot.png';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
 import Amazing from '../../assets/animations/amazing3.gif';
 import BackgroundImage from '../../assets/background/jungle2.jpg';
 
 const rootStyle = {
-  margin: '0 !important',
-  padding: '0 !important',
-  overflowX: 'hidden',
+  // margin: '0 !important',
+  // padding: '0 !important',
+  width: '100vw',
   backgroundImage: `url(${BackgroundImage})`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat'
@@ -166,11 +166,11 @@ export const Summary = () => {
       </Modal>
 
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Typography variant="h2" sx={{ textAlign: 'center', backgroundColor: 'rgba(243, 249, 245, 0.8)', borderRadius: '25px', display: 'inline-block', padding: '0.5em', margin: '0.8rem' }}>Learn more about the {animalId}</Typography>
+        <Typography variant="h2" sx={{ textAlign: 'center', backgroundColor: 'rgba(243, 249, 245, 0.8)', borderRadius: '25px', display: 'inline-block' }}>Learn more about the {animalId}</Typography>
       </Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid item xs={12} sm={6}>
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
 
             <Grid item xs={12}>
               <Typography variant="h4" style={subtitleStyle}>Introduction</Typography>
@@ -178,7 +178,7 @@ export const Summary = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <img src={animalText.imageURL1} alt={animalId} style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+              <img src={animalText.imageURL1} alt={animalId} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </Grid>
 
             <Grid item xs={12}>
@@ -189,9 +189,9 @@ export const Summary = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             <Grid item xs={12}>
-              <img src={animalText.imageURL2} alt={animalId} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+              <img src={animalText.imageURL2} alt={animalId} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </Grid>
 
             <Grid item xs={12}>
@@ -200,7 +200,7 @@ export const Summary = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <img src={animalText.imageURL3} alt={animalId} style={{ width: '100%', height: '400px', objectFit: 'cover' }} />
+              <img src={animalText.imageURL3} alt={animalId} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </Grid>
 
             <Grid item xs={12}>
@@ -209,26 +209,26 @@ export const Summary = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-        <Button onClick={handleOpenChatbotModal} sx={{ alignItems: 'center' }}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions?</Button>
-      </Box>
-
-      <Modal
-        open={chatbotModalOpen}
-        onClose={handleCloseChatbotModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-
-        <Box sx={chatbotStyle}>
-          <Chatbot />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <Button onClick={handleOpenChatbotModal} sx={{ alignItems: 'center' }}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions? Chatbot has Answers!</Button>
         </Box>
-      </Modal>
 
-      <Link to="/" style={{ textDecoration: 'none' }}>
-        <Button onClick={handleQuizOver}>Try more animals</Button>
-      </Link>
+        <Modal
+          open={chatbotModalOpen}
+          onClose={handleCloseChatbotModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description">
+
+          <Box sx={chatbotStyle}>
+            <Chatbot />
+          </Box>
+        </Modal>
+
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <Button onClick={handleQuizOver} variant="outlined" sx={{ color: '#21514C' }}>Try more animals</Button>
+        </Link>
+      </Grid>
     </div>
   )
 }
