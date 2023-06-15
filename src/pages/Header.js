@@ -15,7 +15,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Avatar, Button, Container, ThemeProvider, createTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
@@ -43,6 +43,12 @@ export const Header = (props) => {
     setMobileOpen((prevState) => !prevState);
   };
   const theme = createTheme({
+    typography: {
+      fontFamily: [
+        'Fredoka',
+        'sans-serif'
+      ].join(',')
+    },
     palette: {
       primary: {
         main: '#84a199'
@@ -60,28 +66,6 @@ export const Header = (props) => {
     }
   }, [location])
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <NavLink key={item.label} to={item.path}>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item.label} />
-              </ListItemButton>
-            </ListItem>
-          </NavLink>
-        ))}
-      </List>
-    </Box>
-  );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
-
   const onLogoutButtonClick = () => {
     navigate('/')
     dispatch(user.actions.setAccessToken(null));
@@ -95,6 +79,27 @@ export const Header = (props) => {
     dispatch(user.actions.setCreatedAt(null));
     dispatch(user.actions.setError(null))
   }
+  const drawer = (
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      <img src={Logo} alt="animal-quest-logo" style={{ padding: '1em', width: '100px', opacity: 0.8 }} />
+      <Divider />
+      <List>
+        {navItems.map((item) => (
+          <NavLink key={item.label} to={item.path} style={{ textDecoration: 'none', color: '#04211F' }}>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+        ))}
+        <Button color="primary" onClick={onLogoutButtonClick}><LogoutIcon /></Button>
+      </List>
+    </Box>
+  );
+
+  const container = window !== undefined ? () => window().document.body : undefined;
+
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth="100vw">
@@ -138,7 +143,7 @@ export const Header = (props) => {
               }}
               sx={{
                 display: { xs: 'block', sm: 'none' },
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)' }
               }}>
               {drawer}
             </Drawer>
