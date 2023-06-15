@@ -12,26 +12,27 @@ import { Card, CardContent, ThemeProvider } from '@mui/material';
 import { createTheme, styled } from '@mui/material/styles';
 import { updateHistory } from 'reducers/user';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { BackgroundImage } from 'components/BackgroundImage';
 import { Summary } from './Summary';
 import Jungle from '../../assets/background/jungle2.jpg';
 
-const containerStyle = {
-  backgroundImage: `url(${Jungle})`,
-  backgroundSize: 'cover',
-  minWidth: '100vw',
-  minHeight: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  margin: '0 !important',
-  padding: '0 !important'
-};
+// const containerStyle = {
+//   backgroundImage: `url(${Jungle})`,
+//   backgroundSize: 'cover',
+//   minWidth: '100vw',
+//   minHeight: '100vh',
+//   display: 'flex',
+//   flexDirection: 'column',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+//   margin: '0 !important',
+//   padding: '0 !important'
+// };
 
 const cardStyle = { width: '70vw',
   padding: '0 !important',
   textAlign: 'center',
-  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  background: 'radial-gradient(circle, rgba(243,249,245,0.9) 0%, rgba(174,198,191,0.8) 100%)',
   borderRadius: 16,
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   margin: 'auto',
@@ -100,45 +101,42 @@ export const Quiz = () => {
     return <Summary />;
   } else {
     return (
-      <div style={containerStyle}>
-        <Container sx={{ margin: '0 !important', padding: '0 !important', width: '100%', height: '100%', '@media (min-width: 1200px)': { maxWidth: '100vw' } }}>
+      <Container sx={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <BackgroundImage src={Jungle} />
+        <Card variant="outlined" sx={cardStyle}>
+          <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <Typography variant="h3" sx={{ margin: 5, color: '#04211F', fontFamily: 'Quicksand', fontWeight: 'bold' }}>{question.questionText}</Typography>
+            <img src={animalImagePath} alt={animalImagePath} style={{ minHeight: '30%' }} />
+            <Stack spacing={2} direction={isSmallScreen ? 'column' : 'row'}>
+              {question.options.map((singleOption, index) => (
+                <Button
+                  key={singleOption.text}
+                  type="button"
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  value={index}
+                  index={index}
+                  aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
+                  onClick={() => handleOptionClick(index)}
+                  sx={{ flex: 1, backgroundColor: '#04211F', color: '#F3F9F5', fontFamily: '"Fredoka One", cursive', fontSize: '1em', padding: '12px 24px' }}>
+                  {singleOption.text}
+                </Button>
+              ))}
+            </Stack>
 
-          <Card variant="outlined" sx={cardStyle}>
-            <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              <Typography variant="h3" sx={{ margin: 5, color: '#055C29', fontFamily: 'Quicksand', fontWeight: 'bold' }}>{question.questionText}</Typography>
-              <img src={animalImagePath} alt={animalImagePath} style={{ minHeight: '30%' }} />
-
-              <Stack spacing={2} direction={isSmallScreen ? 'column' : 'row'}>
-                {question.options.map((singleOption, index) => (
-                  <Button
-                    key={singleOption.text}
-                    type="button"
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    value={index}
-                    index={index}
-                    aria-label={`Answer option ${index + 1}: ${singleOption.text}`}
-                    onClick={() => handleOptionClick(index)}
-                    sx={{ flex: 1, backgroundColor: '#055C29', color: '#F3F9F5', fontFamily: '"Fredoka One", cursive', fontSize: '20px', padding: '12px 24px' }}>
-                    {singleOption.text}
-                  </Button>
-                ))}
-              </Stack>
-
-              <ThemeProvider theme={theme}>
-                <CustomMobileStepper
-                  variant="dots"
-                  steps={totalSteps}
-                  position="static"
-                  activeStep={currentQuestionIndex}
-                  sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', marginTop: 3 }}
-                />
-              </ThemeProvider>
-            </CardContent>
-          </Card>
-        </Container>
-      </div>
+            <ThemeProvider theme={theme}>
+              <CustomMobileStepper
+                variant="dots"
+                steps={totalSteps}
+                position="static"
+                activeStep={currentQuestionIndex}
+                sx={{ backgroundColor: 'transparent', marginTop: 3 }}
+              />
+            </ThemeProvider>
+          </CardContent>
+        </Card>
+      </Container>
     );
   }
 };
