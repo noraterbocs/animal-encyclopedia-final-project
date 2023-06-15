@@ -53,7 +53,6 @@ export const AccountInformation = () => {
             <TextField
               autoFocus
               margin="dense"
-              // id="username"
               label="New Username"
               type="text"
               fullWidth

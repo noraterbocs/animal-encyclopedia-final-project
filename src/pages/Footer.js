@@ -19,8 +19,9 @@ const Copyright = () => {
 };
 
 const StickyFooter = () => {
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery('(max-width:1000px)');
   const location = useLocation();
+
   // Excluding pages to show Header:
   const [display, setDisplay] = useState(true)
   useEffect(() => {

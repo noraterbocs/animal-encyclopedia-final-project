@@ -6,7 +6,6 @@ export const Animation = ({ src, size, top, loop }) => {
     <Player
       loop={loop}
       autoplay
-      className="deleted"
       src={src}
       speed={1}
       style={{

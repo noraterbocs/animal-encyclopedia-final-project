@@ -15,7 +15,7 @@ export const Leaderboard = () => {
   }, [])
 
   return (
-    <Container sx={{ padding: '1em', gap: '1em', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    <Container sx={{ padding: '1em', gap: '1em', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
       <BackgroundImage src={Background} alt="main background" />
       <TopUsers />
       <UserAvatar />
