@@ -22,7 +22,7 @@ const StickyFooter = () => {
   const isMobile = useMediaQuery('(max-width:1000px)');
   const location = useLocation();
 
-  // Excluding pages to show Header:
+  // Excluding pages to show Footer:
   const [display, setDisplay] = useState(true)
   useEffect(() => {
     if (location.pathname.includes('animal') || location.pathname.includes('login')) {

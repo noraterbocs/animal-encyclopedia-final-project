@@ -41,7 +41,6 @@ export const PreviousStories = () => {
                 {story.title}
               </Typography>
               <ShowMoreText
-                /* Default options */
                 lines={3}
                 more="Show more"
                 less="Show less"

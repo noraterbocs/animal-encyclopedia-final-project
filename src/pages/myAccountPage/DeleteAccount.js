@@ -48,7 +48,6 @@ export const DeleteAccount = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {/* <Alert sx={{ position: 'absolute', top: '50%', left: 0, zIndex: 200 }} severity="success">Your account has been deleted!</Alert> */}
       {deletedUser && <Animation src="https://assets9.lottiefiles.com/packages/lf20_aimunqmw.json" />}
     </Box>
 

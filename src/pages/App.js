@@ -21,7 +21,6 @@ import { loading } from '../reducers/loading.js';
 import { leaderboard } from '../reducers/leaderboard.js';
 import { games } from '../reducers/games.js';
 
-// const theme = createTheme();
 const theme = createTheme({
   typography: {
     fontFamily: [

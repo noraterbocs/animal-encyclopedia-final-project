@@ -18,14 +18,14 @@ export const TextGeneratorGame = () => {
       title: 'Main character',
       width: '25%',
       id: 'maincharacter',
-      options: ['Bear', 'Lion', 'Eagle', 'Penguin']
+      options: ['Bear', 'Lion', 'Eagle', 'Penguin', 'Koala', 'Kangaroo', 'Hedgehog', 'Elephant', 'Toucan', 'Jaguar', 'Fox', 'Panda', 'Racoon']
     },
     {
       url: 'https://placehold.co/600x400?text=',
       title: 'Friends',
       width: '25%',
       id: 'friends',
-      options: ['Bear', 'Lion', 'Eagle', 'Penguin']
+      options: ['Bear', 'Lion', 'Eagle', 'Penguin', 'Koala', 'Kangaroo', 'Hedgehog', 'Elephant', 'Toucan', 'Jaguar', 'Fox', 'Panda', 'Racoon']
     },
     {
       url: 'https://placehold.co/600x400?text=',
@@ -39,7 +39,7 @@ export const TextGeneratorGame = () => {
       title: 'Genre',
       width: '25%',
       id: 'genre',
-      options: ['Adventure', 'Fantasy', 'Drama', 'Comedy']
+      options: ['Adventure', 'Fantasy', 'Drama', 'Comedy', 'Action']
     }
   ];
   const dispatch = useDispatch()
@@ -49,6 +49,7 @@ export const TextGeneratorGame = () => {
   const friends = selectedOptions[1]
   const genre = selectedOptions[3]
   const [isFormValid, setIsFormValid] = useState(false);
+  const isLoading = useSelector((store) => store.loading.isLoading)
 
   // logged in user's stories:
   // const lastGeneratedStoryDate = useSelector((store) => store.user.lastGeneratedStoryDate)
@@ -70,7 +71,6 @@ export const TextGeneratorGame = () => {
     newSelectedOptions[index] = event.target.value;
     setSelectedOptions(newSelectedOptions);
     setIsFormValid(newSelectedOptions.every((option) => option !== null));
-    // console.log(timeDifference)
   };
   const mainHeader = {
     title: 'Story Generator',
@@ -112,7 +112,7 @@ export const TextGeneratorGame = () => {
       {/* } */}
       <Box>
         {/* <Button disabled={!isFormValid || timeDifference < 86400000} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}> */}
-        <Button disabled={!isFormValid} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
+        <Button disabled={!isFormValid || isLoading} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
           {/* {timeDifference < 86400000
             ? <Countdown date={Date.now() + (86400000 - timeDifference)} renderer={renderer} /> : 'Generate Story'} */}
        Generate
