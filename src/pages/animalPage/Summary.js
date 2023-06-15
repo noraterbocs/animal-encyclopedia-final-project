@@ -14,20 +14,25 @@ import Grid from '@mui/material/Grid';
 import { updateBadges } from 'reducers/user';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
+import { Container, Tooltip, useMediaQuery } from '@mui/material';
+import { BackgroundImage } from 'components/BackgroundImage';
+import { MainHeader } from 'pages/gamesPage/MainHeader';
+import { SummaryImage } from 'components/SummaryImage';
+import HomeIcon from '@mui/icons-material/Home';
 import { Chatbot } from './ChatBot';
 import ChatbotAvatar from '../../assets/chatbot/chatbot.png';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
 import Amazing from '../../assets/animations/amazing3.gif';
-import BackgroundImage from '../../assets/background/jungle2.jpg';
+import Jungle from '../../assets/background/jungle2.jpg';
 
-const rootStyle = {
-  // margin: '0 !important',
-  // padding: '0 !important',
-  width: '100vw',
-  backgroundImage: `url(${BackgroundImage})`,
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat'
-};
+// const rootStyle = {
+//   // margin: '0 !important',
+//   // padding: '0 !important',
+//   width: '100vw',
+//   backgroundImage: `url(${BackgroundImage})`,
+//   backgroundSize: 'cover',
+//   backgroundRepeat: 'no-repeat'
+// };
 
 const chatbotStyle = {
   position: 'absolute',
@@ -51,20 +56,20 @@ const summaryStyle = {
   p: 4
 };
 const ChatbotAvatarStyle = {
-  width: '20rem',
-  height: '20rem'
+  width: '10rem',
+  height: '10rem'
 };
 
 const subtitleStyle = { fontSize: '2rem',
   textAlign: 'center',
-  backgroundColor: 'rgba(243, 249, 245, 0.8)',
-  borderRadius: '25px',
+  // backgroundColor: 'rgba(243, 249, 245, 0.8)',
+  // borderRadius: '25px',
   margin: '0.8rem' };
 
 const textStyle = { fontSize: '2rem',
   padding: '15px',
-  backgroundColor: 'rgba(243, 249, 245, 0.8)',
-  borderRadius: '25px',
+  background: 'radial-gradient(circle, rgba(243,249,245,0.5) 0%, rgba(174,198,191,0.7) 100%)',
+  borderRadius: '10px',
   margin: '0.8rem',
   color: '#21514C' }
 
@@ -78,7 +83,6 @@ const userBadges = [
 ]
 
 export const Summary = () => {
-  // useSelector from quiz reducer
   const answers = useSelector((store) => store.quiz.answers)
   const animalId = useSelector((store) => store.quiz.animalId)
   const highestBadgeRank = useSelector((store) => store.user.highestBadgeRank)
@@ -86,8 +90,6 @@ export const Summary = () => {
   const correctAnswers = answers.filter((item) => item.isCorrect)
   const dispatch = useDispatch();
   const { quizOver } = useSelector((store) => store.quiz);
-
-  // useSelector from article reducer
   const animalText = useSelector((store) => store.animalArticles.animalText);
 
   useEffect(() => {
@@ -139,10 +141,16 @@ export const Summary = () => {
   }, []);
   console.log('Animal Text:', animalText);
   console.log('Animal ID:', animalId);
-
+  const mainHeader = {
+    title: `Learn more about the ${animalId}`,
+    description: animalText.animalIntroduction,
+    image: '',
+    imageText: ''
+  };
+  const isSmallScreen = useMediaQuery('(max-width: 900px)');
   return (
-    <div style={rootStyle}>
-
+    <Container sx={{ position: 'relative', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+      <BackgroundImage src={Jungle} />
       <Modal
         open={summaryModalOpen}
         onClose={handleCloseSummaryModal}
@@ -156,79 +164,60 @@ export const Summary = () => {
               image={SummaryPicture}
               title="party background" />
             <CardContent>
-              <Typography variant="h1" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontFamily: 'Fredoka One' }}>
-                <img src={Amazing} alt="Amazing" style={{ width: '80vw', margin: '0' }} />
+              <Typography variant="h3" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontFamily: 'Fredoka One' }}>
+                <img src={Amazing} alt="Amazing" style={{ width: '60vw', margin: '0' }} />
                 You got {correctAnswers.length} points!
               </Typography>
             </CardContent>
           </Card>
         </Box>
       </Modal>
+      <MainHeader post={mainHeader} />
 
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Typography variant="h2" sx={{ textAlign: 'center', backgroundColor: 'rgba(243, 249, 245, 0.8)', borderRadius: '25px', display: 'inline-block' }}>Learn more about the {animalId}</Typography>
-      </Box>
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Grid container spacing={4}>
-
-            <Grid item xs={12}>
-              <Typography variant="h4" style={subtitleStyle}>Introduction</Typography>
-              <Typography variant="body1" style={textStyle}>{animalText.animalIntroduction}</Typography>
-            </Grid>
-
-            <Grid item xs={12}>
-              <img src={animalText.imageURL1} alt={animalId} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography variant="h4" style={subtitleStyle}>Diet</Typography>
-              <Typography variant="body1" style={textStyle}>{animalText.animalDiet}</Typography>
-            </Grid>
-          </Grid>
+          <SummaryImage src={animalText.imageURL1} alt={animalId} />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <img src={animalText.imageURL2} alt={animalId} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography variant="h4" style={subtitleStyle}>Reproduction</Typography>
-              <Typography variant="body1" style={textStyle}>{animalText.animalReproduction}</Typography>
-            </Grid>
-
-            <Grid item xs={12}>
-              <img src={animalText.imageURL3} alt={animalId} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography variant="h4" style={subtitleStyle}>Interesting Facts</Typography>
-              <Typography variant="body1" style={textStyle}>{animalText.animalFacts}</Typography>
-            </Grid>
-          </Grid>
+          <Typography variant="h4" style={subtitleStyle}>Diet</Typography>
+          <Typography variant="body1" style={textStyle}>{animalText.animalDiet}</Typography>
         </Grid>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <Button onClick={handleOpenChatbotModal} sx={{ alignItems: 'center' }}>  <img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /> Got Questions? Chatbot has Answers!</Button>
-        </Box>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h4" style={subtitleStyle}>Reproduction</Typography>
+          <Typography variant="body1" style={textStyle}>{animalText.animalReproduction}</Typography>
+        </Grid>
 
-        <Modal
-          open={chatbotModalOpen}
-          onClose={handleCloseChatbotModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
+        <Grid item xs={12} sm={6}>
+          <SummaryImage src={animalText.imageURL2} alt={animalId} />
+        </Grid>
 
-          <Box sx={chatbotStyle}>
-            <Chatbot />
-          </Box>
-        </Modal>
+        <Grid item xs={12} sm={6}>
+          <SummaryImage src={animalText.imageURL3} alt={animalId} />
+        </Grid>
 
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <Button onClick={handleQuizOver} variant="outlined" sx={{ color: '#21514C' }}>Try more animals</Button>
-        </Link>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h4" style={subtitleStyle}>Interesting Facts</Typography>
+          <Typography variant="body1" style={textStyle}>{animalText.animalFacts}</Typography>
+        </Grid>
+
+        <Tooltip title="Got Questions? Chatbot has Answers!"><Button sx={{ position: isSmallScreen ? 'relative' : 'fixed', right: '0', bottom: '0' }} onClick={handleOpenChatbotModal}><img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /></Button></Tooltip>
       </Grid>
-    </div>
+      <Modal
+        open={chatbotModalOpen}
+        onClose={handleCloseChatbotModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+
+        <Box sx={chatbotStyle}>
+          <Chatbot />
+        </Box>
+      </Modal>
+
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <Button onClick={handleQuizOver} variant="outlined" sx={{ color: '#21514C', fontSize: '1.5em', background: 'radial-gradient(circle, rgba(243,249,245,0.5) 0%, rgba(174,198,191,0.7) 100%)', margin: '1em' }}><HomeIcon /> Back to home</Button>
+      </Link>
+    </Container>
   )
 }
