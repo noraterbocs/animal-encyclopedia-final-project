@@ -105,8 +105,8 @@ export const Quiz = () => {
         <BackgroundImage src={Jungle} />
         <Card variant="outlined" sx={cardStyle}>
           <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Typography variant="h3" sx={{ margin: 5, color: '#04211F', fontFamily: 'Quicksand', fontWeight: 'bold' }}>{question.questionText}</Typography>
-            <img src={animalImagePath} alt={animalImagePath} style={{ minHeight: '30%' }} />
+            <Typography sx={{ margin: '0.5em', color: '#04211F', fontFamily: 'Quicksand', fontWeight: 'bold', fontSize: isSmallScreen ? '2em' : '3em' }}>{question.questionText}</Typography>
+            <img src={animalImagePath} alt={animalImagePath} style={{ height: isSmallScreen ? '10em' : '30%' }} />
             <Stack spacing={2} direction={isSmallScreen ? 'column' : 'row'}>
               {question.options.map((singleOption, index) => (
                 <Button
