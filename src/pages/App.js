@@ -8,7 +8,6 @@ import { TextGeneratorGame } from 'pages/gamesPage/TextGeneratorGame.js';
 import { animalArticles } from 'reducers/articles.js';
 import StickyFooter from 'Footer.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { GlobalStyles } from '@mui/material';
 import { Header } from './Header.js';
 import { HomePage } from './homePage/HomePage.js';
 import { Games } from './gamesPage/Games.js';
@@ -40,7 +39,6 @@ const theme = createTheme({
   }
 });
 export const App = () => {
-  // const { location } = useLocation();
   const reducer = combineReducers({
     user: user.reducer,
     leaderboard: leaderboard.reducer,
@@ -55,13 +53,6 @@ export const App = () => {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <BrowserRouter>
-          <GlobalStyles styles={{ h1: { color: '#04211F' } }} />
-          {/* {
-          location.pathname === '/login' ? <Header /> : ''
-        } */}
-          {/* {window.location.pathname === '/login' ? (
-          <Header />
-        ) : null} */}
           <Header />
           <Routes>
             <Route path="/login" element={<Login />} />

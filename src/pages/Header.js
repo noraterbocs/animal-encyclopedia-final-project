@@ -20,6 +20,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Avatar, Button, Container, ThemeProvider, createTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { user } from '../reducers/user';
+import Logo from '../assets/encylogo4.png';
 
 const drawerWidth = 240;
 const navItems = [
@@ -70,7 +71,7 @@ export const Header = (props) => {
           <NavLink key={item.label} to={item.path}>
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }}>
-                {item.label === 'My account' ? <Avatar alt={currentAvatar} src={currentAvatar} sx={{ height: '60px', width: '60px', margin: '0' }} /> : <ListItemText primary={item.label} />}
+                <ListItemText primary={item.label} />
               </ListItemButton>
             </ListItem>
           </NavLink>
@@ -109,17 +110,17 @@ export const Header = (props) => {
                 sx={{ mr: 2, display: { sm: 'none' } }}>
                 <MenuIcon />
               </IconButton>
-              <Typography
+              <Box
                 variant="h6"
                 component="div"
-                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}> AnimalQuest
-              </Typography>
-              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex', alignItems: 'center' } }}>
+                <img src={Logo} alt="animal-quest-logo" style={{ width: '100px', opacity: 0.8 }} />
+              </Box>
+              <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' } }}>
                 {navItems.map((item) => (
                   <NavLink key={item.label} to={item.path} sx={{ color: '#fff' }}>
-                    <Button sx={{ color: '#fff' }}>
-                      {item.label}
-                    </Button>
+                    {item.label === 'My account' ? <Avatar alt={currentAvatar} src={currentAvatar} sx={{ height: '60px', width: '60px', margin: '0' }} />
+                      : <Button sx={{ color: '#fff' }}>{item.label}</Button>}
                   </NavLink>
                 ))}
                 <Button sx={{ color: '#fff' }} onClick={onLogoutButtonClick}><LogoutIcon /></Button>

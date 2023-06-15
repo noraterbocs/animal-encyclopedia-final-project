@@ -52,7 +52,7 @@ export const ChangeAvatar = () => {
         </DialogActions>
       </Dialog>
       {/* <Alert sx={{ position: 'absolute', top: '50%', left: 0, zIndex: 200 }} severity="success">Your account has been deleted!</Alert> */}
-      {newAvatar !== '' ? <Animation src="https://assets3.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" /> : ''}
+      {newAvatar !== '' ? <Animation size="300px" src="https://assets3.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" /> : ''}
     </Box>
 
   )

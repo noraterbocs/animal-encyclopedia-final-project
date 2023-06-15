@@ -17,7 +17,6 @@ export const Leaderboard = () => {
   return (
     <Container sx={{ padding: '1em', gap: '1em', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <BackgroundImage src={Background} alt="main background" />
-      {/* <UserAvatar users={topUsers} isTopUsers /> */}
       <TopUsers />
       <UserAvatar />
     </Container>

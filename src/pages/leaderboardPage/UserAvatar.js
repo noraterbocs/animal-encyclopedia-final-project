@@ -19,14 +19,14 @@ export const UserAvatar = () => {
               height: '4em',
               background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,70%) 100%)',
               borderRadius: '20px',
-              padding: '3.3em',
+              padding: '1em',
               boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)'
             }}>
             <Typography>{index + 4}</Typography>
-            <Avatar sx={{ backgroundColor: 'transparent', width: '100px' }} aria-label="avatar">
+            <Avatar sx={{ backgroundColor: 'transparent', width: '80px' }} aria-label="avatar">
               <img src={user.avatar} alt="avatar" style={{ width: '100%' }} />
             </Avatar>
-            <Typography sx={{ overflowWrap: 'break-word', width: '80%', fontSize: '1.5em' }}>{user.username}</Typography>
+            <Typography sx={{ overflowWrap: 'break-word', width: '80%', fontSize: '1em' }}>{user.username}</Typography>
             <Typography sx={{ fontSize: '1.5em' }}>{user.totalScore}</Typography>
           </Stack>
         )
