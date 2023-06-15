@@ -27,7 +27,8 @@ const theme = createTheme({
     fontFamily: [
       'Fredoka',
       'sans-serif'
-    ].join(',')
+    ].join(','),
+    color: '#04211F'
   },
   palette: {
     primary: {
