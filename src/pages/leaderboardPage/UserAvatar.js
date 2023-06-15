@@ -1,38 +1,33 @@
 import { Avatar, Box, Stack, Typography } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-export const UserAvatar = ({ users, isTopUsers }) => {
-  const flexDirectionUser = isTopUsers ? 'column' : 'row';
-  const flexDirection = isTopUsers ? 'row' : 'column';
-  const gap = '1em';
-
-  const avatarSize = 180;
+export const UserAvatar = () => {
+  const users = useSelector((store) => store.leaderboard.leaderboard).slice(3)
   return (
-    <Box sx={{ flexDirection, display: 'flex', justifyContent: 'center', gap }}>
+    <Box sx={{ flexDirection: 'column', display: 'flex', justifyContent: 'center', gap: '1em' }}>
       {users.map((user, index) => {
         return (
           <Stack
             key={user.id}
             sx={{
               display: 'flex',
-              flexDirection: flexDirectionUser,
+              flexDirection: 'row',
               justifyContent: 'center',
-              gap,
+              gap: '1em',
               alignItems: 'center',
-              width: isTopUsers ? avatarSize : 'auto',
-              height: isTopUsers ? avatarSize : '4em',
-              background: isTopUsers && index === 0 ? 'radial-gradient(circle, rgba(211,212,199,1) 2%, rgba(201,208,125,1) 100%)' : 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)',
-              borderRadius: isTopUsers ? '50%' : '',
-              padding: '0 10px',
-              boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
-              zIndex: isTopUsers && index === 0 ? 1 : 'auto'
+              height: '4em',
+              background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,70%) 100%)',
+              borderRadius: '20px',
+              padding: '3.3em',
+              boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)'
             }}>
-            <Typography>{isTopUsers ? index + 1 : index + 4}</Typography>
+            <Typography>{index + 4}</Typography>
             <Avatar sx={{ backgroundColor: 'transparent', width: '100px' }} aria-label="avatar">
               <img src={user.avatar} alt="avatar" style={{ width: '100%' }} />
             </Avatar>
-            <Typography sx={{ overflowWrap: 'break-word', width: '80%', fontSize: isTopUsers ? '0.8em' : '1.5em', textAlign: isTopUsers ? 'center' : 'start' }}>{user.username}</Typography>
-            <Typography sx={{ fontSize: isTopUsers ? '0.8em' : '1.5em' }}>{user.totalScore}</Typography>
+            <Typography sx={{ overflowWrap: 'break-word', width: '80%', fontSize: '1.5em' }}>{user.username}</Typography>
+            <Typography sx={{ fontSize: '1.5em' }}>{user.totalScore}</Typography>
           </Stack>
         )
       })}
