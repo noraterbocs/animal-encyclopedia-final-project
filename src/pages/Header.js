@@ -123,7 +123,7 @@ export const Header = (props) => {
               </Box>
               <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' } }}>
                 {navItems.map((item) => (
-                  <NavLink key={item.label} to={item.path} sx={{ color: '#fff' }}>
+                  <NavLink key={item.label} to={item.path} sx={{ color: '#fff', textDecoration: 'none' }}>
                     {item.label === 'My account' ? <Avatar alt={currentAvatar} src={currentAvatar} sx={{ height: '60px', width: '60px', margin: '0' }} />
                       : <Button sx={{ color: '#fff' }}>{item.label}</Button>}
                   </NavLink>
