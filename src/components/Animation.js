@@ -1,7 +1,7 @@
 import React from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
-export const Animation = ({ src, size, top, loop, inLine, position }) => {
+export const Animation = ({ src, size, top, loop, inLine }) => {
   return (
     <Player
       loop={loop}
@@ -9,7 +9,7 @@ export const Animation = ({ src, size, top, loop, inLine, position }) => {
       src={src}
       speed={1}
       style={{
-        position,
+        position: inLine ? 'relative' : 'absolute',
         zIndex: '10',
         height: size,
         width: size,

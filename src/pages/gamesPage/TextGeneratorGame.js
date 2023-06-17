@@ -112,7 +112,7 @@ export const TextGeneratorGame = () => {
       </Box>
       <Box>
         <Button disabled={!isFormValid} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
-          {isLoading ? <Animation inLine loop position="relative" size="150px" src="https://assets6.lottiefiles.com/packages/lf20_pvjwvcvn.json" />
+          {isLoading ? <Animation inLine loop size="150px" src="https://assets6.lottiefiles.com/packages/lf20_pvjwvcvn.json" />
             : 'Generate'}
         </Button>
       </Box>
