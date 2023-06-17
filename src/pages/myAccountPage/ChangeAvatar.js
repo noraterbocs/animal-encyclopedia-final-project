@@ -51,7 +51,7 @@ export const ChangeAvatar = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {newAvatar !== '' ? <Animation size="300px" src="https://assets3.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" /> : ''}
+      {newAvatar !== '' ? <Animation position="absolute" size="300px" src="https://assets3.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" /> : ''}
     </Box>
 
   )

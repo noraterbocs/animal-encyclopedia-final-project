@@ -96,7 +96,7 @@ export const AccountInformation = () => {
       </Box>
       <ChangeAvatar />
       <DeleteAccount />
-      {dialogValue && <Animation size="300px" src="https://assets3.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" />}
+      {dialogValue && <Animation position="absolute" size="300px" src="https://assets3.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" />}
     </Grid>
   )
 }

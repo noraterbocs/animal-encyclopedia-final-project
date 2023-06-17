@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { generateText, getStories } from 'reducers/games';
 import { getLastGeneratedStoryDate } from 'reducers/user';
 // import Countdown from 'react-countdown';
+import { Animation } from 'components/Animation';
 import { PreviousStories } from './PreviousStories';
 import { MainHeader } from './MainHeader';
 import BackgroundAnimals from '../../assets/background/jungle2.jpg'
@@ -109,13 +110,10 @@ export const TextGeneratorGame = () => {
           )
         })}
       </Box>
-      {/* } */}
       <Box>
-        {/* <Button disabled={!isFormValid || timeDifference < 86400000} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}> */}
-        <Button disabled={!isFormValid || isLoading} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
-          {/* {timeDifference < 86400000
-            ? <Countdown date={Date.now() + (86400000 - timeDifference)} renderer={renderer} /> : 'Generate Story'} */}
-       Generate
+        <Button disabled={!isFormValid} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
+          {isLoading ? <Animation inLine loop position="relative" size="150px" src="https://assets6.lottiefiles.com/packages/lf20_pvjwvcvn.json" />
+            : 'Generate'}
         </Button>
       </Box>
       <Box>

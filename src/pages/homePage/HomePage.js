@@ -27,7 +27,7 @@ export const HomePage = () => {
       <BackgroundImage src={Background} />
       {!isLoading
         ? <Map />
-        : <Animation size="80%" src="https://assets8.lottiefiles.com/packages/lf20_OLzqniWinA.json" />}
+        : <Animation position="absolute" size="80%" src="https://assets8.lottiefiles.com/packages/lf20_OLzqniWinA.json" />}
     </Container>
   )
 }
