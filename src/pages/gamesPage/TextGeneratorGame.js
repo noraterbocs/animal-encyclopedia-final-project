@@ -81,7 +81,7 @@ export const TextGeneratorGame = () => {
   };
 
   return (
-    <Container sx={{ height: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', position: 'relative', margin: 0, maxWidth: 'none !important', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)' }}>
+    <Container sx={{ height: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', position: 'relative', margin: 0, maxWidth: 'none !important', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)', paddingBottom: '1em' }}>
       {/* <img style={{ position: 'absolute', minHeight: '100vh', height: '100%', width: '100%', top: '0px', left: '0px', zIndex: '-2', opacity: '0.1' }} src={BackgroundAnimals} alt="main background" /> */}
       <MainHeader post={mainHeader} />
       {/* {timeDifference < 86400000 ? '': */}
