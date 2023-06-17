@@ -123,12 +123,12 @@ export const Header = (props) => {
               </Box>
               <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' } }}>
                 {navItems.map((item) => (
-                  <NavLink key={item.label} to={item.path} sx={{ color: '#fff', textDecoration: 'none' }}>
+                  <NavLink key={item.label} to={item.path} sx={{ color: '#04211F', textDecoration: 'none' }}>
                     {item.label === 'My account' ? <Avatar alt={currentAvatar} src={currentAvatar} sx={{ height: '60px', width: '60px', margin: '0' }} />
-                      : <Button sx={{ color: '#fff' }}>{item.label}</Button>}
+                      : <Button sx={{ color: '#04211F' }}>{item.label}</Button>}
                   </NavLink>
                 ))}
-                <Button sx={{ color: '#fff' }} onClick={onLogoutButtonClick}><LogoutIcon /></Button>
+                <Button sx={{ color: '#04211F' }} onClick={onLogoutButtonClick}><LogoutIcon /></Button>
               </Box>
             </Toolbar>
           </AppBar>

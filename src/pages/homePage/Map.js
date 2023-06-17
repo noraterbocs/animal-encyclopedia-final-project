@@ -30,7 +30,7 @@ export const Map = () => {
     { path: '/images/seal.png', bottom: '2%', left: '60%', transform: 'translate(-40%, 2%)', id: 'seal' },
     { path: '/images/penguin.png', bottom: '2%', left: '50%', transform: 'translate(-50%, 2%)', id: 'penguin' }]
   return (
-    <Container sx={{ filter: 'drop-shadow(0 0 1rem #000)', borderRadius: '25%', bgcolor: '#108bdfeb', position: 'relative', height: 'max-content', p: 0, m: 0, overflow: 'scroll', boxSixing: 'border-box', width: '100%' }}>
+    <Container sx={{ borderRadius: '25%', filter: 'drop-shadow(0 0 1rem #000)', bgcolor: '#108bdfeb', position: 'relative', height: 'max-content', p: '0px !important', m: '0px !important', overflow: 'scroll', boxSixing: 'border-box', width: '100%' }}>
       <BackgroundMap />
       {animals.map((animal) => {
         return (
