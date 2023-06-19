@@ -93,7 +93,7 @@ export const registerUser = (username, email, password) => {
       },
       body: JSON.stringify({ username, email, password })
     }
-    fetch(API_URL('register'), options)
+    fetch(API_URL('users/register'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
