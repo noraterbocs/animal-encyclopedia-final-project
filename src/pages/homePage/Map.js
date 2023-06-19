@@ -17,7 +17,7 @@ export const Map = () => {
   const animals = [
     { path: '/images/eagle.png', bottom: '75%', left: '20%', transform: 'translate(-75%, 20%)', id: 'eagle' },
     { path: '/images/bear.png', bottom: '65%', left: '25%', transform: 'translate(-65%, 25%)', id: 'bear' },
-    { path: '/images/hedgehog.png', bottom: '80%', left: '55%', transform: 'translate(-55%, 80%)', id: 'hedgehog' },
+    { path: '/images/hedgehog.png', bottom: '80%', left: '50%', transform: 'translate(-50%, 80%)', id: 'hedgehog' },
     { path: '/images/lion.png', bottom: '60%', left: '50%', transform: 'translate(-50%, 60%)', id: 'lion' },
     { path: '/images/elephant.png', bottom: '50%', left: '57%', transform: 'translate(-50%, 57%)', id: 'elephant' },
     { path: '/images/fox.png', bottom: '85%', left: '65%', transform: 'translate(-65%, 85%)', id: 'fox' },
@@ -28,7 +28,9 @@ export const Map = () => {
     { path: '/images/kangaroo.png', bottom: '35%', left: '97%', transform: 'translate(-97%, 35%)', id: 'kangaroo' },
     { path: '/images/koala.png', bottom: '37%', left: '85%', transform: 'translate(-85%, 37%)', id: 'koala' },
     { path: '/images/seal.png', bottom: '2%', left: '60%', transform: 'translate(-40%, 2%)', id: 'seal' },
-    { path: '/images/penguin.png', bottom: '2%', left: '50%', transform: 'translate(-50%, 2%)', id: 'penguin' }]
+    { path: '/images/penguin.png', bottom: '2%', left: '50%', transform: 'translate(-50%, 2%)', id: 'penguin' },
+    { path: '/images/giraffe.png', bottom: '65%', left: '60%', transform: 'translate(-60%, 65%)', id: 'giraffe' },
+    { path: '/images/racoon.png', bottom: '90%', left: '8%', transform: 'translate(-8%, 90%)', id: 'racoon' }]
   return (
     <Container sx={{ borderRadius: '25%', filter: 'drop-shadow(0 0 1rem #000)', bgcolor: '#108bdfeb', position: 'relative', height: 'max-content', p: '0px !important', m: '0px !important', overflow: 'scroll', boxSixing: 'border-box', width: '100%' }}>
       <BackgroundMap />
