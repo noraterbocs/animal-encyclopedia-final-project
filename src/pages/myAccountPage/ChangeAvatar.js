@@ -11,6 +11,7 @@ export const ChangeAvatar = () => {
   const currentAvatar = useSelector((store) => store.user.avatar)
   const [newAvatar, setNewAvatar] = useState('')
   const animationRef = useRef(null)
+  const [selectedAvatar, setSelectedAvatar] = useState(null)
 
   console.log(newAvatar)
   const handleClickOpen = () => {
@@ -25,6 +26,11 @@ export const ChangeAvatar = () => {
     dispatch(changeAvatar(newAvatar))
     setAccountOpen(false);
     animationRef.current.play()
+  }
+
+  const selectAvatar = (e) => {
+    setSelectedAvatar(e.target.alt)
+    setNewAvatar(`/images/avatars/${e.target.alt}Avatar.png`)
   }
 
   const avatars = ['Alligator', 'Horse', 'Koala', 'Moose', 'Penguin', 'pufferfish', 'Rabbit', 'Tiger', 'Warthog']
@@ -43,7 +49,16 @@ export const ChangeAvatar = () => {
         <DialogContent sx={{ flexWrap: 'wrap', alignItems: 'center', display: 'flex' }}>
           {avatars.map((avatar) => {
             return (
-              <Button key={avatar} onClick={(e) => setNewAvatar(`/images/avatars/${e.target.alt}Avatar.png`)}><Avatar alt={avatar} src={`/images/avatars/${avatar}Avatar.png`} sx={{ height: '60px', width: '60px', margin: '1em 0' }} />
+              <Button
+                key={avatar}
+                onClick={(e) => selectAvatar(e)}>
+                <Avatar
+                  alt={avatar}
+                  src={`/images/avatars/${avatar}Avatar.png`}
+                  sx={{ height: '60px',
+                    width: '60px',
+                    transform: selectedAvatar === avatar && 'scale(200%)',
+                    margin: '1em 0' }} />
               </Button>
             )
           })}

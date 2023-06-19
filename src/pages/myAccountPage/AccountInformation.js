@@ -12,6 +12,7 @@ export const AccountInformation = () => {
   const dispatch = useDispatch()
   const email = useSelector((store) => store.user.email);
   const username = useSelector((store) => store.user.username);
+  const error = useSelector((store) => store.user.error);
   const [dialogValue, setDialogValue] = useState('');
   const [open, setOpen] = useState(false);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
@@ -33,6 +34,7 @@ export const AccountInformation = () => {
     dispatch(updateUsername(dialogValue))
     setOpen(false);
     animationRef.current.play()
+    console.log(error)
   }
   const handleSavePassword = () => {
     dispatch(updatePassword(dialogValue))
