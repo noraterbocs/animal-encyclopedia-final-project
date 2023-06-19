@@ -88,9 +88,6 @@ export const Quiz = () => {
   const animalObject = animalImg.find((animal) => animal.id === animalId);
   const animalImagePath = animalObject ? animalObject.path : '';
 
-  console.log(animalImagePath)
-  console.log(animalId)
-
   const isSmallScreen = useMediaQuery('(max-width: 900px)');
 
   if (!question) {

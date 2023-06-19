@@ -14,7 +14,6 @@ export const animalArticles = createSlice({
   reducers: {
     setAnimalText: (store, action) => {
       store.animalText = action.payload;
-      console.log(action.payload)
     }
     // setAnimalImages: (store, action) => {
     //   store.animalImages = action.payload;
@@ -29,8 +28,6 @@ export const fetchAnimalArticles = (animalName) => {
     fetch(API_URL(`animals/${animalName}`))
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-        console.log(data.response)
         if (data.success) {
           dispatch(animalArticles.actions.setAnimalText(data.response))
           // dispatch(animalArticles.actions.setAnimalImages(data.response))

@@ -44,7 +44,6 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [checked, setChecked] = useState(true);
   const error = useSelector((store) => store.user.error);
-  console.log(error)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);

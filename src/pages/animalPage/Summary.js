@@ -112,7 +112,7 @@ export const Summary = () => {
     const newBadge = userBadges.find((badge) => badge.title === newHighestBadgeRank)
     if (newHighestBadgeRank !== highestBadgeRank) {
       dispatch(updateBadges(newBadge))
-      console.log('earning a new badge:', 'newHighestBadgeRank:', newHighestBadgeRank, 'highestBadgeRank:', highestBadgeRank, 'newBadge:', newBadge)
+      // console.log('earning a new badge:', 'newHighestBadgeRank:', newHighestBadgeRank, 'highestBadgeRank:', highestBadgeRank, 'newBadge:', newBadge)
     }
   }, [highestBadgeRank, totalScore]);
 
@@ -140,8 +140,6 @@ export const Summary = () => {
 
     return () => clearTimeout(timer);
   }, []);
-  console.log('Animal Text:', animalText);
-  console.log('Animal ID:', animalId);
   const mainHeader = {
     title: `Learn more about the ${animalId}`,
     description: animalText.animalIntroduction,
