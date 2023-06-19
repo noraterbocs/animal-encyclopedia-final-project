@@ -23,8 +23,13 @@ export const animalArticles = createSlice({
 export const fetchAnimalArticles = (animalName) => {
   return (dispatch) => {
     dispatch(loading.actions.setLoading(true))
-
-    fetch(API_URL(`animals/animals/${animalName}`))
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetch(API_URL(`animals/animals/${animalName}`), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
