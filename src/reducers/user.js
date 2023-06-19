@@ -27,7 +27,6 @@ export const user = createSlice({
     // modifies the state directly
     setUserId: (store, action) => {
       store.userId = action.payload
-      console.log('userId:', action.payload)
     },
     //  modifies the state indirectly
     // setUserId: (state, action) => {
@@ -35,19 +34,15 @@ export const user = createSlice({
     // },
     setUsername: (store, action) => {
       store.username = action.payload
-      console.log('username:', action.payload)
     },
     setPassword: (store, action) => {
       store.password = action.payload
-      console.log('password:', action.payload)
     },
     setEmail: (store, action) => {
       store.email = action.payload
-      console.log('email:', action.payload)
     },
     setAvatar: (store, action) => {
       store.avatar = action.payload
-      console.log('avatar:', action.payload)
     },
     setBadges: (store, action) => {
       if (Array.isArray(action.payload)) {
@@ -58,34 +53,27 @@ export const user = createSlice({
         store.badges = [...store.badges, action.payload];
       }
       store.highestBadgeRank = action.payload[action.payload.length - 1].title
-      console.log('badges:', action.payload, store.highestBadgeRank)
     },
     setHistory: (store, action) => {
       store.history = action.payload
-      console.log('history:', action.payload)
     },
     setTotalScore: (store, action) => {
       store.totalScore = action.payload
-      console.log('totalscore:', action.payload)
     },
     setAccessToken: (store, action) => {
       store.accessToken = action.payload
-      console.log('accessToken:', action.payload)
     },
     setCreatedAt: (store, action) => {
       store.createdAt = action.payload
-      console.log('createdAt:', action.payload)
     },
     setError: (store, action) => {
       store.error = action.payload
-      console.log('error:', action.payload)
     },
     setMode: (store, action) => {
       store.mode = action.payload
     },
     setLastGeneratedStoryDate: (store, action) => {
       store.lastGeneratedStoryDate = action.payload
-      console.log('date for last gen story:', action.payload)
     },
     reset: () => {
       return initialState
@@ -114,7 +102,6 @@ export const registerUser = (username, email, password) => {
           dispatch(user.actions.setEmail(data.response.email));
           dispatch(user.actions.setUserId(data.response.id));
           dispatch(user.actions.setError(null))
-          console.log(data)
         } else {
           dispatch(user.actions.setAccessToken(null));
           dispatch(user.actions.setUsername(null));
@@ -352,7 +339,6 @@ export const getLastGeneratedStoryDate = () => {
     fetch(API_URL('completion/lastgeneratedstory'), options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         if (data.success) {
           dispatch(user.actions.setLastGeneratedStoryDate(data.response))
         } else {
