@@ -1,11 +1,12 @@
 import React from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
-export const Animation = ({ src, size, top, loop, inLine }) => {
+export const Animation = ({ src, size, top, loop, inLine, animationRef, autoplay }) => {
   return (
     <Player
       loop={loop}
-      autoplay
+      autoplay={autoplay || true}
+      ref={animationRef}
       src={src}
       speed={1}
       style={{
