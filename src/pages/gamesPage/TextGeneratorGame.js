@@ -6,8 +6,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generateText, getStories } from 'reducers/games';
 import { getLastGeneratedStoryDate } from 'reducers/user';
-// import Countdown from 'react-countdown';
 import { Animation } from 'components/Animation';
+import { useNavigate } from 'react-router-dom';
 import { PreviousStories } from './PreviousStories';
 import { MainHeader } from '../../components/MainHeader';
 import BackgroundAnimals from '../../assets/background/jungle2.jpg'
@@ -51,21 +51,21 @@ export const TextGeneratorGame = () => {
   const genre = selectedOptions[3]
   const [isFormValid, setIsFormValid] = useState(false);
   const isLoading = useSelector((store) => store.loading.isLoading)
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const navigate = useNavigate();
 
-  // logged in user's stories:
-  // const lastGeneratedStoryDate = useSelector((store) => store.user.lastGeneratedStoryDate)
-  // const timeDifference = Math.floor((new Date().getTime() - new Date(lastGeneratedStoryDate).getTime()));
-  // const renderer = ({ hours, minutes, seconds }) => {
-  //   return <span>{hours}:{minutes}:{seconds} left to generate a new story</span>;
-  // };
-  // console.log(timeDifference)
   const generatedStory = useSelector((store) => store.games.generatedStory)
   console.log(selectedOptions)
 
   useEffect(() => {
-    dispatch(getStories())
-    dispatch(getLastGeneratedStoryDate())
-  }, [dispatch, generatedStory])
+    if (!accessToken) {
+      navigate('/login')
+    } else {
+      dispatch(getStories())
+      dispatch(getLastGeneratedStoryDate())
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken, dispatch, generatedStory])
 
   const handleChange = (event, index) => {
     const newSelectedOptions = [...selectedOptions];
@@ -83,9 +83,7 @@ export const TextGeneratorGame = () => {
 
   return (
     <Container sx={{ height: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', position: 'relative', margin: 0, maxWidth: 'none !important', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)', paddingBottom: '1em' }}>
-      {/* <img style={{ position: 'absolute', minHeight: '100vh', height: '100%', width: '100%', top: '0px', left: '0px', zIndex: '-2', opacity: '0.1' }} src={BackgroundAnimals} alt="main background" /> */}
       <MainHeader post={mainHeader} />
-      {/* {timeDifference < 86400000 ? '': */}
       <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, justifyContent: 'center' }}>
         {parameters.map((parameter, index) => {
           return (

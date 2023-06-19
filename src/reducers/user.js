@@ -13,7 +13,7 @@ const initialState = {
   history: [],
   totalScore: 0,
   createdAt: '',
-  accessToken: '179593553488ff3440011ded2cf1681e01b4863da8b5dfab1c91c6ff12c76c4ac685b7dc674eea935e845f9319fea0221f02ee4f9eb2fc23b1e2b496818d3250d51b4501d32bfc4878a9a50db12f10f456bbc175245373fb9b649a09d3ef3f8a980b363f7035c642851834b112b7a329ca2306d416dd77ba68d621543fa65c2c',
+  accessToken: null,
   error: null,
   mode: 'login',
   lastGeneratedStoryDate: '',

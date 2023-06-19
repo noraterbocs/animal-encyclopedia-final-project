@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { Image, ImageButton, ImageBackdrop, ImageSrc, ImageMarked } from './ImageButtonStyle';
 import BackgroundAnimals from '../../assets/background/jungle2.jpg'
 import { MainHeader } from '../../components/MainHeader';
@@ -10,6 +11,14 @@ import BackgroundForest from '../../assets/background/animals.jpg'
 import { WaitingAnimation } from './WaitingAnimation'
 
 export const Games = () => {
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/login')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]);
   const images = [
     {
       src: BackgroundForest,
