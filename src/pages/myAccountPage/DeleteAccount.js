@@ -48,7 +48,7 @@ export const DeleteAccount = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {deletedUser && <Animation src="https://assets9.lottiefiles.com/packages/lf20_aimunqmw.json" />}
+      {deletedUser && <Animation position="absolute" src="https://assets9.lottiefiles.com/packages/lf20_aimunqmw.json" />}
     </Box>
 
   )

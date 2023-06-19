@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { generateText, getStories } from 'reducers/games';
 import { getLastGeneratedStoryDate } from 'reducers/user';
 // import Countdown from 'react-countdown';
+import { Animation } from 'components/Animation';
 import { PreviousStories } from './PreviousStories';
 import { MainHeader } from './MainHeader';
 import BackgroundAnimals from '../../assets/background/jungle2.jpg'
@@ -81,7 +82,7 @@ export const TextGeneratorGame = () => {
   };
 
   return (
-    <Container sx={{ height: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', position: 'relative', margin: 0, maxWidth: 'none !important', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)' }}>
+    <Container sx={{ height: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', position: 'relative', margin: 0, maxWidth: 'none !important', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)', paddingBottom: '1em' }}>
       {/* <img style={{ position: 'absolute', minHeight: '100vh', height: '100%', width: '100%', top: '0px', left: '0px', zIndex: '-2', opacity: '0.1' }} src={BackgroundAnimals} alt="main background" /> */}
       <MainHeader post={mainHeader} />
       {/* {timeDifference < 86400000 ? '': */}
@@ -109,13 +110,10 @@ export const TextGeneratorGame = () => {
           )
         })}
       </Box>
-      {/* } */}
       <Box>
-        {/* <Button disabled={!isFormValid || timeDifference < 86400000} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}> */}
-        <Button disabled={!isFormValid || isLoading} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
-          {/* {timeDifference < 86400000
-            ? <Countdown date={Date.now() + (86400000 - timeDifference)} renderer={renderer} /> : 'Generate Story'} */}
-       Generate
+        <Button disabled={!isFormValid} onClick={() => selectedOptions !== null && dispatch(generateText(mainCharacter, friends, location, genre))}>
+          {isLoading ? <Animation inLine loop size="150px" src="https://assets6.lottiefiles.com/packages/lf20_pvjwvcvn.json" />
+            : 'Generate'}
         </Button>
       </Box>
       <Box>

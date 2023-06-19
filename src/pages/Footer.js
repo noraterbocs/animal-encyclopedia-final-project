@@ -44,7 +44,7 @@ const StickyFooter = () => {
             component="footer"
             sx={{
               width: '100vw',
-              position: isMobile ? 'relative' : 'fixed',
+              position: 'relative',
               bottom: 0,
               padding: '1em',
               backgroundColor: '#84a199',
