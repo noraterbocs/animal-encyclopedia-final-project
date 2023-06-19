@@ -39,7 +39,7 @@ export const generateText = (mainCharacter, friends, location, genre) => {
       body: JSON.stringify({ mainCharacter, friends, location, genre })
     }
     try {
-      const response = await fetch(API_URL('completions'), options);
+      const response = await fetch(API_URL('games/completions'), options);
       const data = await response.json();
 
       if (data.success) {
@@ -69,7 +69,7 @@ export const getStories = () => {
         Authorization: accessToken
       }
     }
-    fetch(API_URL('completion'), options)
+    fetch(API_URL('games/completion'), options)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)

@@ -32,7 +32,7 @@ export const getUsers = () => {
         Authorization: accessToken
       }
     }
-    fetch(API_URL('users'), options)
+    fetch(API_URL('users/users'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {

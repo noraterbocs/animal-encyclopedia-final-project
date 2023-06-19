@@ -9,7 +9,7 @@ import { getLastGeneratedStoryDate } from 'reducers/user';
 // import Countdown from 'react-countdown';
 import { Animation } from 'components/Animation';
 import { PreviousStories } from './PreviousStories';
-import { MainHeader } from './MainHeader';
+import { MainHeader } from '../../components/MainHeader';
 import BackgroundAnimals from '../../assets/background/jungle2.jpg'
 
 export const TextGeneratorGame = () => {

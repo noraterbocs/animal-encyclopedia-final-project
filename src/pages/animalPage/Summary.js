@@ -17,7 +17,7 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { Container, Tooltip, useMediaQuery } from '@mui/material';
 import { BackgroundImage } from 'components/BackgroundImage';
-import { MainHeader } from 'pages/gamesPage/MainHeader';
+import { MainHeader } from 'components/MainHeader';
 import { SummaryImage } from 'components/SummaryImage';
 import HomeIcon from '@mui/icons-material/Home';
 import { Chatbot } from './ChatBot';
@@ -25,15 +25,6 @@ import ChatbotAvatar from '../../assets/chatbot/chatbot.png';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
 import Amazing from '../../assets/animations/amazing3.gif';
 import Jungle from '../../assets/background/jungle2.jpg';
-
-// const rootStyle = {
-//   // margin: '0 !important',
-//   // padding: '0 !important',
-//   width: '100vw',
-//   backgroundImage: `url(${BackgroundImage})`,
-//   backgroundSize: 'cover',
-//   backgroundRepeat: 'no-repeat'
-// };
 
 const chatbotStyle = {
   position: 'absolute',
@@ -63,8 +54,6 @@ const ChatbotAvatarStyle = {
 
 const subtitleStyle = { fontSize: '2rem',
   textAlign: 'center',
-  // backgroundColor: 'rgba(243, 249, 245, 0.8)',
-  // borderRadius: '25px',
   margin: '0.8rem' };
 
 const textStyle = { fontSize: '2rem',
@@ -112,7 +101,6 @@ export const Summary = () => {
     const newBadge = userBadges.find((badge) => badge.title === newHighestBadgeRank)
     if (newHighestBadgeRank !== highestBadgeRank) {
       dispatch(updateBadges(newBadge))
-      // console.log('earning a new badge:', 'newHighestBadgeRank:', newHighestBadgeRank, 'highestBadgeRank:', highestBadgeRank, 'newBadge:', newBadge)
     }
   }, [highestBadgeRank, totalScore]);
 

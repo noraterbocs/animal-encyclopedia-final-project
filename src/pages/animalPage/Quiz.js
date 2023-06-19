@@ -16,19 +16,6 @@ import { BackgroundImage } from 'components/BackgroundImage';
 import { Summary } from './Summary';
 import Jungle from '../../assets/background/jungle2.jpg';
 
-// const containerStyle = {
-//   backgroundImage: `url(${Jungle})`,
-//   backgroundSize: 'cover',
-//   minWidth: '100vw',
-//   minHeight: '100vh',
-//   display: 'flex',
-//   flexDirection: 'column',
-//   justifyContent: 'center',
-//   alignItems: 'center',
-//   margin: '0 !important',
-//   padding: '0 !important'
-// };
-
 const cardStyle = { width: '70vw',
   padding: '0 !important',
   textAlign: 'center',
@@ -137,5 +124,3 @@ export const Quiz = () => {
     );
   }
 };
-
-// <img src={singleOption.image} alt={singleOption.text} style={{ height: '20px' }} />

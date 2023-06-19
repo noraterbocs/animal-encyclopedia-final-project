@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Container, Typography } from '@mui/material';
 import { Image, ImageButton, ImageBackdrop, ImageSrc, ImageMarked } from './ImageButtonStyle';
 import BackgroundAnimals from '../../assets/background/jungle2.jpg'
-import { MainHeader } from './MainHeader';
+import { MainHeader } from '../../components/MainHeader';
 import BackgroundForest from '../../assets/background/animals.jpg'
 import { WaitingAnimation } from './WaitingAnimation'
 

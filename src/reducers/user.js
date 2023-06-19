@@ -127,7 +127,7 @@ export const loginUser = (email, password) => {
       },
       body: JSON.stringify({ email, password })
     }
-    fetch(API_URL('login'), options)
+    fetch(API_URL('users/login'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -160,7 +160,7 @@ export const getUser = () => {
         Authorization: accessToken
       }
     }
-    fetch(API_URL('user'), options)
+    fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -194,7 +194,7 @@ export const updateUsername = (username) => {
       },
       body: JSON.stringify({ username })
     }
-    fetch(API_URL('user'), options)
+    fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -222,7 +222,7 @@ export const updatePassword = (password) => {
       },
       body: JSON.stringify({ password })
     }
-    fetch(API_URL('user'), options)
+    fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -250,7 +250,7 @@ export const changeAvatar = (avatar) => {
       },
       body: JSON.stringify({ avatar })
     }
-    fetch(API_URL('user'), options)
+    fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -279,7 +279,7 @@ export const updateBadges = (badges) => {
       },
       body: JSON.stringify({ badges })
     }
-    fetch(API_URL('user'), options)
+    fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -307,7 +307,7 @@ export const updateHistory = (history) => {
       },
       body: JSON.stringify({ history })
     }
-    fetch(API_URL('user'), options)
+    fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -336,7 +336,7 @@ export const getLastGeneratedStoryDate = () => {
         Authorization: accessToken
       }
     }
-    fetch(API_URL('completion/lastgeneratedstory'), options)
+    fetch(API_URL('games/completion/lastgeneratedstory'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -361,7 +361,7 @@ export const deleteUser = () => {
         Authorization: accessToken
       }
     }
-    fetch(API_URL('user'), options)
+    fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
