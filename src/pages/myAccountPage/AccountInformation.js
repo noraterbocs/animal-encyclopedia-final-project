@@ -36,6 +36,7 @@ export const AccountInformation = () => {
     animationRef.current.play()
     console.log(error)
   }
+
   const handleSavePassword = () => {
     dispatch(updatePassword(dialogValue))
     setChangePasswordOpen(false);

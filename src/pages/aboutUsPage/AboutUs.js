@@ -40,7 +40,7 @@ export const AboutUs = () => {
       <Box sx={{ display: 'flex', flexDirection: isMobileView ? 'column' : 'row' }}>
         {information.map((details) => {
           return (
-            <CardComponent details={details} />
+            <CardComponent key={details.name} details={details} />
           )
         })}
       </Box>

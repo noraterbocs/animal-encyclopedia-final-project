@@ -17,7 +17,7 @@ export const Badges = () => {
       <Stack direction="row" spacing={2} sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
         {badges.map((badge) => {
           return (
-            <Tooltip key={badge.id} title={`${badge.title}: ${badge.description}`}>
+            <Tooltip key={`badge-${badge.id}`} title={`${badge.title}: ${badge.description}`}>
               <Avatar alt={badge.title} src={badge.path} sx={{ height: '60px', width: '60px', margin: '1em 0' }} />
             </Tooltip>
           )
