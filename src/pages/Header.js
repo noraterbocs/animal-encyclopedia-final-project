@@ -15,7 +15,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-// import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Avatar, Button, Container, ThemeProvider, createTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
@@ -123,7 +122,7 @@ export const Header = (props) => {
               </Box>
               <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' } }}>
                 {navItems.map((item) => (
-                  <NavLink key={item.label} to={item.path} sx={{ color: '#04211F', textDecoration: 'none' }}>
+                  <NavLink key={item.label} to={item.path} style={{ color: '#04211F', textDecoration: 'none' }}>
                     {item.label === 'My account' ? <Avatar alt={currentAvatar} src={currentAvatar} sx={{ height: '60px', width: '60px', margin: '0' }} />
                       : <Button sx={{ color: '#04211F' }}>{item.label}</Button>}
                   </NavLink>
