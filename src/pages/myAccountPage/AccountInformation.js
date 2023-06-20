@@ -30,12 +30,12 @@ export const AccountInformation = () => {
     setOpen(false);
     setChangePasswordOpen(false)
   };
+  console.log(error)
   const handleSaveUsername = () => {
     dispatch(updateUsername(dialogValue))
     setOpen(false);
     animationRef.current.play()
-    console.log(error)
-  }
+  };
 
   const handleSavePassword = () => {
     dispatch(updatePassword(dialogValue))

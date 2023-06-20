@@ -52,7 +52,9 @@ export const user = createSlice({
         // Add the single payload object to the current badges array
         store.badges = [...store.badges, action.payload];
       }
-      store.highestBadgeRank = action.payload[action.payload.length - 1].title
+      if (action.payload !== null) {
+        store.highestBadgeRank = action.payload[action.payload.length - 1].title
+      }
     },
     setHistory: (store, action) => {
       store.history = action.payload
