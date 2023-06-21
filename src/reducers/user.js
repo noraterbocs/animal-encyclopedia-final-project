@@ -52,7 +52,9 @@ export const user = createSlice({
         // Add the single payload object to the current badges array
         store.badges = [...store.badges, action.payload];
       }
-      store.highestBadgeRank = action.payload[action.payload.length - 1].title
+      if (action.payload !== null) {
+        store.highestBadgeRank = action.payload[action.payload.length - 1].title
+      }
     },
     setHistory: (store, action) => {
       store.history = action.payload
@@ -93,7 +95,7 @@ export const registerUser = (username, email, password) => {
       },
       body: JSON.stringify({ username, email, password })
     }
-    fetch(API_URL('register'), options)
+    fetch(API_URL('users/register'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -197,11 +199,12 @@ export const updateUsername = (username) => {
     fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (data.success) {
           dispatch(user.actions.setUsername(data.response.username));
           dispatch(user.actions.setError(null))
         } else {
-          dispatch(user.actions.setError(data.response.message))
+          dispatch(user.actions.setError(data.response.codeName))
           dispatch(loading.actions.setLoading(false))
         }
       })

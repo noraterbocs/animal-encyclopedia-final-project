@@ -27,7 +27,7 @@ export const HomePage = () => {
   }, [accessToken, dispatch, navigate]);
 
   return (
-    <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '90vh', p: 0, m: 0, minWidth: '100vw' }}>
+    <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', height: '100%', p: 0, m: 0, minWidth: '100vw' }}>
       <BackgroundImage src={Background} />
       {!isLoading && !isMobile ? (
         <Map />

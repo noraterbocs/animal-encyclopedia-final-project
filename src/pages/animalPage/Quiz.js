@@ -70,7 +70,9 @@ export const Quiz = () => {
     { path: '/images/kangaroo.png', id: 'kangaroo' },
     { path: '/images/koala.png', id: 'koala' },
     { path: '/images/seal.png', id: 'seal' },
-    { path: '/images/penguin.png', id: 'penguin' }]
+    { path: '/images/penguin.png', id: 'penguin' },
+    { path: '/images/giraffe.png', id: 'giraffe' },
+    { path: '/images/racoon.png', id: 'racoon' }]
 
   const animalObject = animalImg.find((animal) => animal.id === animalId);
   const animalImagePath = animalObject ? animalObject.path : '';

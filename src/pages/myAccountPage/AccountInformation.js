@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { Box, Typography, Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Grid, useMediaQuery } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updatePassword, updateUsername } from 'reducers/user';
 import { Animation } from 'components/Animation';
@@ -12,9 +12,11 @@ export const AccountInformation = () => {
   const dispatch = useDispatch()
   const email = useSelector((store) => store.user.email);
   const username = useSelector((store) => store.user.username);
+  const error = useSelector((store) => store.user.error);
   const [dialogValue, setDialogValue] = useState('');
   const [open, setOpen] = useState(false);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
+  const animationRef = useRef(null)
 
   const handleClickOpen = (id) => {
     if (id === 'username') {
@@ -28,13 +30,17 @@ export const AccountInformation = () => {
     setOpen(false);
     setChangePasswordOpen(false)
   };
+  console.log(error)
   const handleSaveUsername = () => {
     dispatch(updateUsername(dialogValue))
     setOpen(false);
-  }
+    animationRef.current.play()
+  };
+
   const handleSavePassword = () => {
     dispatch(updatePassword(dialogValue))
     setChangePasswordOpen(false);
+    animationRef.current.play()
   }
 
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -96,7 +102,12 @@ export const AccountInformation = () => {
       </Box>
       <ChangeAvatar />
       <DeleteAccount />
-      {dialogValue && <Animation position="absolute" size="300px" src="https://assets3.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" />}
+      {dialogValue && <Animation
+        autoplay={false}
+        position="absolute"
+        size="300px"
+        animationRef={animationRef}
+        src="https://assets3.lottiefiles.com/packages/lf20_qmo9vzmq.json" />}
     </Grid>
   )
 }

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { Box, Button, Dialog, DialogTitle, DialogActions } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from 'reducers/user';
@@ -12,6 +12,7 @@ export const DeleteAccount = () => {
   const dispatch = useDispatch()
   const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
   const [deletedUser, setDeletedUser] = useState(false)
+  const animationRef = useRef(null)
 
   const handleClickOpen = () => {
     setDeleteAccountOpen(true)
@@ -24,6 +25,7 @@ export const DeleteAccount = () => {
     dispatch(deleteUser())
     setDeleteAccountOpen(false);
     setDeletedUser(true)
+    animationRef.current.play()
   }
   if (deletedUser) {
     setTimeout(() => {
@@ -48,7 +50,12 @@ export const DeleteAccount = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {deletedUser && <Animation position="absolute" src="https://assets9.lottiefiles.com/packages/lf20_aimunqmw.json" />}
+      {deletedUser && <Animation
+        autoplay={false}
+        position="absolute"
+        size="300px"
+        animationRef={animationRef}
+        src="https://assets9.lottiefiles.com/packages/lf20_aimunqmw.json" />}
     </Box>
 
   )

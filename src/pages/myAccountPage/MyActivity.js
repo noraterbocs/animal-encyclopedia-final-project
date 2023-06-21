@@ -5,15 +5,15 @@ import { Chart } from 'react-google-charts';
 
 export const options = {
   backgroundColor: {
-    fill: '#F3F9F5',
-    opacity: 0.4
+    fill: 'transparent'
   },
   chart: {
-    title: 'Score per quiz'
+    title: 'Score per day'
   },
   chartArea: {
-    backgroundColor: '#F3F9F5'
-  }
+    backgroundColor: '#dfe6e1'
+  },
+  legend: { position: 'bottom' }
 };
 export const MyActivity = () => {
   const myActivity = useSelector((store) => store.user.history)
@@ -35,8 +35,13 @@ export const MyActivity = () => {
       month: '2-digit',
       day: '2-digit'
     });
-    scoreMap[date] = item.score;
+    if (Object.hasOwn(scoreMap, date)) {
+      scoreMap[date] += item.score
+    } else {
+      scoreMap[date] = item.score;
+    }
   });
+  console.log(scoreMap)
 
   // Iterate over the past 7 days to populate the performance array
   const currentDate = new Date(sevenDaysAgo);
@@ -53,12 +58,13 @@ export const MyActivity = () => {
     currentDate.setDate(currentDate.getDate() + 1);
   }
   console.log(performance)
+
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
     <Grid xs={isMobileView ? 12 : 7} item sx={{ borderRadius: '10%', background: 'radial-gradient(circle, rgba(243,249,245,1) 0%, rgba(174,198,191,1) 100%)', padding: '2em !important', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px' }}>
       <Typography variant="h4">My activity: </Typography>
       <Chart
-        chartType="Line"
+        chartType="LineChart"
         width="100%"
         height="400px"
         data={performance}
