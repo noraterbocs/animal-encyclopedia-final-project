@@ -1,19 +1,25 @@
-# Technigo React Starter App
+This is a project created by Nora Terbocs and Jennifer Feenstra-Arengård. We built animal quest as the final project of our bootcamp at Technigo. 
 
-This app has been generated using `create-react-app`, then cleaned up a little so we have a project with just the elements we need to get started.
+## Use Our App
+Deployed site:
 
-Add components in the `src` folder and use them in `src/app.js` to get started.
+# Features: 
+Listing the key features of our project.
 
-## Usage
+## Tech Stack
+Animal Quest is built using React, Redux, Mui for styling.
+The chatbot and story generator are both powered by Chat GPT 3.0 Turbo. 
+We built the backend server to accompany this app and it can be found here:https://github.com/noraterbocs/animal-encyclopedia-backend
 
-1. On GitHub, click the 'use this template' button to create a new repo on your account
-1. Clone the new repo to your computer
-1. Install required dependencies with npm: `npm install`
-1. Start the project: `npm start`
 
-Alternatively, if you don't want a new git repo on your account;
+# APIs and Data Sources:
+Open AI API
+Unsplash
 
-1. Download & extract the [latest release](https://github.com/Technigo/react-starter/releases/latest) from GitHub
-1. Open the directory in the terminal: `cd /path/to/react-starter`
-1. Install required dependencies with npm: `npm install`
-1. Start the project: `npm start`
+
+## Credits
+All images were either generated using AI or downloaded from Pexels or Unsplash. 
+https://www.pexels.com/
+https://unsplash.com/
+
+
