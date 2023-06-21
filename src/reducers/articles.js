@@ -36,12 +36,10 @@ export const fetchAnimalArticles = (animalName) => {
           dispatch(animalArticles.actions.setAnimalText(data.response))
         } else {
           dispatch(animalArticles.actions.setError(data.response.message))
-          console.log('error')
         }
       })
       .catch((error) => {
         dispatch(animalArticles.actions.setError(error.message))
-        console.log(error)
       })
       .finally(() => {
         dispatch(loading.actions.setLoading(false))
