@@ -1,10 +1,11 @@
+/* eslint-disable max-len */
 import React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { styled } from '@mui/system';
-// import { useDispatch } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import { quiz } from 'reducers/quiz';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { quiz } from 'reducers/quiz';
 
 const StyledImageList = styled(ImageList)`
   width: 80vw;
@@ -13,7 +14,11 @@ const StyledImageList = styled(ImageList)`
 `;
 
 const StyledImageListItem = styled(ImageListItem)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 70%;
+  max-width: 200px;
   height: auto;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 15px;
@@ -29,11 +34,11 @@ const CenteredContainer = styled('div')`
 const AnimalName = styled('h5')`
 margin: 5px;
 text-align: center;
-`
+`;
 
 export const MobileView = () => {
-  // const dispatch = useDispatch();
-  const itemData = [
+  const dispatch = useDispatch();
+  const animalList = [
     {
       img: '/images/eagle.png',
       title: 'Eagle',
@@ -115,23 +120,24 @@ export const MobileView = () => {
       id: 'giraffe'
     }
   ];
+
   return (
     <CenteredContainer>
       <StyledImageList cols={2} rowHeight="auto">
-        {itemData.map((item) => (
-          <StyledImageListItem key={item.img}>
-            <img
-              src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
-              loading="lazy" />
-            <AnimalName>{item.title}</AnimalName>
+        {animalList.map((animal) => (
+          <StyledImageListItem key={animal.id}>
+            <Link key={animal.id} to={`animal/${animal.id}`} onClick={() => dispatch(quiz.actions.saveAnimalId(animal.id))} style={{ textDecoration: 'none', margin: '0' }}>
+              <img
+                src={`${animal.img}?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`${animal.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                alt={animal.title}
+                loading="lazy"
+                style={{ width: '100px', height: '120px' }} />
+              <AnimalName>{animal.title}</AnimalName>
+            </Link>
           </StyledImageListItem>
         ))}
       </StyledImageList>
     </CenteredContainer>
   );
 };
-
-// eslint-disable-next-line max-len
-//  <Link to={`animal/${animal.id}`} onClick={() => dispatch(quiz.actions.saveAnimalId(animal.id))} />
