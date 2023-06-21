@@ -19,7 +19,7 @@ export const MyAccount = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
   return (
-    <Container>
+    <Container sx={{ minHeight: '100vh' }}>
       <Grid container spacing={2} sx={{ boxSizing: 'border-box', padding: '2em', gap: '3em' }}>
         <BackgroundImage src={Background} alt="main background" />
         <AccountInformation />
