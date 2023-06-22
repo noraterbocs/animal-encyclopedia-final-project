@@ -30,7 +30,6 @@ export const animals = [
 
 export const Map = () => {
   const dispatch = useDispatch();
-  // const theme = useTheme();
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   return (

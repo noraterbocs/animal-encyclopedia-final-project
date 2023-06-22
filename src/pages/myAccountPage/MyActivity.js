@@ -41,7 +41,6 @@ export const MyActivity = () => {
       scoreMap[date] = item.score;
     }
   });
-  console.log(scoreMap)
 
   // Iterate over the past 7 days to populate the performance array
   const currentDate = new Date(sevenDaysAgo);
@@ -57,7 +56,6 @@ export const MyActivity = () => {
     // Move to the next day
     currentDate.setDate(currentDate.getDate() + 1);
   }
-  console.log(performance)
 
   const isMobileView = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (

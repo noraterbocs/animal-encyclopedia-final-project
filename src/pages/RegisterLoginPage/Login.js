@@ -29,7 +29,6 @@ const Copyright = (props) => {
   );
 }
 
-// const defaultTheme = createTheme();
 const theme = createTheme({
   palette: {
     primary: {
@@ -138,7 +137,6 @@ export const Login = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                // color="primary"
                 sx={{ mt: 3, mb: 2, color: '#F3F9F5' }}>
                 {isLoading ? <CircularProgress size={10} thickness={5} sx={{ margin: '0 5px', color: '#ffffff' }} /> : ''}
                 {checked ? 'Sign in' : 'Sign up'}

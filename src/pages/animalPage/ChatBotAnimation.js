@@ -7,8 +7,6 @@ export const ChatbotAnimation = () => {
   return (
     <Box
       sx={{
-        // backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        // borderRadius: '10px',
         display: 'inline-block'
       }}>
       <Player

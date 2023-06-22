@@ -199,7 +199,6 @@ export const updateUsername = (username) => {
     fetch(API_URL('users/user'), options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         if (data.success) {
           dispatch(user.actions.setUsername(data.response.username));
           dispatch(user.actions.setError(null))

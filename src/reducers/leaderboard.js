@@ -15,7 +15,6 @@ export const leaderboard = createSlice({
     },
     setLeaderboard: (store, action) => {
       store.leaderboard = action.payload
-      console.log(action.payload)
     }
   }
 });

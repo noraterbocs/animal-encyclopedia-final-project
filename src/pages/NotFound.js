@@ -1,10 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container } from '@mui/material';
-// import { Player } from '@lottiefiles/react-lottie-player';
 import HomeIcon from '@mui/icons-material/Home';
 import { Animation } from 'components/Animation';
-// import notFoundAnimation from '../assets/animations/notFoundAnimation.json';
 
 export const NotFound = () => {
   return (

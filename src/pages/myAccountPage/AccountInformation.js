@@ -87,7 +87,6 @@ export const AccountInformation = () => {
             <TextField
               autoFocus
               margin="dense"
-              // id="password"
               label="New Password"
               type="text"
               fullWidth

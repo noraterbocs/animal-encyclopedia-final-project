@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
 import { quiz } from 'reducers/quiz';
 import Confetti from 'react-confetti'
@@ -22,7 +21,6 @@ import { SummaryImage } from 'components/SummaryImage';
 import HomeIcon from '@mui/icons-material/Home';
 import { Chatbot } from './ChatBot';
 import { ChatbotAnimation } from './ChatBotAnimation';
-import SummaryPicture from '../../assets/summary/summarypic.jpg';
 import Amazing from '../../assets/animations/amazing3.gif';
 import Jungle from '../../assets/background/jungle2.jpg';
 
@@ -146,10 +144,6 @@ export const Summary = () => {
         <Box sx={summaryStyle}>
           <Card sx={{ backgroundColor: '#AEC6BF', height: '100%', position: 'relative' }}>
             <Confetti sx={{ position: 'absolute' }} />
-            <CardMedia
-              sx={{ }}
-              image={SummaryPicture}
-              title="party background" />
             <CardContent>
               <Typography variant="h3" sx={{ textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontFamily: 'Fredoka One' }}>
                 <img src={Amazing} alt="Amazing" style={{ width: '60vw', margin: '0' }} />

@@ -87,7 +87,6 @@ export const quiz = createSlice({
       if (selectedAnimal.correctAnswerIndex[questionId] === answerIndex) {
         state.currentScore += 1
       }
-      // console.log('state.currentScore:', state.currentScore, 'corret answerindex:', selectedAnimal.correctAnswerIndex[questionId], 'answerindex:', answerIndex, 'state.answers:', state.answers)
     },
 
     saveAnimalId: (state, action) => {

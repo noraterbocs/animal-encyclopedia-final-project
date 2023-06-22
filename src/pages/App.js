@@ -31,10 +31,10 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#84a199' // light green
+      main: '#84a199'
     },
     secondary: {
-      main: '#04211F' // dark green
+      main: '#04211F'
     }
   }
 });

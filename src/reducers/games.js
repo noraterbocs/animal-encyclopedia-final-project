@@ -14,11 +14,9 @@ export const games = createSlice({
   reducers: {
     setGeneratedStory: (store, action) => {
       store.generatedStory = action.payload
-      console.log('generated story:', action.payload)
     },
     setPreviousStories: (store, action) => {
       store.previousStories = action.payload
-      console.log('previous stories:', action.payload)
     }
   }
 });
@@ -28,7 +26,6 @@ export const generateText = (mainCharacter, friends, location, genre) => {
   return async (dispatch, getState) => {
     dispatch(loading.actions.setLoading(true))
     const { accessToken } = getState().user;
-    console.log(accessToken)
     const options = {
       method: 'POST',
       mode: 'cors',
@@ -43,7 +40,6 @@ export const generateText = (mainCharacter, friends, location, genre) => {
       const data = await response.json();
 
       if (data.success) {
-        console.log(data)
         dispatch(games.actions.setGeneratedStory(data.response))
       } else {
         console.error(data)
@@ -72,7 +68,6 @@ export const getStories = () => {
     fetch(API_URL('games/completion'), options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         if (data.success) {
           dispatch(games.actions.setPreviousStories(data.response))
           dispatch(user.actions.setError(null))
