@@ -10,7 +10,7 @@ export const MobileView = () => {
   const dispatch = useDispatch();
 
   return (
-    <Container sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', height: '100%', gap: '1em', margin: '2em' }}>
+    <Container sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', height: '100%', gap: '1rem', margin: '2rem' }}>
       <Typography variant="h4" sx={{ color: '#04211F', textAlign: 'center' }}>Select an animal and collect points!</Typography>
       {animals.map((animal) => {
         return (

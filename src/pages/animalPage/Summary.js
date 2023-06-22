@@ -21,7 +21,7 @@ import { MainHeader } from 'components/MainHeader';
 import { SummaryImage } from 'components/SummaryImage';
 import HomeIcon from '@mui/icons-material/Home';
 import { Chatbot } from './ChatBot';
-import ChatbotAvatar from '../../assets/chatbot/chatbot.png';
+import { ChatbotAnimation } from './ChatBotAnimation';
 import SummaryPicture from '../../assets/summary/summarypic.jpg';
 import Amazing from '../../assets/animations/amazing3.gif';
 import Jungle from '../../assets/background/jungle2.jpg';
@@ -189,7 +189,7 @@ export const Summary = () => {
           <Typography variant="body1" style={textStyle}>{animalText.animalFacts}</Typography>
         </Grid>
 
-        <Tooltip title="Got Questions? Chatbot has Answers!"><Button sx={{ position: isSmallScreen ? 'relative' : 'fixed', right: '0', bottom: '0' }} onClick={handleOpenChatbotModal}><img src={ChatbotAvatar} alt="Chatbot Icon" style={ChatbotAvatarStyle} /></Button></Tooltip>
+        <Tooltip title="Got Questions? Chatbot has Answers!"><Button sx={{ position: isSmallScreen ? 'relative' : 'fixed', right: '0', bottom: '0' }} onClick={handleOpenChatbotModal}> <ChatbotAnimation style={ChatbotAvatarStyle} /></Button></Tooltip>
       </Grid>
       <Modal
         open={chatbotModalOpen}
