@@ -4,7 +4,7 @@ This is a project created by Nora Terbocs and Jennifer Feenstra-Arengård. We bu
 
 ## Use Our App
 To use our app register and login to the following link.
-Deployed site:
+Deployed site: animalquest.netlify.app
 
 # Features: 
  Animal Quest homepage features a map displaying various animals across the worlds continents, clicking on the animal will lead you to a quiz section that tests players knowledge about that animal. Following the quiz is a summary page with information about the animal and a chatbot feature powered by OpenAI's API. The chatbot is designed to mimic ChatGPT can engages users in conversations about animals.
