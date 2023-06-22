@@ -1,27 +1,5 @@
 /* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
-// import { updateTotalScore } from './user';
-// /images/quizimgs/meat.jpg
-// const questions = [
-//   { id: 0,
-//     questionText: 'What does this animal eat?',
-//     options: [{ text: 'Carnivore:Meat', image: '' }, { text: 'Herbivore:Plants', image: '' }, { text: 'Omnivore:Everything', image: '' }] },
-//   { id: 1,
-//     questionText: 'Where does this animal live?',
-//     options: [{ text: 'ocean', image: '' }, { text: 'trees', image: '' }, { text: 'land', image: '' }, { text: 'snow', image: '' }] },
-//   { id: 2,
-//     questionText: 'Does this animal have live babies or lay eggs?',
-//     options: [{ text: 'eggs', image: '' }, { text: 'live babies', image: '' }] },
-//   { id: 3,
-//     questionText: 'Does this animal like to live alone or in groups?',
-//     options: [{ text: 'Alone', image: '' }, { text: 'Groups', image: '' }] },
-//   { id: 4,
-//     questionText: 'How many hours per day does this animal sleep?',
-//     options: [{ text: 'less than 5 hours', image: '' }, { text: '5-10 hours', image: '' }, { text: 'more than 10hours', image: '' }] },
-//   { id: 5,
-//     questionText: 'What is the best way for this animal to get around?',
-//     options: [{ text: 'walking', image: '' }, { text: 'hopping', image: '' }, { text: 'flying', image: '' }, { text: 'swimming', image: '' }] }
-// ]
 
 const questions = [
   { id: 0,
@@ -76,7 +54,7 @@ const initialState = {
   questions,
   animalAnswers,
   answers: [],
-  currentQuestionIndex: 0, // this should be somewhere in the json from the api request
+  currentQuestionIndex: 0,
   quizOver: null,
   btnColor: '',
   disabledButtons: false, // after selecting an answer
@@ -126,16 +104,6 @@ export const quiz = createSlice({
         state.currentQuestionIndex += 1
       }
     },
-    // goToPreviousQuestion: (state) => {
-    //   state.disabledButtons = false;
-    //   state.btnColor = ''
-    //   state.correctAnswerIndicator = false
-    //   if (state.currentQuestionIndex === 0) {
-    //     state.currentQuestionIndex = state.questions.length - 1;
-    //   } else {
-    //     state.currentQuestionIndex -= 1
-    //   }
-    // },
 
     startQuiz: (state) => {
       if (state.quizOver === null) {
