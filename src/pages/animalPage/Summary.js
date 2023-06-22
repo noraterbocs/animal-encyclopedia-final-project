@@ -189,7 +189,11 @@ export const Summary = () => {
           <Typography variant="body1" style={textStyle}>{animalText.animalFacts}</Typography>
         </Grid>
 
-        <Tooltip title="Got Questions? Chatbot has Answers!"><Button sx={{ position: isSmallScreen ? 'relative' : 'fixed', right: '0', bottom: '0' }} onClick={handleOpenChatbotModal}> <ChatbotAnimation style={ChatbotAvatarStyle} /></Button></Tooltip>
+        <Tooltip title="Got Questions? Chatbot has Answers!">
+          <Button sx={{ position: isSmallScreen ? 'relative' : 'fixed', right: '0', bottom: '0' }} onClick={handleOpenChatbotModal}>
+            <ChatbotAnimation style={ChatbotAvatarStyle} />
+          </Button>
+        </Tooltip>
       </Grid>
       <Modal
         open={chatbotModalOpen}
