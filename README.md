@@ -1,3 +1,5 @@
+![Animal Quest Logo](/src/assets/encylogo4.png)
+
 This is a project created by Nora Terbocs and Jennifer Feenstra-Arengård. We built animal quest as the final project of our bootcamp at Technigo. 
 
 ## Use Our App
@@ -24,7 +26,7 @@ Additionally, a custom backend MongoDB server has been built to accompany this a
 
 
 ### APIs and Data Sources:
-Read more about Open AI API here: https://openai.com/blog/openai-api
+Read more about Open AI API here: https://openai.com/blog/openai-api                                        
 Read more about Unsplash API here: https://unsplash.com/developers
 
 
