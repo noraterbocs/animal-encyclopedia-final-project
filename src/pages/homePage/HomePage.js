@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -29,11 +30,7 @@ export const HomePage = () => {
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', height: '100%', p: 0, m: 0, minWidth: '100vw' }}>
       <BackgroundImage src={Background} />
-      {!isLoading && !isMobile ? (
-        <Map />
-      ) : (
-        isMobile && <MobileView />
-      )}
+      {!isLoading && (!isMobile ? <Map /> : <MobileView />)}
       {isLoading && (
         <Animation size="80%" src="https://assets8.lottiefiles.com/packages/lf20_OLzqniWinA.json" />
       )}
